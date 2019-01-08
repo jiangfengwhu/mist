@@ -5,14 +5,22 @@
   position: relative;
   background-position: center;
 }
-.avatar {
-  border-radius: 50%;
+
+.info {
+  display: flex;
   position: absolute;
   bottom: 10px;
   left: 10px;
-  background-size: cover;
-  text-align: center;
+  align-items: center;
+
+  .avatar {
+    border-radius: 50%;
+    background-size: cover;
+    text-align: center;
+    margin-right: 15px;
+  }
 }
+
 .probutton {
   position: absolute;
   right: 10px;

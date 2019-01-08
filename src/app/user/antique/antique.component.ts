@@ -34,9 +34,9 @@ export class AntiqueComponent implements OnInit {
   constructor(private route: ActivatedRoute, public screen: ScreenService, private user: UserService, private _msg: MessageService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { info: any }) => {
-      console.log(data.info);
-      this.dataSource = new MatTableDataSource(data.info || []);
+    this.route.data.subscribe((data: { videos: any }) => {
+      console.log(data.videos);
+      this.dataSource = new MatTableDataSource(data.videos || []);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });

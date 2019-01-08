@@ -1,21 +1,40 @@
 <div class="propic" [style.background-image]="auth.user.profilePic === '' ? '' : 'url('+auth.user.profilePic+')'"
   [style.height]="screen.isMobile ? '180px' : '250px'">
-  <div class="avatar" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'" [style.height]="screen.isMobile ? '60px' : '90px'" [style.width]="screen.isMobile ? '60px' : '90px'">
-    <button mat-icon-button *ngIf='profiletab.isActive' (click)="prof.changeAvatar()">
-      <mat-icon>
-        photo_camera
-      </mat-icon>
-    </button>
+  <div class="info">
+    <div class="avatar" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'" [style.height]="screen.isMobile ? '60px' : '90px'"
+      [style.width]="screen.isMobile ? '60px' : '90px'">
+      <!-- <button mat-icon-button *ngIf='profiletab.isActive' (click)="prof.changeAvatar()">
+        <mat-icon>
+          photo_camera
+        </mat-icon>
+      </button> -->
+    </div>
+    <div>
+      {{auth.user.nickName}}
+    </div>
   </div>
-  <button mat-icon-button *ngIf='profiletab.isActive' class="probutton" (click)="prof.changeBkg()">
+  <!-- <button mat-icon-button *ngIf='profiletab.isActive' class="probutton" (click)="prof.changeBkg()">
     <mat-icon>
       photo_camera
     </mat-icon>
-  </button>
+  </button> -->
 </div>
-<mat-tab-group mat-stretch-tabs disableRipple>
-  <mat-tab label="我的社区"></mat-tab>
-  <mat-tab label="我的发布">
+<nav mat-tab-nav-bar mat-stretch-tabs disableRipple>
+  <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
+<div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</div>
+<!-- <mat-tab-group mat-stretch-tabs disableRipple>
+  <mat-tab label="我的社区">
+    <ng-template matTabContent>
+      <mist-community></mist-community>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="我的视频">
     <ng-template matTabContent>
       <mist-antique></mist-antique>
     </ng-template>
@@ -25,4 +44,4 @@
       <mist-profile></mist-profile>
     </ng-template>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->

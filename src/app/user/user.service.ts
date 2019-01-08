@@ -35,6 +35,9 @@ export class UserService {
   myvideoall() {
     return this.http.get('/api/myvideoall');
   }
+  mycommall() {
+    return this.http.get('/api/mycommall');
+  }
   delvideos(form: FormData) {
     return this.http.put('/api/delvideoc', form).pipe(
       tap(re => {

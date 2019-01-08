@@ -21,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AntiqueComponent } from './antique/antique.component';
+import { CommunityComponent } from './community/community.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AntiqueComponent } from './antique/antique.component';
     LoginComponent,
     UserComponent,
     ProfileComponent,
-    AntiqueComponent
+    AntiqueComponent,
+    CommunityComponent
   ],
   imports: [
     CommonModule,
