@@ -1,0 +1,30 @@
+<mist-masonry [columns]='screen.currentScreen' [tpl]="vcard" [datasets]="videos"></mist-masonry>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
+<ng-template #vcard let-video>
+  <mat-card>
+    <a [routerLink]="['/video', video.id]"><img mat-card-image [src]="video?.cover"></a>
+    <mat-chip-list>
+      <mat-chip>
+        <img [src]="video.owner.avatar || 'assets/da.jpg'" matChipAvatar>
+        {{video.owner.nickName}}
+      </mat-chip>
+    </mat-chip-list>
+    <mat-card-title>
+      {{video.title}}
+    </mat-card-title>
+    <mat-card-content>
+      <span>{{video.date | moment}}</span>
+      <span class="spacer"></span>
+      <mat-icon>play_circle_outline</mat-icon>
+      <span>{{video.view | quantity}}</span>
+      <mat-icon>comment</mat-icon>
+      <span>10</span>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<button mat-fab routerLink="/video/upload">
+  <mat-icon>
+    video_call
+  </mat-icon>
+</button>

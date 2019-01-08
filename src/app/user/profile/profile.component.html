@@ -1,0 +1,21 @@
+<p>
+  profile works!
+</p>
+<ng-template #croptpl>
+  <input #infile (change)="changeSrc(infile.files[0]);" type="file" accept="image/*" style="display: none">
+  <div [ngStyle]="style">
+    <img mistCropper [ratio]="ratio" [cropImg]='imgSrc' #crp="mistCropper">
+  </div>
+  <div class="choose">
+    <div id="pre" *ngIf="hasPreview"></div>
+    <button mat-fab (click)='infile.click()'>
+      <mat-icon>
+        cloud_upload
+      </mat-icon>
+    </button>
+  </div>
+  <div class="choose">
+    <button mat-button (click)='dialogRef.close()'>取消</button>
+    <button mat-button (click)="save(crp.getCanvas(cropWidth, cropHeight))" mistUpButton [progress]="isSubmit">保存</button>
+  </div>
+</ng-template>

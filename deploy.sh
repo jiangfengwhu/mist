@@ -1,0 +1,1 @@
+ng build --prod --build-optimizer --base-href https://spectrumlife.online

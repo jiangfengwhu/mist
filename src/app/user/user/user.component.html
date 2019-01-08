@@ -1,0 +1,26 @@
+<div class="propic" [style.background-image]="auth.user.profilePic === '' ? '' : 'url('+auth.user.profilePic+')'" [style.height]="screen.currentScreen >= 2 ? '250px' : '180px'">
+  <div class="avatar" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'">
+    <button mat-icon-button *ngIf='profiletab.isActive' (click)="prof.changeAvatar()">
+      <mat-icon>
+        photo_camera
+      </mat-icon>
+    </button>
+  </div>
+  <button mat-icon-button *ngIf='profiletab.isActive' class="probutton" (click)="prof.changeBkg()">
+    <mat-icon>
+      photo_camera
+    </mat-icon>
+  </button>
+</div>
+<mat-tab-group mat-stretch-tabs disableRipple>
+  <mat-tab label="我的发布">
+    <ng-template matTabContent>
+      <mist-antique></mist-antique>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="我的资料" #profiletab>
+    <ng-template matTabContent>
+      <mist-profile></mist-profile>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

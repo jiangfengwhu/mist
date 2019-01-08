@@ -1,0 +1,34 @@
+<button mat-fab routerLink="/community/post">
+  <mat-icon>
+    edit
+  </mat-icon>
+</button>
+<mist-masonry [datasets]="datasets" [columns]="screen.currentScreen" [tpl]="tpl"></mist-masonry>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
+<ng-template #tpl let-item>
+  <div class="container mat-elevation-z6">
+    <div class="info">
+      <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
+      <span>{{item.owner.nickName}}</span>
+      <span class="spacer"></span>
+      <span>{{item.date | moment}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="body">
+      {{item.cont}}
+    </div>
+    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'" *ngIf="item.pics.length">
+      <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics" (click)="openDetail(detail, pic)">
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #detail let-data>
+  <div [style.padding]="screen.currentScreen >=2 ? '' : '15px'">
+    <img [src]="data.src" style="width: 100%;object-fit: cover;padding-bottom: 20px;">
+    <div>
+      <button mat-button (click)="dialogRef.close()">关闭</button>
+      <a [href]="data.src" download="mistImage"><button mat-button>下载图片</button></a>
+    </div>
+  </div>
+</ng-template>

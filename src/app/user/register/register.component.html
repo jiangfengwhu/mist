@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>
+    注册
+  </h2>
+  <form [formGroup]="registForm">
+    <div>
+      <mat-icon>email</mat-icon>
+      <mat-form-field>
+        <mat-label>邮箱</mat-label>
+        <mat-hint>请填写正确的邮箱，用于账号激活以及密码找回</mat-hint>
+        <input matInput formControlName="email">
+        <mat-error align='end' *ngIf="registForm.get('email').hasError('required')">邮箱是必须的</mat-error>
+        <mat-error align='end' *ngIf="!registForm.get('email').hasError('required')&&registForm.get('email').hasError('email')">请输入正确的邮箱格式</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-icon>account_circle</mat-icon>
+      <mat-form-field>
+        <mat-label>昵称</mat-label>
+        <mat-hint>昵称</mat-hint>
+        <input matInput formControlName="nickName">
+        <mat-error align="end">昵称是必须的</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-icon>security</mat-icon>
+      <mat-form-field>
+        <mat-label>密码</mat-label>
+        <mat-hint>登陆密码</mat-hint>
+        <input matInput formControlName="passwd" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error align='end' *ngIf="registForm.get('passwd').hasError('required')">请填写至少6位的密码</mat-error>
+        <mat-error align='end' *ngIf="!registForm.get('passwd').hasError('required')&&registForm.get('passwd').hasError('minlength')">密码太短了</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-icon>security</mat-icon>
+      <mat-form-field>
+        <mat-label>再次输入密码</mat-label>
+        <mat-hint>再次输入密码</mat-hint>
+        <input matInput formControlName="repasswd" [errorStateMatcher]="stateMatcher" [type]="hide ? 'password' : 'text'">
+        <mat-error align='end' *ngIf="registForm.get('repasswd').hasError('required')">请再次输入密码</mat-error>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error align='end' *ngIf="!registForm.get('repasswd').hasError('required')&&registForm.hasError('samepasswd')">两次输入的密码不一致</mat-error>
+      </mat-form-field>
+    </div>
+    <input formControlName="token" mistRecaptcha recapAction="mist_register">
+    <p [style.color]="this.registForm.get('token').value ? 'green' : 'orange'">
+      Protected by reCAPTCHA and the Google
+      <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+      <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+    </p>
+  </form>
+  <div class="action">
+    <button mat-stroked-button [disabled]='!registForm.valid' (click)="submit()" mistUpButton [progress]="isProcessing">注册</button>
+  </div>
+</div>

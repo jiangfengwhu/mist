@@ -1,0 +1,7 @@
+<div class="container">
+  <div *ngFor="let g of group" class="group">
+    <div *ngFor="let idx of g;trackBy: trackByIndex" class="item">
+      <ng-container *ngTemplateOutlet="tpl;context: {$implicit: datasets[idx], index: idx}"></ng-container>
+    </div>
+  </div>
+</div>

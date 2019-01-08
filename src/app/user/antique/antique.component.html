@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="action">
+    <mat-form-field>
+      <mat-label>搜索</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)">
+    </mat-form-field>
+    <button mat-icon-button (click)="edit()">
+      <mat-icon>
+        select_all
+      </mat-icon>
+    </button>
+    <button mat-icon-button [disabled]='selection.isEmpty()' (click)="openDialog(confirm)">
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
+  </div>
+  <div class="tabcontainer">
+    <table mat-table [dataSource]='dataSource' matSort>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">全选
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cover" sticky>
+        <th mat-header-cell *matHeaderCellDef>封面</th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.cover" [style.width]="screen.currentScreen >= 2 ? '160px' : '80px'">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>标题</th>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['/video/edit', element.id]">
+            {{element.title}}
+          </a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>价格</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.price}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>观看</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.view | quantity}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="date" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>日期</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.date | moment}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsDef;" (click)="columnsDef[0]==='select' ? selection.toggle(row): null"></tr>
+    </table>
+  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<ng-template #confirm>
+  <p>确认删除此{{selection.selected.length}}项专辑吗？(不可恢复)</p>
+  <div class="action">
+    <button mat-button (click)="dialogRef.close()">取消</button>
+    <button mat-button (click)="delete()">确认</button>
+  </div>
+</ng-template>

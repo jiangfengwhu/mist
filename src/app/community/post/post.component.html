@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="info">
+    <div class="avatar" [style.background-image]="'url('+(auth.user.avatar || 'assets/da.jpg') +')'"></div>
+    <span>{{auth.user.nickName}}</span>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>这一刻的想法...</mat-label>
+      <textarea matInput cdkTextareaAutosize [formControl]="cont"></textarea>
+      <mat-error>写点什么吧</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="preview" [style.grid-template-columns]="screen.currentScreen >= 2 ? '1fr 1fr 1fr':'1fr 1fr'">
+    <div class="wrapper" *ngFor="let img of imgItem;let i=index">
+      <img [src]="img.url | sanitize:'url'">
+      <button mat-icon-button [style.color]='img.done ? "green" : "orange"' (click)="img.done ? null : delete(i)">
+        <mat-icon>
+          {{img.done ? "done" : "delete"}}
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="info">
+    <button mat-icon-button (click)="infile.click()">
+      <mat-icon>
+        photo
+      </mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>
+        location_on
+      </mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="action">
+    <button mat-button routerLink="/community">取消</button>
+    <button mat-button (click)="submit()" [disabled]='!cont.valid' mistUpButton [progress]="isSubmitting">发布</button>
+  </div>
+</div>
+<input multiple #infile (change)="addFiles(infile.files)" type="file" accept="image/*" style="display: none">

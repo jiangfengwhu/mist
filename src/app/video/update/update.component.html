@@ -1,0 +1,91 @@
+<mat-tab-group mat-stretch-tabs disableRipple>
+  <mat-tab label="基本信息">
+    <ng-template matTabContent>
+      <div class="cont1" [style.grid-template-columns]='screen.currentScreen >= 2 ? "7fr 3fr" : "1fr"'>
+        <form [formGroup]="infoForm">
+          <ng-template matStepLabel>填写信息</ng-template>
+          <mat-form-field appearance="outline">
+            <mat-label>标题</mat-label>
+            <input matInput formControlName="title">
+            <mat-error>标题是必须的</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>价格(元)</mat-label>
+            <input matInput formControlName="price" type='number'>
+            <mat-error>价格是必须的</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>标签</mat-label>
+            <mat-chip-list #chipList errorState=true>
+              <mat-chip *ngFor="let tag of tagList.controls;let i=index" selectable removable (removed)="removeTag(i)">
+                {{tag.value}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input [matChipInputFor]="chipList" matChipInputAddOnBlur (matChipInputTokenEnd)="addTag($event)">
+            </mat-chip-list>
+            <mat-error>至少添加一个标签</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>描述</mat-label>
+            <input matInput formControlName="desc">
+          </mat-form-field>
+        </form>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>专辑位置</mat-label>
+            <input matInput readonly [value]="'https://spectrumlife.online/video/'+video.id" #loc>
+            <button mat-icon-button matSuffix (click)="copy(loc)">
+              <mat-icon>file_copy</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="wrapper">
+            <div class="imgwrapper" *ngFor="let vid of video.videos;let i=index">
+              <img [src]="vid.cover" (click)="openEdit(i)">
+              <div id="marker" *ngIf="video.cover === vid.cover" class="mat-elevation-z6"></div>
+            </div>
+            <span>点击编辑视频信息</span>
+          </div>
+        </div>
+      </div>
+      <div class="action">
+        <button mat-button routerLink='/user'>取消</button>
+        <button mat-button [disabled]="!(infoForm.valid && infoForm.dirty)" mistUpButton [progress]="isSubmitting"
+          (click)="updateBasic()">确认修改</button>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="添加视频" #profiletab>
+    <mist-upload [cid]="video.id" #uploder></mist-upload>
+    <div class="action">
+      <button mat-stroked-button [disabled]='!uploder.uploadForm.valid' (click)="uploder.submit()" mistUpButton
+        [progress]="uploder.isSubmiting">上传视频</button>
+      <button mat-stroked-button routerLink="/video">结束编辑</button>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<ng-template #editvideo>
+  <div class="item">
+    <form [formGroup]="videoForm">
+      <mat-form-field appearance="outline">
+        <mat-label>标题</mat-label>
+        <input matInput formControlName="title">
+        <mat-error>标题是必须的</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>视频简介</mat-label>
+        <textarea matInput formControlName="desc" cdkTextareaAutosize></textarea>
+      </mat-form-field>
+    </form>
+    <div class="action">
+      <span>
+        上传于: {{video.videos[current].date*1000 | date:'short'}}
+      </span>
+      <button mat-button color="warn" (click)="delOne()">删除</button>
+    </div>
+    <div class="action">
+      <button mat-button (click)="dialogRef.close()">退出</button>
+      <button mat-button (click)="setCover()" mistUpButton [progress]="isSubmitting">设为封面</button>
+      <button mat-button (click)="updateOne()" mistUpButton [progress]="isSubmitting" [disabled]='!(videoForm.valid&&videoForm.dirty)'>更新</button>
+    </div>
+  </div>
+</ng-template>

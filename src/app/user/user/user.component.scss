@@ -1,0 +1,22 @@
+.propic {
+  width: 100%;
+  background-color: yellowgreen;
+  background-size: cover;
+  position: relative;
+  background-position: center;
+}
+.avatar {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -45px;
+  left: calc(50vw - 45px);
+  background-size: cover;
+  text-align: center;
+}
+.probutton {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}

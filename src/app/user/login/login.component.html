@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>
+      登录 / 
+      <a routerLink="/user/register"><span>注册</span></a>
+    </h2>
+    <form [formGroup]="loginForm">
+      <div>
+        <mat-icon>email</mat-icon>
+        <mat-form-field>
+          <mat-label>邮箱</mat-label>
+          <input matInput formControlName="email">
+          <mat-error align='end' *ngIf="loginForm.get('email').hasError('required')">邮箱是必须的</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-icon>security</mat-icon>
+        <mat-form-field>
+          <mat-label>密码</mat-label>
+          <mat-hint>登陆密码</mat-hint>
+          <input matInput formControlName="passwd" [type]="hide ? 'password' : 'text'">
+          <mat-error align='end' *ngIf="loginForm.get('passwd').hasError('required')">密码是必须的</mat-error>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </div>
+      <input mistRecaptcha recapAction="mist_login" formControlName="token">
+      <p [style.color]="this.loginForm.get('token').value ? 'green' : 'orange'">
+        Protected by reCAPTCHA and the Google
+        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+      </p>
+    </form>
+    <div class="action">
+      <button mat-stroked-button [disabled]='!loginForm.valid' mistUpButton [progress]="isProcessing" (click)="submit()">登录</button>
+    </div>
+  </div>
+  

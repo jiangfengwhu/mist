@@ -1,0 +1,37 @@
+.mat-fab {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+}
+.info {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.avatar {
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.container {
+  padding: 10px;
+  border-radius: 4px;
+}
+.body {
+  padding-top: 10px;
+}
+.gallery {
+  padding-top: 10px;
+  display: grid;
+  grid-gap: 5px;
+  >img{
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+}
+.mat-progress-spinner {
+  margin: 15px auto;
+}
