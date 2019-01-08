@@ -6,12 +6,10 @@
   background-position: center;
 }
 .avatar {
-  height: 90px;
-  width: 90px;
   border-radius: 50%;
   position: absolute;
-  bottom: -45px;
-  left: calc(50vw - 45px);
+  bottom: 10px;
+  left: 10px;
   background-size: cover;
   text-align: center;
 }

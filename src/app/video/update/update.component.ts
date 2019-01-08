@@ -89,7 +89,7 @@ export class UpdateComponent implements OnInit {
       vid: [this.video.videos[index].id, [Validators.required]]
     });
     this.dialogRef = this._msg.openDialog(this.editvideo, {
-      panelClass: this.screen.currentScreen >= 2 ? '' : 'fullscreen'
+      panelClass: this.screen.isMobile ? 'fullscreen' : ''
     });
   }
   updateBasic() {

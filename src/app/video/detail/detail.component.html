@@ -1,8 +1,8 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav position="end" [mode]="screen.currentScreen >= 2 ? 'side' : 'over'" [opened]="screen.currentScreen >= 2">
+  <mat-sidenav #sidenav position="end" [mode]="!screen.isMobile ? 'side' : 'over'" [opened]="!screen.isMobile">
     <cdk-virtual-scroll-viewport itemSize="135" class="vscroll">
       <div *cdkVirtualFor="let vid of video.videos;let i=index" class="item">
-        <div class="wrapper" (click)="changeSrc(i);screen.currentScreen >= 2 ? '' : sidenav.toggle()">
+        <div class="wrapper" (click)="changeSrc(i);screen.isMobile ? sidenav.toggle() : ''">
           <img [src]="vid.cover">
           <div>{{vid.title}}</div>
         </div>

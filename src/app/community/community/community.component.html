@@ -20,12 +20,20 @@
     <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'" *ngIf="item.pics.length">
       <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics" (click)="openDetail(detail, pic)">
     </div>
+    <div>
+      <mat-icon>
+        favorite_border
+      </mat-icon>
+      <mat-icon>
+        comment
+      </mat-icon>
+    </div>
   </div>
 </ng-template>
 
 <ng-template #detail let-data>
-  <div [style.padding]="screen.currentScreen >=2 ? '' : '15px'">
-    <img [src]="data.src" style="width: 100%;object-fit: cover;padding-bottom: 20px;">
+  <div [style.margin]="screen.isMobile ? '-10px' : ''">
+    <img [src]="data.src" style="max-width: 100%;">
     <div>
       <button mat-button (click)="dialogRef.close()">关闭</button>
       <a [href]="data.src" download="mistImage"><button mat-button>下载图片</button></a>

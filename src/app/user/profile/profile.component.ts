@@ -21,9 +21,9 @@ export class ProfileComponent implements OnInit {
   ratio: number;
   hasPreview: boolean;
   style = {
-    height: this.screen.currentScreen < 2 ? '90vw' : '400px',
-    width: this.screen.currentScreen < 2 ? '90vw' : '400px',
-    margin: this.screen.currentScreen < 2 ? '10px auto' : 'auto'
+    height: this.screen.isMobile ? '90vw' : '400px',
+    width: this.screen.isMobile ? '90vw' : '400px',
+    margin: this.screen.isMobile ? '10px auto' : 'auto'
   };
   constructor(public auth: AuthService, public screen: ScreenService, private dialog: MatDialog, private user: UserService) { }
 
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   openDialog() {
     this.dialogRef = this.dialog.open(this.croptpl, {
       disableClose: true,
-      panelClass: this.screen.currentScreen < 2 ? 'fullscreen' : '',
+      panelClass: this.screen.isMobile ? 'fullscreen' : '',
     });
   }
   save(cav: HTMLCanvasElement) {

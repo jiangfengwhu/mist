@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       if (re['status']) {
         this._auth.user = re['user'];
         console.log(re);
-        this._auth.redirectUrl ? this._route.navigate([this._auth.redirectUrl]) : this._route.navigate(['/user']);
+        this._auth.redirectUrl ? this._route.navigate([this._auth.redirectUrl]) : this._route.navigate(['/']);
       } else {
         this.isProcessing = false;
         this.recap.getCap();

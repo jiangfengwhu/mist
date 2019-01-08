@@ -1,7 +1,7 @@
 <mat-tab-group mat-stretch-tabs disableRipple>
   <mat-tab label="基本信息">
     <ng-template matTabContent>
-      <div class="cont1" [style.grid-template-columns]='screen.currentScreen >= 2 ? "7fr 3fr" : "1fr"'>
+      <div class="cont1" [style.grid-template-columns]='screen.isMobile ? "1fr" : "7fr 3fr"'>
         <form [formGroup]="infoForm">
           <ng-template matStepLabel>填写信息</ng-template>
           <mat-form-field appearance="outline">

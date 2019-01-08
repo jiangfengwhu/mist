@@ -42,8 +42,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
         src: pic
       },
       maxWidth: 800,
-      maxHeight: 800,
-      panelClass: this.screen.currentScreen >= 2 ? '' : 'fullscreen'
+      maxHeight: 700,
     });
   }
   ngOnDestroy() {

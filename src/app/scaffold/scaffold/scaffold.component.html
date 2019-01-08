@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isRouting"></mat-progress-bar>
 <mat-toolbar class='mat-elevation-z6'>
-  <ng-container *ngIf="screen.currentScreen >= 2; else mobile">
+  <ng-container *ngIf="!screen.isMobile; else mobile">
     <span>Mist</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="toggleFullScreen()">

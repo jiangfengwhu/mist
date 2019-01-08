@@ -10,7 +10,7 @@
       <mat-error>写点什么吧</mat-error>
     </mat-form-field>
   </div>
-  <div class="preview" [style.grid-template-columns]="screen.currentScreen >= 2 ? '1fr 1fr 1fr':'1fr 1fr'">
+  <div class="preview" [style.grid-template-columns]="screen.isMobile ? '1fr 1fr':'1fr 1fr 1fr'">
     <div class="wrapper" *ngFor="let img of imgItem;let i=index">
       <img [src]="img.url | sanitize:'url'">
       <button mat-icon-button [style.color]='img.done ? "green" : "orange"' (click)="img.done ? null : delete(i)">
