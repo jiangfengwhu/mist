@@ -22,14 +22,6 @@
       *ngIf="item.pics.length">
       <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item)">
     </div>
-    <div>
-      <mat-icon>
-        favorite_border
-      </mat-icon>
-      <mat-icon>
-        comment
-      </mat-icon>
-    </div>
   </div>
 </ng-template>
 

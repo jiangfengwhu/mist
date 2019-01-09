@@ -1,0 +1,28 @@
+.container {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 150px auto;
+  grid-auto-rows: 150px;
+  grid-gap: 5px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  grid-gap: 1px;
+  >img {
+    width: 100%;
+  }
+}
+.body {
+  position: relative;
+  word-break: break-all;
+  white-space: pre-line;
+  overflow: auto;
+  border-bottom: 1px black solid;
+  .mat-icon-button {
+    position: absolute;
+    right: 5px;
+    bottom: 55px;
+  }
+}

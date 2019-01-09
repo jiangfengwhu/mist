@@ -1,3 +1,16 @@
-<p>
-  community works!
-</p>
+<div class="container">
+  <ng-container *ngFor="let item of datasets">
+    <div class="gallery">
+      <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4)">
+    </div>
+    <div class="body">
+      <div>{{item.date*1000|date:'medium'}}</div>
+      {{item.cont}}
+      <button mat-icon-button>
+        <mat-icon>
+          delete
+        </mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</div>

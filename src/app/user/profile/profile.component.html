@@ -1,6 +1,5 @@
-<p>
-  profile works!
-</p>
+<button mat-button (click)="changeAvatar()">换头</button>
+<button mat-button (click)="changeBkg()">换墙</button>
 <ng-template #croptpl>
   <input #infile (change)="changeSrc(infile.files[0]);" type="file" accept="image/*" style="display: none">
   <div [ngStyle]="style">
