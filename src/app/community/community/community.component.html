@@ -15,10 +15,12 @@
     </div>
     <mat-divider></mat-divider>
     <div class="body">
-      {{item.cont}}
+      {{item.full ? item.cont : setCont(item.cont)}}
+      <span *ngIf="setCont(item.cont)!=item.cont" (click)="item.full=!item.full">{{item.full ? '折叠' : '...展开'}}</span>
     </div>
-    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'" *ngIf="item.pics.length">
-      <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics" (click)="openDetail(detail, pic)">
+    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'"
+      *ngIf="item.pics.length">
+      <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item.pics)">
     </div>
     <div>
       <mat-icon>
@@ -32,11 +34,15 @@
 </ng-template>
 
 <ng-template #detail let-data>
-  <div [style.margin]="screen.isMobile ? '-10px' : ''">
-    <img [src]="data.src" style="max-width: 100%;">
-    <div>
-      <button mat-button (click)="dialogRef.close()">关闭</button>
-      <a [href]="data.src" download="mistImage"><button mat-button>下载图片</button></a>
-    </div>
-  </div>
+  <img [src]="data.ref[data.index]" (click)="dialogRef.close()" class="viewimg">
+  <button mat-icon-button style="left: 40px;" (click)="data.index = data.index-1" [disabled]="data.index===0">
+    <mat-icon>
+      chevron_left
+    </mat-icon>
+  </button>
+  <button mat-icon-button style="right: 40px;" (click)="data.index = data.index+1" [disabled]="data.index===data.ref.length-1">
+    <mat-icon>
+      chevron_right
+    </mat-icon>
+  </button>
 </ng-template>

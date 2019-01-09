@@ -3,11 +3,13 @@
   bottom: 35px;
   right: 35px;
 }
+
 .info {
   display: flex;
   align-items: center;
   padding-bottom: 10px;
 }
+
 .avatar {
   background-size: cover;
   height: 40px;
@@ -15,23 +17,48 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
 .container {
   padding: 10px;
   border-radius: 4px;
 }
+
 .body {
   padding-top: 10px;
+  word-break: break-all;
+  white-space: pre-line;
+  font-size: 15px;
+
+  >span {
+    font-size: 14px;
+    color: green;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
+
 .gallery {
   padding-top: 10px;
   display: grid;
   grid-gap: 5px;
-  >img{
+
+  >img {
     width: 100%;
     object-fit: cover;
     cursor: pointer;
   }
 }
+
 .mat-progress-spinner {
   margin: 15px auto;
+}
+
+.viewimg {
+  max-width: 100%;
+  display: block;
+}
+
+.mat-icon-button {
+  position: fixed;
+  top: calc(50% - 20px);
 }

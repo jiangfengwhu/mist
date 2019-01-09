@@ -36,15 +36,21 @@ export class CommunityComponent implements OnInit, OnDestroy {
     });
     window.addEventListener('scroll', this.listenScr);
   }
-  openDetail(tpl: TemplateRef<any>, pic: string) {
+  openDetail(tpl: TemplateRef<any>, index: number, ref: string[]) {
     this.dialogRef = this._msg.openDialog(tpl, {
       data: {
-        src: pic
+        index: index,
+        ref: ref
       },
       maxWidth: 800,
       maxHeight: 700,
+      panelClass: 'diaborder'
     });
   }
+  setCont(tmp: string) {
+    return tmp.split(/\r\n|\r|\n/, 4).join('\n').substr(0, 90);
+  }
+
   ngOnDestroy() {
     window.removeEventListener('scroll', this.listenScr);
   }
