@@ -36,7 +36,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
     });
     window.addEventListener('scroll', this.listenScr);
   }
-  openDetail(tpl: TemplateRef<any>, index: number, ref: string[]) {
+  openDetail(tpl: TemplateRef<any>, index: number, ref: any) {
     this.dialogRef = this._msg.openDialog(tpl, {
       data: {
         index: index,

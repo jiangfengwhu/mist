@@ -45,4 +45,11 @@ export class UserService {
       })
     );
   }
+  delComms(id: string) {
+    return this.http.delete(`/api/delcomms/${id}`).pipe(
+      tap(re => {
+        this._msg.notify(re);
+      })
+    );
+  }
 }

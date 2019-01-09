@@ -1,16 +1,40 @@
 <div class="container">
-  <ng-container *ngFor="let item of datasets">
-    <div class="gallery">
-      <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4)">
+  <ng-container *ngFor="let item of datasets;let i=index">
+    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : '1fr 1fr'">
+      <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4);let j=index" (click)="openDetail(detail, j, item)">
     </div>
     <div class="body">
-      <div>{{item.date*1000|date:'medium'}}</div>
+      <div>
+        <span>{{item.date*1000|date:'medium'}}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="openDialog(confirm, i)">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button>
+      </div>
       {{item.cont}}
-      <button mat-icon-button>
-        <mat-icon>
-          delete
-        </mat-icon>
-      </button>
     </div>
   </ng-container>
 </div>
+<ng-template #confirm let-data>
+  <p>确认删除此条状态吗？(不可恢复)</p>
+  <div class="action">
+    <button mat-button (click)="dialogRef.close()">取消</button>
+    <button mat-button (click)="delComms(data)">确认</button>
+  </div>
+</ng-template>
+<ng-template #detail let-data>
+  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" (swipeleft)="next(data)"
+    (swiperight)="previous(data)" [style.touch-action]="'pan-y'">
+  <button mat-icon-button style="left: 20px;" (click)="data.index = data.index-1" [disabled]="data.index===0" class="navb">
+    <mat-icon>
+      chevron_left
+    </mat-icon>
+  </button>
+  <button mat-icon-button style="right: 20px;" (click)="data.index = data.index+1" [disabled]="data.index===data.ref.pics.length-1" class="navb">
+    <mat-icon>
+      chevron_right
+    </mat-icon>
+  </button>
+</ng-template>
