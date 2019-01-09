@@ -43,7 +43,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
         ref: ref
       },
       maxWidth: 800,
-      maxHeight: 700,
+      maxHeight: '85vh',
       panelClass: 'diaborder'
     });
   }
@@ -53,6 +53,16 @@ export class CommunityComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.listenScr);
+  }
+  previous(data: any) {
+    if (data.index > 0) {
+      --data.index;
+    }
+  }
+  next(data: any) {
+    if (data.index < data.ref.pics.length - 1) {
+      ++data.index;
+    }
   }
   listenScr = () => {
     const doc = document.documentElement;
