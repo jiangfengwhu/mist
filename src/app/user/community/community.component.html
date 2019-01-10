@@ -1,7 +1,9 @@
 <div class="container">
   <ng-container *ngFor="let item of datasets;let i=index">
-    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : '1fr 1fr'">
-      <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4);let j=index" (click)="openDetail(detail, j, item)">
+    <div class="gallery" [style.grid-template-columns]="!item.pics || item.pics.length===1 ? '1fr' : '1fr 1fr'">
+      <ng-container *ngIf="item.pics">
+        <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4);let j=index" (click)="openDetail(detail, j, item)">
+      </ng-container>
     </div>
     <div class="body">
       <div>
@@ -32,7 +34,8 @@
       chevron_left
     </mat-icon>
   </button>
-  <button mat-icon-button style="right: 20px;" (click)="data.index = data.index+1" [disabled]="data.index===data.ref.pics.length-1" class="navb">
+  <button mat-icon-button style="right: 20px;" (click)="data.index = data.index+1" [disabled]="data.index===data.ref.pics.length-1"
+    class="navb">
     <mat-icon>
       chevron_right
     </mat-icon>

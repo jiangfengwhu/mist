@@ -23,7 +23,7 @@
   word-break: break-all;
   white-space: pre-line;
   overflow: auto;
-  background: lightgray;
+  background: rgba(lightgray, 0.3);
   >div{
     display: flex;
     align-items: center;

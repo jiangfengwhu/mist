@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MomentPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    let tmp = Math.floor((Date.now() / 1000 - parseInt(value, 10)));
-    if (tmp > 0 && tmp < 60) {
+    let tmp = Math.max(Math.floor((Date.now() / 1000 - value)), 0);
+    if (tmp < 60) {
       return tmp + '秒前';
     } else if (tmp < 60 * 60) {
       tmp = Math.floor(tmp / 60);

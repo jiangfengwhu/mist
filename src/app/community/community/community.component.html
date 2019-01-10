@@ -13,20 +13,21 @@
       <span class="spacer"></span>
       <span>{{item.date | moment}}</span>
     </div>
-    <mat-divider></mat-divider>
-    <div class="body">
-      {{item.full ? item.cont : setCont(item.cont)}}
+    <div class="body" *ngIf="item.cont">
+      <mat-divider></mat-divider>
+      <div>{{item.full ? item.cont : setCont(item.cont)}}</div>
       <span *ngIf="setCont(item.cont)!=item.cont" (click)="item.full=!item.full">{{item.full ? '折叠' : '...展开'}}</span>
     </div>
     <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'"
-      *ngIf="item.pics.length">
+      *ngIf="item.pics">
       <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item)">
     </div>
   </div>
 </ng-template>
 
 <ng-template #detail let-data>
-  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" (swipeleft)="next(data)" (swiperight)="previous(data)" [style.touch-action]="'pan-y'">
+  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" (swipeleft)="next(data)"
+    (swiperight)="previous(data)" [style.touch-action]="'pan-y'">
   <button mat-icon-button style="left: 20px;" (click)="data.index = data.index-1" [disabled]="data.index===0">
     <mat-icon>
       chevron_left

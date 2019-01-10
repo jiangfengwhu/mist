@@ -16,8 +16,9 @@ import {
   MatProgressBarModule,
 } from '@angular/material';
 import { httpInterceptorProviders } from '../http-interceptors';
+import { HomeComponent } from './home/home.component';
 @NgModule({
-  declarations: [ScaffoldComponent],
+  declarations: [ScaffoldComponent, HomeComponent],
   imports: [
     CommonModule,
     ScaffoldRoutingModule,

@@ -52,4 +52,11 @@ export class UserService {
       })
     );
   }
+  updateInfo(form: FormData) {
+    return this.http.put('/api/updateinfo', form).pipe(
+      tap(re => {
+        this._msg.notify(re);
+      })
+    );
+  }
 }

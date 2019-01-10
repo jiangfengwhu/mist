@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
-import { Validators, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ScreenService } from 'src/app/screen.service';
 import { getMD5 } from 'src/app/utils/md5.function';
 import { CommunityService } from '../community.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit, OnDestroy {
-  cont = new FormControl('', Validators.required);
+  cont = new FormControl('');
   postForm = {
     cont: '',
     pics: []
@@ -52,6 +52,7 @@ export class PostComponent implements OnInit, OnDestroy {
   addOne() {
     this.postForm.cont = this.cont.value;
     this.comm.addCircle(this.postForm).subscribe(re => {
+      this.isSubmitting = false;
       if (re['status']) {
         this.router.navigate(['/community']);
       }

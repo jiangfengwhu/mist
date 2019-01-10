@@ -1,7 +1,7 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isRouting"></mat-progress-bar>
 <mat-toolbar class='mat-elevation-z6'>
   <ng-container *ngIf="!screen.isMobile; else mobile">
-    <span>Mist</span>
+    <span><a routerLink="/">Mist</a></span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="toggleFullScreen()">
       <mat-icon>
@@ -14,7 +14,7 @@
     <a routerLink="/user">
       <div class="avatar" [style.background-image]="'url('+(auth.user.avatar || 'assets/da.jpg') +')'"></div>
     </a>
-    <button mat-icon-button (click)="auth.logoutDialog(confirm)" style="margin-right: -5px;">
+    <button mat-icon-button (click)="openConfirm(confirm)" style="margin-right: -5px;">
       <mat-icon>
         logout
       </mat-icon>
@@ -26,7 +26,7 @@
     <mat-icon>list</mat-icon>
   </button>
   <span class="spacer"></span>
-  <span>Mist</span>
+  <span><a routerLink="/">Mist</a></span>
   <span class="spacer"></span>
 </ng-template>
 <ng-template #log>

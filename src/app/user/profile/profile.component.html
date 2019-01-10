@@ -1,5 +1,22 @@
-<button mat-button (click)="changeAvatar()">换头</button>
-<button mat-button (click)="changeBkg()">换墙</button>
+<form [formGroup]="infoForm">
+  <mat-form-field appearance="outline">
+    <mat-label>昵称</mat-label>
+    <input matInput formControlName="nickName">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>个人简介</mat-label>
+    <input matInput formControlName="sign">
+  </mat-form-field>
+</form>
+<div class="golden">
+  <img [src]="auth.user.golden">
+</div>
+<div class="action">
+  <button mat-button [disabled]="!infoForm.dirty" (click)="updateInfo()">更新资料</button>
+  <button mat-button (click)="changeAvatar()">换头</button>
+  <button mat-button (click)="changeBkg()">换墙</button>
+  <button mat-button (click)="changeGolden()">上传打赏码</button>
+</div>
 <ng-template #croptpl>
   <input #infile (change)="changeSrc(infile.files[0]);" type="file" accept="image/*" style="display: none">
   <div [ngStyle]="style">

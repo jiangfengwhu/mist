@@ -35,7 +35,7 @@
   <mat-divider></mat-divider>
   <div class="action">
     <button mat-button routerLink="/community">取消</button>
-    <button mat-button (click)="submit()" [disabled]='!cont.valid' mistUpButton [progress]="isSubmitting">发布</button>
+    <button mat-button (click)="submit()" [disabled]='!(cont.value||imgItem.length)' mistUpButton [progress]="isSubmitting">发布</button>
   </div>
 </div>
 <input multiple #infile (change)="addFiles(infile.files)" type="file" accept="image/*" style="display: none">

@@ -10,3 +10,22 @@
   justify-content: space-around;
   padding: 5px;
 }
+form {
+  padding: 10px;
+  .mat-form-field {
+    width: 100%;
+  }
+}
+.action {
+  display: flex;
+  justify-content: space-around;
+}
+.golden {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  margin-bottom: 20px;
+  >img{
+    width: 100%;
+  }
+}

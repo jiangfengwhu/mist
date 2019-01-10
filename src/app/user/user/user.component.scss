@@ -20,3 +20,9 @@
     margin-right: 15px;
   }
 }
+.singleline {
+  width: calc(100vw - 120px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
