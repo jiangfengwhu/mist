@@ -23,6 +23,7 @@ mat-form-field {
   padding: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   grid-gap: 5px;
   border: 1px #d3d3d3 solid;
 
@@ -44,6 +45,7 @@ mat-form-field {
       width: 100%;
       border-radius: 4px;
       cursor: pointer;
+      max-height: 150px;
     }
     #marker {
       height: 10px;

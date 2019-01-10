@@ -1,5 +1,8 @@
 mat-card {
   position: relative;
+  .mat-card-image {
+    max-height: 200px;
+  }
 }
 .mat-chip-list {
   position: absolute;
