@@ -9,7 +9,7 @@
         select_all
       </mat-icon>
     </button>
-    <button mat-icon-button [disabled]='selection.isEmpty()' (click)="openDialog(confirm)">
+    <button mat-icon-button [disabled]='selection.isEmpty()' (click)="_msg.openConfirm('确认删除此'+selection.selected.length+'项专辑吗？(不可恢复)', delete())">
       <mat-icon>
         delete
       </mat-icon>
@@ -66,10 +66,3 @@
   </div>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-<ng-template #confirm>
-  <p>确认删除此{{selection.selected.length}}项专辑吗？(不可恢复)</p>
-  <div class="action">
-    <button mat-button (click)="dialogRef.close()">取消</button>
-    <button mat-button (click)="delete()">确认</button>
-  </div>
-</ng-template>

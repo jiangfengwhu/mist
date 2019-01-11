@@ -17,8 +17,10 @@ import {
 } from '@angular/material';
 import { httpInterceptorProviders } from '../http-interceptors';
 import { HomeComponent } from './home/home.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
-  declarations: [ScaffoldComponent, HomeComponent],
+  declarations: [ScaffoldComponent, HomeComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     ScaffoldRoutingModule,
@@ -31,9 +33,11 @@ import { HomeComponent } from './home/home.component';
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    SharedModule
   ],
   entryComponents: [
-    MatProgressSpinner
+    MatProgressSpinner,
+    ConfirmDialogComponent
   ],
   providers: [httpInterceptorProviders]
 })

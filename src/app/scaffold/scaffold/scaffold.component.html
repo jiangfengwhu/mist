@@ -14,7 +14,7 @@
     <a routerLink="/user">
       <div class="avatar" [style.background-image]="'url('+(auth.user.avatar || 'assets/da.jpg') +')'"></div>
     </a>
-    <button mat-icon-button (click)="openConfirm(confirm)" style="margin-right: -5px;">
+    <button mat-icon-button (click)="msg.openConfirm('确定退出登录？', auth.logout())" style="margin-right: -5px;">
       <mat-icon>
         logout
       </mat-icon>
@@ -35,14 +35,6 @@
 <div class="subroute" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </div>
-
-<ng-template #confirm>
-  <mat-dialog-content>确定退出登录？</mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-button mat-dialog-close>取消</button>
-    <button mat-button (click)="logout()">确认</button>
-  </mat-dialog-actions>
-</ng-template>
 
 <ng-template #bts>
   <mat-nav-list (click)="closeMenu()">

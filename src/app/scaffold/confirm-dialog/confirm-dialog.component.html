@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  {{data.msg}}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>取消</button>
+  <button mat-button (click)="action()" mistUpButton [progress]="isSubmitting">确认</button>
+</mat-dialog-actions>

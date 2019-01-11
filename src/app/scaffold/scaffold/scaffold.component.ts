@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
 import { AuthService } from 'src/app/auth.service';
 import { fadeAnimation } from 'src/app/utils/animation';
-import { MatBottomSheet, MatBottomSheetRef, MatDialogRef } from '@angular/material';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material';
 import {
   Router,
   RouterEvent,
@@ -21,7 +21,6 @@ import { SwUpdate } from '@angular/service-worker';
   animations: [fadeAnimation]
 })
 export class ScaffoldComponent implements OnInit {
-  dialogRef: MatDialogRef<any>;
   btsRef: MatBottomSheetRef;
   isRouting: boolean;
   isFullScreen = false;
@@ -34,13 +33,13 @@ export class ScaffoldComponent implements OnInit {
     public auth: AuthService,
     private _btmsheet: MatBottomSheet,
     private router: Router,
-    private _msg: MessageService,
+    public msg: MessageService,
     private updates: SwUpdate
   ) {}
 
   ngOnInit() {
     this.updates.available.subscribe((evt) => {
-      this._msg.openBar('发现新版本, 请刷新获取');
+      this.msg.openBar('发现新版本, 请刷新获取');
     });
     this.auth.user$.subscribe(re => {
       if (re['status']) {
@@ -61,14 +60,6 @@ export class ScaffoldComponent implements OnInit {
           this.isRouting = false;
           break;
       }
-    });
-  }
-  openConfirm(tpl: TemplateRef<any>) {
-    this.dialogRef = this._msg.openDialog(tpl);
-  }
-  logout() {
-    this.auth.logout().subscribe(() => {
-      this.dialogRef.close();
     });
   }
   openMenu(bts: TemplateRef<any>) {

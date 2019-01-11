@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { MessageService } from 'src/app/message.service';
 import { MatDialogRef } from '@angular/material';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mist-community',
@@ -12,26 +13,22 @@ import { MatDialogRef } from '@angular/material';
 export class CommunityComponent implements OnInit {
   dialogRef: MatDialogRef<any>;
   datasets = [];
-  constructor(private route: ActivatedRoute, private user: UserService, private _msg: MessageService) { }
+  constructor(private route: ActivatedRoute, private user: UserService, public _msg: MessageService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data: {comms: any}) => {
+    this.route.data.subscribe((data: { comms: any }) => {
       this.datasets = data.comms;
       console.log(data.comms);
     });
   }
-  openDialog(tpl: TemplateRef<any>, idx: number) {
-    this.dialogRef = this._msg.openDialog(tpl, {
-      data: idx
-    });
-  }
   delComms(idx: number) {
-    this.user.delComms(this.datasets[idx].id).subscribe(re => {
-      if (re['status']) {
-        this.datasets.splice(idx, 1);
-      }
-      this.dialogRef.close();
-    });
+    return this.user.delComms(this.datasets[idx].id).pipe(
+      tap(re => {
+        if (re['status']) {
+          this.datasets.splice(idx, 1);
+        }
+      })
+    );
   }
   previous(data: any) {
     if (data.index > 0) {

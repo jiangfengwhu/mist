@@ -9,7 +9,7 @@
       <div>
         <span>{{item.date*1000|date:'medium'}}</span>
         <span class="spacer"></span>
-        <button mat-icon-button (click)="openDialog(confirm, i)">
+        <button mat-icon-button (click)="_msg.openConfirm('确认删除此条状态吗？(不可恢复)', delComms(i))">
           <mat-icon>
             delete
           </mat-icon>
@@ -19,13 +19,7 @@
     </div>
   </ng-container>
 </div>
-<ng-template #confirm let-data>
-  <p>确认删除此条状态吗？(不可恢复)</p>
-  <div class="action">
-    <button mat-button (click)="dialogRef.close()">取消</button>
-    <button mat-button (click)="delComms(data)">确认</button>
-  </div>
-</ng-template>
+
 <ng-template #detail let-data>
   <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" (swipeleft)="next(data)"
     (swiperight)="previous(data)" [style.touch-action]="'pan-y'">

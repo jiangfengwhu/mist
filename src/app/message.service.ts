@@ -1,5 +1,7 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig, MatDialog, MatDialogConfig } from '@angular/material';
+import { ConfirmDialogComponent } from './scaffold/confirm-dialog/confirm-dialog.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +25,13 @@ export class MessageService {
     } else {
       this.openBar(re['msg']);
     }
+  }
+  openConfirm(msg: string, ac: Observable<any>) {
+    this._dialog.open(ConfirmDialogComponent, {
+      data: {
+        msg: msg,
+        action: ac
+      }
+    });
   }
 }

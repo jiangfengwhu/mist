@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from 'src/app/screen.service';
-import { MatTableDataSource, MatSort, MatDialogRef, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../user.service';
 import { MessageService } from 'src/app/message.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mist-antique',
@@ -15,7 +16,6 @@ import { MessageService } from 'src/app/message.service';
 export class AntiqueComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dialogRef: MatDialogRef<any>;
   dataSource: MatTableDataSource<any>;
   columnsDef = ['cover', 'title', 'price', 'view', 'date'];
   selection = new SelectionModel<any>(true, []);
@@ -31,7 +31,7 @@ export class AntiqueComponent implements OnInit {
       ? this.selection.clear()
       : this.dataSource.data.forEach(row => this.selection.select(row));
   }
-  constructor(private route: ActivatedRoute, public screen: ScreenService, private user: UserService, private _msg: MessageService) { }
+  constructor(private route: ActivatedRoute, public screen: ScreenService, private user: UserService, public _msg: MessageService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data: { videos: any }) => {
@@ -48,27 +48,25 @@ export class AntiqueComponent implements OnInit {
     this.selection.clear();
     this.columnsDef[0] === 'select' ? this.columnsDef.shift() : this.columnsDef.unshift('select');
   }
-  openDialog(tpl: TemplateRef<any>) {
-    this.dialogRef = this._msg.openDialog(tpl);
-  }
   delete() {
     const form = new FormData();
     this.selection.selected.forEach(ele => {
       form.append('ids', ele.id);
     });
-    this.user.delvideos(form).subscribe(re => {
-      if (re['status']) {
-        this.dataSource.data = this.dataSource.data.filter((ele) => {
-          for (let i = 0; i < this.selection.selected.length; ++i) {
-            if (ele.id === this.selection.selected[i].id) {
-              return false;
+    return this.user.delvideos(form).pipe(
+      tap(re => {
+        if (re['status']) {
+          this.dataSource.data = this.dataSource.data.filter((ele) => {
+            for (let i = 0; i < this.selection.selected.length; ++i) {
+              if (ele.id === this.selection.selected[i].id) {
+                return false;
+              }
             }
-          }
-          return true;
-        });
-        this.selection.clear();
-      }
-      this.dialogRef.close();
-    });
+            return true;
+          });
+          this.selection.clear();
+        }
+      })
+    );
   }
 }
