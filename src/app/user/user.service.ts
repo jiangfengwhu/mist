@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
 import { MessageService } from '../message.service';
 
 @Injectable({
@@ -9,25 +8,13 @@ import { MessageService } from '../message.service';
 export class UserService {
   constructor(private http: HttpClient, private _msg: MessageService) {}
   regist(form: FormData) {
-    return this.http.post('/api/regist', form).pipe(
-      tap(re => {
-        this._msg.openBar(re['msg']);
-      })
-    );
+    return this.http.post('/api/regist', form);
   }
   login(form: FormData) {
-    return this.http.post('/api/login', form).pipe(
-      tap(re => {
-        this._msg.notify(re);
-      })
-    );
+    return this.http.post('/api/login', form);
   }
   changePic(form: FormData) {
-    return this.http.post('/api/changeAvatar', form).pipe(
-      tap(re => {
-        this._msg.notify(re);
-      })
-    );
+    return this.http.post('/api/changeAvatar', form);
   }
   myvideo(id: number, size: number) {
     return this.http.get(`/api/myvideo?fi=${id}&size=${size}`);
@@ -39,24 +26,12 @@ export class UserService {
     return this.http.get('/api/mycommall');
   }
   delvideos(form: FormData) {
-    return this.http.put('/api/delvideoc', form).pipe(
-      tap(re => {
-        this._msg.notify(re);
-      })
-    );
+    return this.http.put('/api/delvideoc', form);
   }
   delComms(id: string) {
-    return this.http.delete(`/api/delcomms/${id}`).pipe(
-      tap(re => {
-        this._msg.notify(re);
-      })
-    );
+    return this.http.delete(`/api/delcomms/${id}`);
   }
   updateInfo(form: FormData) {
-    return this.http.put('/api/updateinfo', form).pipe(
-      tap(re => {
-        this._msg.notify(re);
-      })
-    );
+    return this.http.put('/api/updateinfo', form);
   }
 }
