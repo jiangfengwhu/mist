@@ -48,9 +48,11 @@ export class CommunityComponent implements OnInit, OnDestroy {
     this.route.data.subscribe((data: { comms: any }) => {
       this.datasets = data.comms;
       this.datasets.forEach(val => {
-        val.pics.forEach(imgpath => {
-          this.preloadImgs.push(imgpath);
-        });
+        if (val.pics) {
+          val.pics.forEach(imgpath => {
+            this.preloadImgs.push(imgpath);
+          });
+        }
       });
       this.preload();
     });
@@ -91,9 +93,11 @@ export class CommunityComponent implements OnInit, OnDestroy {
         if (re) {
           re.forEach(tp => {
             this.datasets.push(tp);
-            tp.pics.forEach(val => {
-              this.preloadImgs.push(val);
-            });
+            if (tp.pics) {
+              tp.pics.forEach(val => {
+                this.preloadImgs.push(val);
+              });
+            }
           });
           this.msn.markForDetection();
           if (this.preloadindex === oldindex) {
