@@ -5,10 +5,13 @@
     </a>
     <span>
       <div><a href="mailto:jiangfengwhu2011@gmail.com">加入</a></div>
-      <div><a href="https://qr.alipay.com/fkx06369pv5ruhaoru1lqf2" target="_blank">捐赠</a></div>
+      <div (click)="openDonate(tpl)">捐赠</div>
     </span>
   </div>
   <div style="background: black;color: white;">
     <a routerLink="/video">视频区</a>
   </div>
 </div>
+<ng-template #tpl>
+  <img src="assets/qrcode.jpeg">
+</ng-template>

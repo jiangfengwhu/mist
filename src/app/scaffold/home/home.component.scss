@@ -1,7 +1,8 @@
 .body {
   display: flex;
   position: relative;
-  >div{
+
+  >div {
     width: 50%;
     padding-top: calc(50vh - 72px);
     text-align: center;
@@ -9,6 +10,7 @@
     height: calc(100vh - 48px);
   }
 }
+
 span {
   display: flex;
   justify-content: space-around;
@@ -18,4 +20,9 @@ span {
   bottom: 0px;
   left: 0;
   right: 0;
+}
+
+img {
+  max-width: 300px;
+  display: block;
 }

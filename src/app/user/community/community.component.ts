@@ -30,16 +30,6 @@ export class CommunityComponent implements OnInit {
       })
     );
   }
-  previous(data: any) {
-    if (data.index > 0) {
-      --data.index;
-    }
-  }
-  next(data: any) {
-    if (data.index < data.ref.pics.length - 1) {
-      ++data.index;
-    }
-  }
   openDetail(tpl: TemplateRef<any>, index: number, ref: any) {
     this.dialogRef = this._msg.openDialog(tpl, {
       data: {
@@ -48,6 +38,8 @@ export class CommunityComponent implements OnInit {
       },
       maxWidth: 800,
       maxHeight: '85vh',
+      minHeight: 50,
+      minWidth: 50,
       panelClass: 'diaborder'
     });
   }

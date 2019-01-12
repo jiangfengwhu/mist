@@ -21,8 +21,7 @@
 </div>
 
 <ng-template #detail let-data>
-  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" (swipeleft)="next(data)"
-    (swiperight)="previous(data)" [style.touch-action]="'pan-y'">
+  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" mistLoader>
   <button mat-icon-button style="left: 20px;" (click)="data.index = data.index-1" [disabled]="data.index===0" class="navb">
     <mat-icon>
       chevron_left

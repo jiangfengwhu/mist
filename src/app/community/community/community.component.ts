@@ -20,6 +20,8 @@ import { MasonryComponent } from 'src/app/shared/masonry/masonry.component';
 export class CommunityComponent implements OnInit, OnDestroy {
   @ViewChild(MasonryComponent) msn: MasonryComponent;
   dialogRef: MatDialogRef<any>;
+  preloadImgs = [];
+  preloadindex = 0;
   isLoading = false;
   datasets = [];
   seq = 1;
@@ -28,11 +30,29 @@ export class CommunityComponent implements OnInit, OnDestroy {
     public screen: ScreenService,
     private _msg: MessageService,
     private comm: CommunityService
-  ) {}
+  ) { }
 
+  preload() {
+    if (this.preloadindex >= this.preloadImgs.length) {
+      return;
+    }
+    const src = this.preloadImgs[this.preloadindex];
+    this.preloadImgs[this.preloadindex] = new Image();
+    this.preloadImgs[this.preloadindex].src = src;
+    this.preloadImgs[this.preloadindex].onload = () => {
+      ++this.preloadindex;
+      this.preload();
+    };
+  }
   ngOnInit() {
     this.route.data.subscribe((data: { comms: any }) => {
       this.datasets = data.comms;
+      this.datasets.forEach(val => {
+        val.pics.forEach(imgpath => {
+          this.preloadImgs.push(imgpath);
+        });
+      });
+      this.preload();
     });
     window.addEventListener('scroll', this.listenScr);
   }
@@ -44,6 +64,8 @@ export class CommunityComponent implements OnInit, OnDestroy {
       },
       maxWidth: 800,
       maxHeight: '85vh',
+      minHeight: 50,
+      minWidth: 50,
       panelClass: 'diaborder'
     });
   }
@@ -53,16 +75,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.listenScr);
-  }
-  previous(data: any) {
-    if (data.index > 0) {
-      --data.index;
-    }
-  }
-  next(data: any) {
-    if (data.index < data.ref.pics.length - 1) {
-      ++data.index;
-    }
   }
   listenScr = () => {
     const doc = document.documentElement;
@@ -75,11 +87,18 @@ export class CommunityComponent implements OnInit, OnDestroy {
       this.isLoading = true;
       this.comm.getLatest(this.seq++, 12).subscribe((re: any[]) => {
         this.isLoading = false;
+        const oldindex = this.preloadImgs.length;
         if (re) {
           re.forEach(tp => {
             this.datasets.push(tp);
+            tp.pics.forEach(val => {
+              this.preloadImgs.push(val);
+            });
           });
           this.msn.markForDetection();
+          if (this.preloadindex === oldindex) {
+            this.preload();
+          }
           window.addEventListener('scroll', this.listenScr);
         } else {
           window.removeEventListener('scroll', this.listenScr);

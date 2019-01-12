@@ -10,6 +10,7 @@ import { P2pvideoDirective } from './p2pvideo.directive';
 import { NumericPipe } from './numeric.pipe';
 import { CropperDirective } from './cropper.directive';
 import { SanitizePipe } from './sanitize.pipe';
+import { LoaderDirective } from './loader.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SanitizePipe } from './sanitize.pipe';
     P2pvideoDirective,
     NumericPipe,
     CropperDirective,
-    SanitizePipe
+    SanitizePipe,
+    LoaderDirective
   ],
   imports: [CommonModule],
   exports: [
@@ -35,7 +37,8 @@ import { SanitizePipe } from './sanitize.pipe';
     P2pvideoDirective,
     NumericPipe,
     CropperDirective,
-    SanitizePipe
+    SanitizePipe,
+    LoaderDirective
   ]
 })
 export class SharedModule {}
