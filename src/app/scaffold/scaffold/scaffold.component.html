@@ -11,7 +11,7 @@
     <button mat-button *ngFor="let nav of navs" [routerLink]='nav.link'>{{nav.label}}</button>
   </ng-container>
   <ng-container *ngIf="auth.user;else log">
-    <a routerLink="/user">
+    <a [routerLink]="['/user', auth.user.uid, 'community']">
       <div class="avatar" [style.background-image]="'url('+(auth.user.avatar || 'assets/da.jpg') +')'"></div>
     </a>
     <button mat-icon-button (click)="msg.openConfirm('确定退出登录？', auth.logout())" style="margin-right: -5px;">

@@ -13,11 +13,16 @@
   <div class="preview" [style.grid-template-columns]="screen.isMobile ? '1fr 1fr':'1fr 1fr 1fr'">
     <div class="wrapper" *ngFor="let img of imgItem;let i=index">
       <img [src]="img.url | sanitize:'url'">
-      <button mat-icon-button [style.color]='img.done ? "green" : "orange"' (click)="img.done ? null : delete(i)">
-        <mat-icon>
-          {{img.done ? "done" : "delete"}}
-        </mat-icon>
-      </button>
+      <div class="msg">
+        <button mat-icon-button *ngIf="img.deletable;else msgcont" (click)="delete(i)">
+          <mat-icon>
+            {{img.done ? "done" : "delete"}}
+          </mat-icon>
+        </button>
+        <ng-template #msgcont>
+          <strong>{{img.msg}}</strong>
+        </ng-template>
+      </div>
     </div>
   </div>
   <div class="info">

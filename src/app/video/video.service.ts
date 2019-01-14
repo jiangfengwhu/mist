@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MessageService } from '../message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
 
-  constructor(public http: HttpClient, private _msg: MessageService) { }
+  constructor(public http: HttpClient) { }
   createCollection(form: any) {
     return this.http.post('/api/createCollection', form);
   }

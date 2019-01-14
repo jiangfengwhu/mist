@@ -3,24 +3,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import { AuthGuard } from '../auth.guard';
 import { VideosResolverService } from './videos-resolver.service';
 import { AntiqueComponent } from './antique/antique.component';
 import { CommunityComponent } from './community/community.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommResolverService } from './comm-resolver.service';
+import { UserResolverService } from './user-resolver.service';
 
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   {
-    path: '', component: UserComponent, canActivate: [AuthGuard], children: [
+    path: ':id', component: UserComponent, resolve: {user: UserResolverService}, children: [
       { path: 'videos', component: AntiqueComponent, resolve: { videos: VideosResolverService } },
       { path: 'community', component: CommunityComponent, resolve: {comms: CommResolverService} },
       { path: 'profile', component: ProfileComponent },
-      { path: '', redirectTo: '/user/community', pathMatch: 'full'}
     ]
   },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

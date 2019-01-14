@@ -37,7 +37,8 @@ export class PostComponent implements OnInit, OnDestroy {
       this.imgItem.push({
         url: URL.createObjectURL(file[i]),
         file: file[i],
-        done: false
+        deletable: true,
+        msg: '等待'
       });
     }
   }
@@ -63,6 +64,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.addOne();
       return;
     }
+    this.imgItem[index].deletable = false;
     const img = new Image();
     img.src = this.imgItem[index].url;
     img.onload = () => {
@@ -79,13 +81,15 @@ export class PostComponent implements OnInit, OnDestroy {
       ctx.drawImage(img, left, top, imgSize, imgSize, 0, 0, canvas.width, canvas.height);
       canvas.toBlob(
         (blob: Blob) => {
+          this.imgItem[index].msg = '计算hash';
           getMD5(this.imgItem[index].file).then((re: string) => {
             const form = new FormData();
             form.append('pics', this.imgItem[index].file, re);
             form.append('pics', blob, re + '_thb.jpeg');
+            this.imgItem[index].msg = '上传中';
             this.comm.uploadImages(form).subscribe(re1 => {
               if (re1['status']) {
-                this.imgItem[index].done = true;
+                this.imgItem[index].msg = '完毕';
                 this.postForm.pics.push(re1['path'] + re);
               }
               this.uploadImage(index + 1);

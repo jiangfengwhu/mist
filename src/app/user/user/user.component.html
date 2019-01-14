@@ -1,12 +1,12 @@
-<div class="propic" [style.background-image]="auth.user.profilePic === '' ? '' : 'url('+auth.user.profilePic+')'"
+<div class="propic" [style.background-image]="user.profilePic === '' ? '' : 'url('+user.profilePic+')'"
   [style.height]="screen.isMobile ? '180px' : '250px'">
   <div class="info">
-    <div class="avatar" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'" [style.height]="screen.isMobile ? '60px' : '90px'"
+    <div class="avatar" [style.background-image]="'url(' + (user.avatar || 'assets/da.jpg')+')'" [style.height]="screen.isMobile ? '60px' : '90px'"
       [style.width]="screen.isMobile ? '60px' : '90px'">
     </div>
     <div>
-      <div>{{auth.user.nickName}}</div>
-      <div class="singleline">{{auth.user.sign}}</div>
+      <div>{{user.nickName}}</div>
+      <div class="singleline">{{user.sign}}</div>
     </div>
   </div>
 </div>

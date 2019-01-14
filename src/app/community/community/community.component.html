@@ -8,7 +8,7 @@
 <ng-template #tpl let-item>
   <div class="container mat-elevation-z6">
     <div class="info">
-      <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
+      <a [routerLink]="['/user', item.owner.uid, 'community']"><div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div></a>
       <span>{{item.owner.nickName}}</span>
       <span class="spacer"></span>
       <span>{{item.date | moment}}</span>

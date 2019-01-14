@@ -8,15 +8,16 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class CommResolverService {
-
-  constructor(private user: UserService) { }
+  constructor(private user: UserService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.user.mycommall().pipe(
+    const id = route.parent.paramMap.get('id');
+    return this.user.usercommall(id).pipe(
       take(1),
       mergeMap(info => {
         if (info) {
           return of(info);
-        } else { // id not found
+        } else {
+          // id not found
           return of([]);
         }
       })

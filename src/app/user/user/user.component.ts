@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth.service';
 import { ScreenService } from 'src/app/screen.service';
 import { fadeAnimation } from 'src/app/utils/animation';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mist-user',
@@ -10,14 +10,16 @@ import { fadeAnimation } from 'src/app/utils/animation';
   animations: [fadeAnimation]
 })
 export class UserComponent implements OnInit {
+  user: any;
   navLinks = [
-    {label: '我的社区', path: '/user/community'},
-    {label: '我的视频', path: '/user/videos'},
-    {label: '修改资料', path: '/user/profile'}
+    {label: '社区', path: './community'},
+    {label: '视频', path: './videos'},
+    {label: '资料', path: './profile'}
   ];
-  constructor(public auth: AuthService, public screen: ScreenService) { }
+  constructor(public screen: ScreenService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user = this.route.snapshot.data.user;
   }
 
 }

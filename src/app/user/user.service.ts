@@ -19,11 +19,11 @@ export class UserService {
   myvideo(id: number, size: number) {
     return this.http.get(`/api/myvideo?fi=${id}&size=${size}`);
   }
-  myvideoall() {
-    return this.http.get('/api/myvideoall');
+  uservideoall(id: string) {
+    return this.http.get('/api/videoall/' + id);
   }
-  mycommall() {
-    return this.http.get('/api/mycommall');
+  usercommall(id: string) {
+    return this.http.get('/api/commall/' + id);
   }
   delvideos(form: FormData) {
     return this.http.put('/api/delvideoc', form);
@@ -33,5 +33,8 @@ export class UserService {
   }
   updateInfo(form: FormData) {
     return this.http.put('/api/updateinfo', form);
+  }
+  getUser(id: string) {
+    return this.http.get('/api/user/' + id);
   }
 }

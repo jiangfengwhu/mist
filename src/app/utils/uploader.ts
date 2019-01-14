@@ -32,7 +32,7 @@ export class Uploader {
       getMD5(this.file.file).then((re: string) => {
         this.md5 = re;
         this.file.msg = '查询断点信息';
-        this.http.options(this._config.url + '/' + re).subscribe(tp => {
+        this.http.get(this._config.url + '/' + re).subscribe(tp => {
           resolve(tp);
         });
       }).catch(e => {

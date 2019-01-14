@@ -12,14 +12,13 @@ import { tap } from 'rxjs/operators';
 })
 export class CommunityComponent implements OnInit {
   dialogRef: MatDialogRef<any>;
+  showUser: any;
   datasets = [];
   constructor(private route: ActivatedRoute, private user: UserService, public _msg: MessageService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { comms: any }) => {
-      this.datasets = data.comms;
-      console.log(data.comms);
-    });
+    this.showUser = this.route.parent.snapshot.data.user;
+    this.datasets = this.route.snapshot.data.comms || [];
   }
   delComms(idx: number) {
     return this.user.delComms(this.datasets[idx].id).pipe(

@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from 'src/app/screen.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
@@ -16,6 +21,7 @@ import { tap } from 'rxjs/operators';
 export class AntiqueComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  showUser: any;
   dataSource: MatTableDataSource<any>;
   columnsDef = ['cover', 'title', 'price', 'view', 'date'];
   selection = new SelectionModel<any>(true, []);
@@ -31,22 +37,27 @@ export class AntiqueComponent implements OnInit {
       ? this.selection.clear()
       : this.dataSource.data.forEach(row => this.selection.select(row));
   }
-  constructor(private route: ActivatedRoute, public screen: ScreenService, private user: UserService, public _msg: MessageService) { }
+  constructor(
+    private route: ActivatedRoute,
+    public screen: ScreenService,
+    private user: UserService,
+    public _msg: MessageService,
+  ) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data: { videos: any }) => {
-      console.log(data.videos);
-      this.dataSource = new MatTableDataSource(data.videos || []);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
+    this.showUser = this.route.parent.snapshot.data.user;
+    this.dataSource = new MatTableDataSource(this.route.snapshot.data.videos || []);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   edit() {
     this.selection.clear();
-    this.columnsDef[0] === 'select' ? this.columnsDef.shift() : this.columnsDef.unshift('select');
+    this.columnsDef[0] === 'select'
+      ? this.columnsDef.shift()
+      : this.columnsDef.unshift('select');
   }
   delete() {
     const form = new FormData();
@@ -56,7 +67,7 @@ export class AntiqueComponent implements OnInit {
     return this.user.delvideos(form).pipe(
       tap(re => {
         if (re['status']) {
-          this.dataSource.data = this.dataSource.data.filter((ele) => {
+          this.dataSource.data = this.dataSource.data.filter(ele => {
             for (let i = 0; i < this.selection.selected.length; ++i) {
               if (ele.id === this.selection.selected[i].id) {
                 return false;

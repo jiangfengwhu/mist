@@ -4,7 +4,7 @@
   <mat-card>
     <a [routerLink]="['/video', video.id]"><img mat-card-image [src]="video?.cover"></a>
     <mat-chip-list>
-      <mat-chip>
+      <mat-chip [routerLink]="['/user', video.owner.uid, 'videos']">
         <img [src]="video.owner.avatar || 'assets/da.jpg'" matChipAvatar>
         {{video.owner.nickName}}
       </mat-chip>

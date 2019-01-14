@@ -9,7 +9,7 @@
       <div>
         <span>{{item.date*1000|date:'medium'}}</span>
         <span class="spacer"></span>
-        <button mat-icon-button (click)="_msg.openConfirm('确认删除此条状态吗？(不可恢复)', delComms(i))">
+        <button mat-icon-button (click)="_msg.openConfirm('确认删除此条状态吗？(不可恢复)', delComms(i))" *ngIf='showUser.authed'>
           <mat-icon>
             delete
           </mat-icon>
