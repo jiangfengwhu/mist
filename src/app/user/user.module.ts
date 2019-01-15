@@ -13,7 +13,9 @@ import {
   MatTableModule,
   MatSortModule,
   MatCheckboxModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -46,7 +48,9 @@ import { CommunityComponent } from './community/community.component';
     MatTableModule,
     MatSortModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class UserModule {}

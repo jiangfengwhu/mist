@@ -5,7 +5,7 @@
         <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4);let j=index" (click)="openDetail(detail, j, item)">
       </ng-container>
     </div>
-    <div class="body">
+    <div class="body" [style.margin-left] = "item.pics ? '' : '-140px'">
       <div>
         <span>{{item.date*1000|date:'medium'}}</span>
         <span class="spacer"></span>

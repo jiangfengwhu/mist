@@ -7,12 +7,13 @@ import { HomeResolverService } from './home-resolver.service';
 import { DetailComponent } from './detail/detail.component';
 import { DetailResolverService } from './detail-resolver.service';
 import { UpdateComponent } from './update/update.component';
+import { EditGuard } from '../edit.guard';
 
 const routes: Routes = [
   {path: '', component: VideoComponent, resolve: {videos: HomeResolverService}},
   {path: 'upload', component: CreateComponent, canActivate: [AuthGuard]},
   {path: ':id', component: DetailComponent, resolve: {video: DetailResolverService}},
-  {path: 'edit/:id', component: UpdateComponent, resolve: {video: DetailResolverService}},
+  {path: 'edit/:id', component: UpdateComponent, canActivate: [AuthGuard, EditGuard], resolve: {video: DetailResolverService}},
 ];
 
 @NgModule({

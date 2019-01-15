@@ -5,26 +5,46 @@
       <input matInput formControlName="nickName">
     </mat-form-field>
     <mat-form-field appearance="outline">
+      <mat-label>生日</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birth">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker touchUi></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>个人主页</mat-label>
+      <input matInput formControlName="homepage">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>个人简介</mat-label>
-      <input matInput formControlName="sign">
+      <textarea matInput cdkTextareaAutosize formControlName="sign"></textarea>
     </mat-form-field>
   </form>
   <div class="golden">
     <img [src]="showUser.golden || ''">
   </div>
   <div class="action">
-    <button mat-button [disabled]="!infoForm.dirty" (click)="updateInfo()">更新资料</button>
+    <button mat-button [disabled]="!(infoForm.dirty && infoForm.valid)" (click)="updateInfo()">更新资料</button>
     <button mat-button (click)="changeAvatar()">换头</button>
     <button mat-button (click)="changeBkg()">换墙</button>
     <button mat-button (click)="changeGolden()">上传打赏码</button>
   </div>
 </ng-container>
 <ng-template #notauth>
-  <p>加入于{{showUser.jd*1000 | date}}</p>
-  <p>生日{{showUser.birth || '未填写'}}</p>
-  <p>个人主页<a [href]="hpl.innerText" #hpl>{{showUser.home || 'https://spectrumlife.online/user/'+showUser.uid}}</a></p>
-  <div class="golden">
-    <img [src]="showUser.golden || ''">
+  <div class="showinfo">
+    <p>
+      <mat-icon>date_range</mat-icon><span>加入于{{showUser.jd*1000 | date}}</span>
+    </p>
+    <p>
+      <mat-icon>cake</mat-icon><span>生日{{(showUser.birth | date) || '保密'}}</span>
+    </p>
+    <p>
+      <mat-icon>link</mat-icon>个人主页<a [href]="showUser.homepage || ('http://spectrumlife.online/user/'+showUser.uid)">{{showUser.homepage
+        ||
+        'https://spectrumlife.online/user/'+showUser.uid}}</a>
+    </p>
+    <div class="golden">
+      <img [src]="showUser.golden || ''">
+    </div>
   </div>
 </ng-template>
 <ng-template #croptpl>

@@ -1,14 +1,13 @@
 .container {
   padding: 5px;
   display: grid;
-  grid-template-columns: 150px auto;
-  grid-auto-rows: 150px;
+  grid-template-columns: 135px auto;
+  grid-auto-rows: 135px;
   grid-gap: 5px;
 }
 
 .gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
   grid-gap: 1px;
 

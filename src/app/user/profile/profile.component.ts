@@ -5,6 +5,7 @@ import { getMD5 } from 'src/app/utils/md5.function';
 import { UserService } from '../user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'mist-profile',
@@ -33,14 +34,17 @@ export class ProfileComponent implements OnInit {
     private dialog: MatDialog,
     private user: UserService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
     this.showUser = this.route.parent.snapshot.data.user;
     this.infoForm = this.fb.group({
       nickName: [this.showUser.nickName, [Validators.required]],
-      sign: [this.showUser.sign]
+      sign: [this.showUser.sign],
+      birth: [this.showUser.birth],
+      homepage: [this.showUser.homepage]
     });
   }
   updateInfo() {
@@ -101,13 +105,13 @@ export class ProfileComponent implements OnInit {
             if (se['status']) {
               switch (this.type) {
                 case '1':
-                  this.showUser.avatar = se['path'];
+                  this.auth.user.avatar = this.showUser.avatar = se['path'];
                   break;
                 case '2':
-                  this.showUser.profilePic = se['path'];
+                  this.auth.user.profilePic = this.showUser.profilePic = se['path'];
                   break;
                 case '3':
-                  this.showUser.golden = se['path'];
+                  this.auth.user.golden = this.showUser.golden = se['path'];
                   break;
               }
               this.dialogRef.close();
