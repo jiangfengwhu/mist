@@ -19,14 +19,15 @@
       </button>
     </div>
     <div class="video">
-      <ng-template mistP2pvideo [torrent]="video.videos[currentVideo].path" #btclient="p2pVideo">
+      <video mistDash controls [src]="video.videos[currentVideo].path" [poster]="video.videos[currentVideo].cover"></video>
+      <!-- <ng-template mistP2pvideo [torrent]="video.videos[currentVideo].path" #btclient="p2pVideo">
         <video controls [poster]="video.videos[currentVideo].cover"></video>
       </ng-template>
       <div class="btinfo">
         <span>Peers: {{btclient.getInfo()?.numPeers}}</span>
         <span>下载: {{(btclient.getInfo()?.downloadSpeed | numeric) + '/s'}}</span>
         <span>上传: {{(btclient.getInfo()?.uploadSpeed | numeric) + '/s'}}</span>
-      </div>
+      </div> -->
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

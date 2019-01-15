@@ -11,6 +11,7 @@ import { NumericPipe } from './numeric.pipe';
 import { CropperDirective } from './cropper.directive';
 import { SanitizePipe } from './sanitize.pipe';
 import { LoaderDirective } from './loader.directive';
+import { DashDirective } from './dash.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoaderDirective } from './loader.directive';
     NumericPipe,
     CropperDirective,
     SanitizePipe,
-    LoaderDirective
+    LoaderDirective,
+    DashDirective
   ],
   imports: [CommonModule],
   exports: [
@@ -38,7 +40,8 @@ import { LoaderDirective } from './loader.directive';
     NumericPipe,
     CropperDirective,
     SanitizePipe,
-    LoaderDirective
+    LoaderDirective,
+    DashDirective
   ]
 })
 export class SharedModule {}
