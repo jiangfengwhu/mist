@@ -39,12 +39,14 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showUser = this.route.parent.snapshot.data.user;
-    this.infoForm = this.fb.group({
-      nickName: [this.showUser.nickName, [Validators.required]],
-      sign: [this.showUser.sign],
-      birth: [this.showUser.birth],
-      homepage: [this.showUser.homepage]
+    this.route.parent.data.subscribe(data => {
+      this.showUser = data.user;
+      this.infoForm = this.fb.group({
+        nickName: [this.showUser.nickName, [Validators.required]],
+        sign: [this.showUser.sign],
+        birth: [this.showUser.birth],
+        homepage: [this.showUser.homepage]
+      });
     });
   }
   updateInfo() {

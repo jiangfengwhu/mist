@@ -45,10 +45,14 @@ export class AntiqueComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showUser = this.route.parent.snapshot.data.user;
-    this.dataSource = new MatTableDataSource(this.route.snapshot.data.videos || []);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.route.parent.data.subscribe((data: any) => {
+      this.showUser = data.user;
+    });
+    this.route.data.subscribe((data: any) => {
+      this.dataSource = new MatTableDataSource(data.videos);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -17,8 +17,12 @@ export class CommunityComponent implements OnInit {
   constructor(private route: ActivatedRoute, private user: UserService, public _msg: MessageService) { }
 
   ngOnInit() {
-    this.showUser = this.route.parent.snapshot.data.user;
-    this.datasets = this.route.snapshot.data.comms || [];
+    this.route.parent.data.subscribe((data: any) => {
+      this.showUser = data.user;
+    });
+    this.route.data.subscribe((data: any) => {
+      this.datasets = data.comms;
+    });
   }
   delComms(idx: number) {
     return this.user.delComms(this.datasets[idx].id).pipe(
