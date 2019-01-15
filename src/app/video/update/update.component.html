@@ -78,7 +78,7 @@
     </form>
     <div class="action">
       <span>
-        上传于: {{video.videos[current].date*1000 | date:'short'}}
+        上传于: {{video.videos[current]?.date*1000 | date:'short'}}
       </span>
       <button mat-button color="warn" (click)="delOne()">删除</button>
     </div>
