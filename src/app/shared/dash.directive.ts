@@ -1,39 +1,45 @@
 import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
-import * as shaka from 'shaka-player';
+import * as Hls from 'hls.js';
 @Directive({
   selector: '[mistDash]'
 })
 export class DashDirective implements OnDestroy {
   @Input() set src(tmp: string) {
-    if (this.isSupport) {
-      this.player.unload().then(
-        this.player.load(tmp)
-      );
-    } else {
+    if (this.isNative) {
       this.videoele.pause();
-      this.videoele.src = tmp.replace('.mpd', '.mp4');
+      this.videoele.src = tmp;
+    } else {
+      this.hls.detachMedia();
+      this.hls.loadSource(tmp);
+      this.hls.attachMedia(this.videoele);
     }
   }
   videoele: HTMLVideoElement;
-  player: any;
-  isSupport: boolean;
+  hls: Hls;
+  isNative: boolean;
   constructor(private eleref: ElementRef) {
     this.videoele = this.eleref.nativeElement;
-    shaka.polyfill.installAll();
-    if (shaka.Player.isBrowserSupported()) {
-      this.player = new shaka.Player(this.videoele);
-      this.isSupport = true;
+    if (this.videoele.canPlayType('application/vnd.apple.mpegurl')) {
+      this.isNative = true;
+      this.videoele.addEventListener('loadedmetadata', () => {
+        this.videoele.play();
+      });
     } else {
-      this.isSupport = false;
-      console.error('Browser not supported!');
+      this.hls = new Hls();
+      this.hls.config.maxBufferLength = 10;
+      this.isNative = false;
+      this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        this.videoele.play();
+      });
     }
   }
   ngOnDestroy() {
-    if (this.isSupport) {
-      this.player.destroy();
-    } else {
+    if (this.isNative) {
       this.videoele.pause();
       this.videoele.src = '';
+    } else {
+      this.hls.detachMedia();
+      this.hls.destroy();
     }
   }
 }

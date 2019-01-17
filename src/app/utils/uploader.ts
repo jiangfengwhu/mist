@@ -22,7 +22,7 @@ export class Uploader {
   setConfig(conf: Config) {
     this._config = {
       url: conf.url,
-      chunkSize: conf.chunkSize || 5242880,
+      chunkSize: conf.chunkSize || 2097152,
       file: conf.file,
     };
   }
