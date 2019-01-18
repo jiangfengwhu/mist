@@ -16,7 +16,8 @@ import {
   MatTooltipModule,
   MatSidenavModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDividerModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -44,7 +45,8 @@ import { UpdateComponent } from './update/update.component';
     MatTooltipModule,
     MatSidenavModule,
     ScrollDispatchModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDividerModule
   ]
 })
 export class VideoModule {}

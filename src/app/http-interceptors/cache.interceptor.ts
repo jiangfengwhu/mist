@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpHeaders, Http
 import { RequestCacheService } from '../request-cache.service';
 import { tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-const cacheUrls = ['/api/getVideo', '/api/getCircles', '/api/user', '/api/videoall', '/api/commall'];
+const cacheUrls = ['/api/getVideo', '/api/getCircles', '/api/user', '/api/videoall', '/api/commall', '/api/getcomments'];
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
   constructor(private cache: RequestCacheService) { }
