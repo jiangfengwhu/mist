@@ -37,4 +37,7 @@ export class VideoService {
   getComments(id: string, type: string) {
     return this.http.get(`/api/getcomments?id=${id}&type=${type}`);
   }
+  setLike(id: string, type: string, inc: number) {
+    return this.http.post(`/api/like?id=${id}&type=${type}&inc=${inc}`, '');
+  }
 }

@@ -21,16 +21,10 @@ export class DashDirective implements OnDestroy {
     this.videoele = this.eleref.nativeElement;
     if (this.videoele.canPlayType('application/vnd.apple.mpegurl')) {
       this.isNative = true;
-      this.videoele.addEventListener('loadedmetadata', () => {
-        this.videoele.play();
-      });
     } else {
       this.hls = new Hls();
       this.hls.config.maxBufferLength = 10;
       this.isNative = false;
-      this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        this.videoele.play();
-      });
     }
   }
   ngOnDestroy() {

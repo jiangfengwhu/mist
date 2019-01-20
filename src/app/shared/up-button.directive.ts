@@ -25,5 +25,6 @@ export class UpButtonDirective {
     const compRef = this.vcf.createComponent(this.comFactory);
     compRef.instance.diameter = 36;
     compRef.instance.mode = 'indeterminate';
+    compRef.instance.color = 'warn';
   }
 }

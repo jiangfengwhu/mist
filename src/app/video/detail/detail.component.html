@@ -33,18 +33,12 @@
     <div class="header">
       <span>{{video.view}}次观看</span>
       <span class="spacer"></span>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="like(video, '1')" [style.color]="video.isliked ? 'blue':''">
         <mat-icon>
           thumb_up
         </mat-icon>
       </button>
-      <span>1994</span>
-      <button mat-icon-button>
-        <mat-icon>
-          thumb_down
-        </mat-icon>
-      </button>
-      <span>1994</span>
+      <span>{{video.likes}}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="info">
@@ -60,6 +54,7 @@
     <mat-divider></mat-divider>
     <div>
       <form *ngIf="auth.user" [formGroup]="commentForm" #formDirective="ngForm">
+        <div class="avatar small" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'"></div>
         <mat-form-field>
           <mat-label>说点什么...</mat-label>
           <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
@@ -74,20 +69,16 @@
             <div>{{comments_owners[com.owner].nickName}} | 发布于{{com.date|moment}}</div>
             <div>{{com.text}}</div>
             <div class="action">
-              <button mat-icon-button>
+              <button mat-icon-button (click)="like(com, 'reply')" [style.color]="com.isliked ? 'blue' : ''">
                 <mat-icon>thumb_up</mat-icon>
               </button>
-              <span>10</span>
-              <button mat-icon-button>
-                <mat-icon>thumb_down</mat-icon>
-              </button>
-              <span>10</span>
+              <span>{{com.likes}}</span>
               <button mat-button (click)="initReply(comi)">回复</button>
             </div>
             <form *ngIf="replyForm[comi]" [formGroup]="replyForm[comi].form">
-              <span class="at" *ngIf="replyForm[comi].form.get('at').value">{{'@'+comments_owners[replyForm[comi].form.get('at').value].nickName}}</span>
               <mat-form-field>
                 <mat-label>回复</mat-label>
+                <span class="at" *ngIf="replyForm[comi].form.get('at').value" matPrefix>{{'@'+comments_owners[replyForm[comi].form.get('at').value].nickName}}</span>
                 <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
               </mat-form-field>
               <button mat-button (click)="sendReply(comi)" [disabled]="!replyForm[comi].form.valid" mistUpButton
@@ -102,14 +93,10 @@
                   <div>{{comments_owners[reply.owner].nickName}} | 发布于{{reply.date|moment}}</div>
                   <div><a class="at" *ngIf="reply.at" [routerLink]="['/user', reply.at]">{{'@'+comments_owners[reply.at].nickName}}</a>{{reply.text}}</div>
                   <div class="action">
-                    <button mat-icon-button>
+                    <button mat-icon-button (click)="like(reply, 'reply')" [style.color]="reply.isliked ? 'blue' : ''">
                       <mat-icon>thumb_up</mat-icon>
                     </button>
-                    <span>10</span>
-                    <button mat-icon-button>
-                      <mat-icon>thumb_down</mat-icon>
-                    </button>
-                    <span>10</span>
+                    <span>{{reply.likes}}</span>
                     <button mat-button (click)="initReply(comi, reply.owner)">回复</button>
                   </div>
                 </div>

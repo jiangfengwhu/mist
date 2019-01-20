@@ -17,8 +17,10 @@
       <span class="spacer"></span>
       <mat-icon>play_circle_outline</mat-icon>
       <span>{{video.view | quantity}}</span>
-      <mat-icon>comment</mat-icon>
-      <span>10</span>
+      <ng-container *ngIf="video.comments">
+        <mat-icon>comment</mat-icon>
+        <span>{{video.comments}}</span>
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-template>

@@ -108,4 +108,14 @@ export class DetailComponent implements OnInit {
       });
     });
   }
+  like(item: any, type: string) {
+    if (item.isliked) {
+      item.isliked = 0;
+      --item.likes;
+    } else {
+      item.isliked = 1;
+      item.likes = item.likes ? item.likes + 1 : 1;
+    }
+    this.vs.setLike(item.id, type, item.isliked).subscribe();
+  }
 }
