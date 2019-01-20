@@ -8,7 +8,9 @@
 <ng-template #tpl let-item>
   <div class="container mat-elevation-z6">
     <div class="info">
-      <a [routerLink]="['/user', item.owner.uid, 'community']"><div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div></a>
+      <a [routerLink]="['/user', item.owner.uid, 'community']">
+        <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
+      </a>
       <span>{{item.owner.nickName}}</span>
       <span class="spacer"></span>
       <span>{{item.date | moment}}</span>
@@ -26,15 +28,12 @@
 </ng-template>
 
 <ng-template #detail let-data>
-  <img [src]="data.ref.pics[data.index]" (click)="dialogRef.close()" class="viewimg" mistLoader>
-  <button mat-icon-button style="left: 20px;" (click)="data.index = data.index-1" [disabled]="data.index===0">
-    <mat-icon>
-      chevron_left
-    </mat-icon>
-  </button>
-  <button mat-icon-button style="right: 20px;" (click)="data.index = data.index+1" [disabled]="data.index===data.ref.pics.length-1">
-    <mat-icon>
-      chevron_right
-    </mat-icon>
-  </button>
+  <div class="detail">
+    <div class='ac'>
+      <div (click)="data.index = data.index === 0 ? data.ref.pics.length-1 : data.index-1"></div>
+      <div (click)="dialogRef.close()"></div>
+      <div (click)="data.index = data.index===data.ref.pics.length-1 ? 0 : data.index+1"></div>
+    </div>
+    <img [src]="data.ref.pics[data.index]" class="viewimg" mistLoader>
+  </div>
 </ng-template>

@@ -84,8 +84,7 @@
               <button mat-button (click)="sendReply(comi)" [disabled]="!replyForm[comi].form.valid" mistUpButton
                 [progress]="replyForm[comi].isReply">回复</button>
             </form>
-            <button mat-button *ngIf="com.reply&&!com.isGetReply" (click)="getReply(comi)">展开所有{{com.reply}}条评论</button>
-            <mat-progress-spinner mode="indeterminate" diameter=36 *ngIf="com.isGetReply" color="warn"></mat-progress-spinner>
+            <button mat-button *ngIf="com.reply" (click)="getReply(comi)" mistUpButton [progress]="com.isGetReply">展开所有{{com.reply}}条评论</button>
             <div class="info comments" *ngIf="com.replys" style="margin-left: -25px;">
               <ng-container *ngFor="let reply of com.replys">
                 <div class="avatar" [style.background-image]="'url(' + (comments_owners[reply.owner].avatar || 'assets/da.jpg')+')'"></div>
