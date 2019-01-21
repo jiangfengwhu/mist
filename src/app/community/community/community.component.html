@@ -39,7 +39,7 @@
 </ng-template>
 <ng-template #comment let-data>
   <div style="padding: 10px;">
-    <mist-comment [item]='data.id' [type]="'2'"></mist-comment>
+    <mist-comment [item]='data.id' [type]="'2'" (commed)="onSendCom($event, data.id)"></mist-comment>
   </div>
 </ng-template>
 <ng-template #detail let-data>

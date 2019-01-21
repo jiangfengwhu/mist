@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -13,6 +13,7 @@ import { MessageService } from 'src/app/message.service';
 export class CommentComponent implements OnInit, OnDestroy {
   @Input() item: string;
   @Input() type: string;
+  @Output() commed = new EventEmitter<boolean>();
   comments = [];
   isSubmitting: boolean;
   comments_owners = [];
@@ -72,6 +73,7 @@ export class CommentComponent implements OnInit, OnDestroy {
           this.comments_owners[this.auth.user.uid] = this.auth.user;
           this.replyId = undefined;
         } else {
+          this.commed.emit(true);
           this.comments.push(re['doc']);
           this.comments_owners[this.auth.user.uid] = this.auth.user;
         }

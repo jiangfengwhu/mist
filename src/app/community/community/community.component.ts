@@ -41,6 +41,14 @@ export class CommunityComponent implements OnInit, OnDestroy {
     }
     this.comm.setLike(item.id, type, item.isliked).subscribe();
   }
+  onSendCom(status: boolean, id: string) {
+    if (status) {
+      const item = this.datasets.find(ele => {
+        return ele.id === id;
+      });
+      item.comments = item.comments ? item.comments + 1 : 1;
+    }
+  }
   preload() {
     if (this.preloadindex >= this.preloadImgs.length) {
       return;
