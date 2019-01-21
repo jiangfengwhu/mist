@@ -12,6 +12,9 @@ import { CropperDirective } from './cropper.directive';
 import { SanitizePipe } from './sanitize.pipe';
 import { LoaderDirective } from './loader.directive';
 import { DashDirective } from './dash.directive';
+import { CommentComponent } from './comment/comment.component';
+import { MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,17 @@ import { DashDirective } from './dash.directive';
     CropperDirective,
     SanitizePipe,
     LoaderDirective,
-    DashDirective
+    DashDirective,
+    CommentComponent
   ],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   exports: [
     RecaptchaDirective,
     UpButtonDirective,
@@ -41,7 +52,8 @@ import { DashDirective } from './dash.directive';
     CropperDirective,
     SanitizePipe,
     LoaderDirective,
-    DashDirective
+    DashDirective,
+    CommentComponent
   ]
 })
 export class SharedModule {}

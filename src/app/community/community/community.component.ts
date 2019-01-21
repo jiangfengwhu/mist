@@ -8,9 +8,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from 'src/app/screen.service';
 import { MessageService } from 'src/app/message.service';
-import { MatDialogRef } from '@angular/material';
 import { CommunityService } from '../community.service';
 import { MasonryComponent } from 'src/app/shared/masonry/masonry.component';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'mist-community',
@@ -19,7 +19,6 @@ import { MasonryComponent } from 'src/app/shared/masonry/masonry.component';
 })
 export class CommunityComponent implements OnInit, OnDestroy {
   @ViewChild(MasonryComponent) msn: MasonryComponent;
-  dialogRef: MatDialogRef<any>;
   preloadImgs = [];
   preloadindex = 0;
   isLoading = false;
@@ -28,10 +27,20 @@ export class CommunityComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     public screen: ScreenService,
-    private _msg: MessageService,
-    private comm: CommunityService
+    public _msg: MessageService,
+    private comm: CommunityService,
+    public auth: AuthService
   ) { }
-
+  like(item: any, type: string) {
+    if (item.isliked) {
+      item.isliked = 0;
+      item.likes = item.likes === 1 ? undefined : item.likes - 1;
+    } else {
+      item.isliked = 1;
+      item.likes = item.likes ? item.likes + 1 : 1;
+    }
+    this.comm.setLike(item.id, type, item.isliked).subscribe();
+  }
   preload() {
     if (this.preloadindex >= this.preloadImgs.length) {
       return;
@@ -59,7 +68,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
     window.addEventListener('scroll', this.listenScr);
   }
   openDetail(tpl: TemplateRef<any>, index: number, ref: any) {
-    this.dialogRef = this._msg.openDialog(tpl, {
+    this._msg.openDialog(tpl, {
       data: {
         index: index,
         ref: ref
@@ -69,6 +78,17 @@ export class CommunityComponent implements OnInit, OnDestroy {
       minHeight: 50,
       minWidth: 50,
       panelClass: 'diaborder'
+    });
+  }
+  openComment(tpl: TemplateRef<any>, id: string) {
+    this._msg.openDialog(tpl, {
+      data: {
+        id: id,
+      },
+      minWidth: 320,
+      maxWidth: '100vw',
+      panelClass: 'diaborder',
+      autoFocus: false
     });
   }
   setCont(tmp: string) {

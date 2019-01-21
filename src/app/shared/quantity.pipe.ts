@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class QuantityPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    if (value === 0) {
+    if (value === 0 || !value) {
       return 0;
     }
     if (value < 1000) {

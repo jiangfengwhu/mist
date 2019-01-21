@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ConfirmDialogComponent } from './scaffold/confirm-dialog/confirm-dialog.component';
 import { Observable } from 'rxjs';
 
@@ -7,13 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MessageService {
+  dialogRef: MatDialogRef<any>;
 
   constructor(private _snackbar: MatSnackBar, private _dialog: MatDialog) { }
   openBar(cont: string, config?: MatSnackBarConfig) {
     this._snackbar.open(cont, '关闭', config);
   }
   openDialog(tpl: TemplateRef<any>, config?: MatDialogConfig) {
-    return this._dialog.open(tpl, config);
+    this.dialogRef = this._dialog.open(tpl, config);
   }
   notify(re: any) {
     if (re['status']) {

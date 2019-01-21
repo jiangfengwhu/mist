@@ -6,7 +6,7 @@
 <mist-masonry [datasets]="datasets" [columns]="screen.currentScreen" [tpl]="tpl"></mist-masonry>
 <mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
 <ng-template #tpl let-item>
-  <div class="container mat-elevation-z6">
+  <div class="container mat-elevation-z2">
     <div class="info">
       <a [routerLink]="['/user', item.owner.uid, 'community']">
         <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
@@ -24,14 +24,29 @@
       *ngIf="item.pics">
       <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item)">
     </div>
+    <div class="action">
+      <span class="spacer"></span>
+      <mat-icon style="color: blue" (click)="openComment(comment, item.id)">
+        comment
+      </mat-icon>
+      <span>{{item.comments}}</span>
+      <mat-icon style="color: red" (click)="like(item, '2')">
+        {{item.isliked ? 'favorite' : 'favorite_border'}}
+      </mat-icon>
+      <span>{{item.likes}}</span>
+    </div>
   </div>
 </ng-template>
-
+<ng-template #comment let-data>
+  <div style="padding: 10px;">
+    <mist-comment [item]='data.id' [type]="'2'"></mist-comment>
+  </div>
+</ng-template>
 <ng-template #detail let-data>
   <div class="detail">
     <div class='ac'>
       <div (click)="data.index = data.index === 0 ? data.ref.pics.length-1 : data.index-1"></div>
-      <div (click)="dialogRef.close()"></div>
+      <div (click)="_msg.dialogRef.close()"></div>
       <div (click)="data.index = data.index===data.ref.pics.length-1 ? 0 : data.index+1"></div>
     </div>
     <img [src]="data.ref.pics[data.index]" class="viewimg" mistLoader>

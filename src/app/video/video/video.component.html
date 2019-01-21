@@ -15,10 +15,12 @@
     <mat-card-content>
       <span>{{video.date | moment}}</span>
       <span class="spacer"></span>
-      <mat-icon>play_circle_outline</mat-icon>
+      <mat-icon style="color: green">play_circle_outline</mat-icon>
       <span>{{video.view | quantity}}</span>
+      <mat-icon color="warn">favorite</mat-icon>
+      <span>{{video.likes | quantity}}</span>
       <ng-container *ngIf="video.comments">
-        <mat-icon>comment</mat-icon>
+        <mat-icon style="color: blue">comment</mat-icon>
         <span>{{video.comments}}</span>
       </ng-container>
     </mat-card-content>

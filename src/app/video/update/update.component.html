@@ -83,7 +83,7 @@
       <button mat-button color="warn" (click)="delOne()">删除</button>
     </div>
     <div class="action">
-      <button mat-button (click)="dialogRef.close()">退出</button>
+      <button mat-button (click)="_msg.dialogRef.close()">退出</button>
       <button mat-button (click)="setCover()" mistUpButton [progress]="isSubmitting">设为封面</button>
       <button mat-button (click)="updateOne()" mistUpButton [progress]="isSubmitting" [disabled]='!(videoForm.valid&&videoForm.dirty)'>更新</button>
     </div>

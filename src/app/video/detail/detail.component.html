@@ -53,57 +53,7 @@
     </div>
     <mat-divider></mat-divider>
     <div>
-      <form *ngIf="auth.user" [formGroup]="commentForm" #formDirective="ngForm">
-        <div class="avatar small" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'"></div>
-        <mat-form-field>
-          <mat-label>说点什么...</mat-label>
-          <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
-        </mat-form-field>
-        <button mat-button (click)="sendComment(formDirective)" [disabled]="!commentForm.valid" mistUpButton [progress]="isSubmitting">评论</button>
-      </form>
-      <div class="info comments">
-        <ng-container *ngFor="let com of comments;let comi=index">
-          <div class="avatar" [style.background-image]="'url(' + (comments_owners[com.owner].avatar || 'assets/da.jpg')+')'">
-          </div>
-          <div>
-            <div>{{comments_owners[com.owner].nickName}} | 发布于{{com.date|moment}}</div>
-            <div>{{com.text}}</div>
-            <div class="action">
-              <button mat-icon-button (click)="like(com, 'reply')" [style.color]="com.isliked ? 'blue' : ''">
-                <mat-icon>thumb_up</mat-icon>
-              </button>
-              <span>{{com.likes}}</span>
-              <button mat-button (click)="initReply(comi)">回复</button>
-            </div>
-            <form *ngIf="replyForm[comi]" [formGroup]="replyForm[comi].form">
-              <mat-form-field>
-                <mat-label>回复</mat-label>
-                <span class="at" *ngIf="replyForm[comi].form.get('at').value" matPrefix>{{'@'+comments_owners[replyForm[comi].form.get('at').value].nickName}}</span>
-                <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
-              </mat-form-field>
-              <button mat-button (click)="sendReply(comi)" [disabled]="!replyForm[comi].form.valid" mistUpButton
-                [progress]="replyForm[comi].isReply">回复</button>
-            </form>
-            <button mat-button *ngIf="com.reply" (click)="getReply(comi)" mistUpButton [progress]="com.isGetReply">展开所有{{com.reply}}条评论</button>
-            <div class="info comments" *ngIf="com.replys" style="margin-left: -25px;">
-              <ng-container *ngFor="let reply of com.replys">
-                <div class="avatar" [style.background-image]="'url(' + (comments_owners[reply.owner].avatar || 'assets/da.jpg')+')'"></div>
-                <div>
-                  <div>{{comments_owners[reply.owner].nickName}} | 发布于{{reply.date|moment}}</div>
-                  <div><a class="at" *ngIf="reply.at" [routerLink]="['/user', reply.at]">{{'@'+comments_owners[reply.at].nickName}}</a>{{reply.text}}</div>
-                  <div class="action">
-                    <button mat-icon-button (click)="like(reply, 'reply')" [style.color]="reply.isliked ? 'blue' : ''">
-                      <mat-icon>thumb_up</mat-icon>
-                    </button>
-                    <span>{{reply.likes}}</span>
-                    <button mat-button (click)="initReply(comi, reply.owner)">回复</button>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </ng-container>
-      </div>
+      <mist-comment [item]="video.id" [type]="'1'"></mist-comment>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

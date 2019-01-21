@@ -17,4 +17,7 @@ export class CommunityService {
   getLatest(id: number, size: number) {
     return this.http.get(`/api/getCircles?fi=${id}&size=${size}`);
   }
+  setLike(id: string, type: string, inc: number) {
+    return this.http.post(`/api/like?id=${id}&type=${type}&inc=${inc}`, '');
+  }
 }

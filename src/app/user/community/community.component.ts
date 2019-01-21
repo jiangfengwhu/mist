@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { MessageService } from 'src/app/message.service';
-import { MatDialogRef } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +10,6 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./community.component.scss']
 })
 export class CommunityComponent implements OnInit {
-  dialogRef: MatDialogRef<any>;
   showUser: any;
   datasets = [];
   constructor(private route: ActivatedRoute, private user: UserService, public _msg: MessageService) { }
@@ -34,7 +32,7 @@ export class CommunityComponent implements OnInit {
     );
   }
   openDetail(tpl: TemplateRef<any>, index: number, ref: any) {
-    this.dialogRef = this._msg.openDialog(tpl, {
+    this._msg.openDialog(tpl, {
       data: {
         index: index,
         ref: ref

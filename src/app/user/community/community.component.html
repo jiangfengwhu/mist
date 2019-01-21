@@ -24,7 +24,7 @@
   <div class="detail">
     <div class='ac'>
       <div (click)="data.index = data.index === 0 ? data.ref.pics.length-1 : data.index-1"></div>
-      <div (click)="dialogRef.close()"></div>
+      <div (click)="_msg.dialogRef.close()"></div>
       <div (click)="data.index = data.index===data.ref.pics.length-1 ? 0 : data.index+1"></div>
     </div>
     <img [src]="data.ref.pics[data.index]" class="viewimg" mistLoader>

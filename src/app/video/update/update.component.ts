@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import {
   MatChipList,
   MatChipInputEvent,
-  MatDialogRef
 } from '@angular/material';
 import { ScreenService } from 'src/app/screen.service';
 import { MessageService } from 'src/app/message.service';
@@ -18,7 +17,6 @@ import { MessageService } from 'src/app/message.service';
 export class UpdateComponent implements OnInit {
   @ViewChild('chipList') chipList: MatChipList;
   @ViewChild('editvideo') editvideo: TemplateRef<any>;
-  dialogRef: MatDialogRef<any>;
   isSubmitting = false;
   video: any;
   current: number;
@@ -29,7 +27,7 @@ export class UpdateComponent implements OnInit {
     private _video: VideoService,
     private route: ActivatedRoute,
     public screen: ScreenService,
-    private _msg: MessageService
+    public _msg: MessageService
   ) {}
 
   copy(loc: HTMLInputElement) {
@@ -88,7 +86,7 @@ export class UpdateComponent implements OnInit {
       cid: [this.video.id, [Validators.required]],
       vid: [this.video.videos[index].id, [Validators.required]]
     });
-    this.dialogRef = this._msg.openDialog(this.editvideo, {
+    this._msg.openDialog(this.editvideo, {
       panelClass: this.screen.isMobile ? 'fullscreen' : ''
     });
   }
@@ -104,7 +102,7 @@ export class UpdateComponent implements OnInit {
       this.isSubmitting = false;
       this.video.videos[this.current].title = this.videoForm.get('title').value;
       this.video.videos[this.current].desc = this.videoForm.get('desc').value;
-      this.dialogRef.close();
+      this._msg.dialogRef.close();
     });
   }
   setCover() {
@@ -115,7 +113,7 @@ export class UpdateComponent implements OnInit {
     this.isSubmitting = true;
     this._video.changeCover(form).subscribe((re) => {
       this.isSubmitting = false;
-      this.dialogRef.close();
+      this._msg.dialogRef.close();
       if (re['status']) {
         this.video.cover = form.path;
       }
@@ -127,7 +125,7 @@ export class UpdateComponent implements OnInit {
       if (re['status']) {
         this.video.videos.splice(this.current, 1);
       }
-      this.dialogRef.close();
+      this._msg.dialogRef.close();
     });
   }
 }

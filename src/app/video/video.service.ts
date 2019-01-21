@@ -31,13 +31,4 @@ export class VideoService {
   delOne(vid: string, cid: string, cov: string) {
     return this.http.delete(`/api/delvideo?vid=${vid}&cid=${cid}&cov=${cov}`);
   }
-  comment(form: any) {
-    return this.http.post('/api/addComment', form);
-  }
-  getComments(id: string, type: string) {
-    return this.http.get(`/api/getcomments?id=${id}&type=${type}`);
-  }
-  setLike(id: string, type: string, inc: number) {
-    return this.http.post(`/api/like?id=${id}&type=${type}&inc=${inc}`, '');
-  }
 }
