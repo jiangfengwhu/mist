@@ -95,7 +95,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
       },
       minWidth: 320,
       maxWidth: '100vw',
-      panelClass: 'diaborder',
       autoFocus: false
     });
   }
