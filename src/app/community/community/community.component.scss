@@ -24,6 +24,8 @@
     right: 10px;
     top: 10px;
   }
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .body {
@@ -62,7 +64,7 @@
   padding-bottom: 5px;
   padding-top: 5px;
   display: flex;
-  align-self: center;
+  align-items: center;
   font-size: 16px;
   .mat-icon {
     font-size: 18px;
