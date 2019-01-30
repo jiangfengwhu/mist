@@ -23,7 +23,7 @@ export class DashDirective implements OnDestroy {
       this.isNative = true;
     } else {
       this.hls = new Hls();
-      this.hls.config.maxBufferLength = 10;
+      // this.hls.config.maxBufferLength = 10;
       this.isNative = false;
     }
   }
