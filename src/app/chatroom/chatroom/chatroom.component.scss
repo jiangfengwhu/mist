@@ -1,0 +1,38 @@
+.container {
+  padding: 10px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.mat-icon:hover {
+  cursor: pointer;
+}
+.chat {
+  max-height: 450px;
+  overflow: auto;
+  white-space: pre-line;
+  padding-top: 10px;
+}
+.avatar {
+  background-size: cover;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.bubble {
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+  .dia {
+    border: 1px solid pink;
+    padding: 5px;
+    border-radius: 4px;
+  }
+}

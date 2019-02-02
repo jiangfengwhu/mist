@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="header">
+    <mat-form-field>
+      <input matInput #roominput>
+    </mat-form-field>
+    <button mat-button (click)='join(roominput.value)' [disabled]='!roominput.value'>加入房间</button>
+  </div>
+  <mat-tab-group [selectedIndex]='selected' mat-stretch-tabs (selectedIndexChange)='changeIndex($event)'>
+    <mat-tab *ngFor="let room of chat.rooms; let i = index" [label]="room.hasMsg ? room.room + ' 😄' : room.room">
+      <div class="header">
+        <span>{{room?.info?.total}}人在线</span>
+        <span>{{room.info ? chat.users[room.info.from]?.nickName || room.info.from : ''}}{{room?.info?.header==='open'
+          ? '进来了' : '离开了'}}</span>
+        <mat-icon (click)="leave(i)">close</mat-icon>
+      </div>
+      <div class="chat" #chatbody>
+        <ng-container *ngFor="let msg of room.msgs">
+          <div class="bubble">
+            <div *ngIf="!chat.users[msg.from]?.authed" class="avatar" [style.background-image]="'url('+(chat.users[msg.from]?.avatar || 'assets/da.jpg') +')'"></div>
+            <div *ngIf="chat.users[msg.from]?.authed" class="spacer"></div>
+            <div class="dia" [style.background]="chat.users[msg.from]?.authed ? 'lightgreen' : ''">{{msg.body}}</div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="header">
+        <mat-form-field>
+          <textarea matInput cdkTextareaAutosize #sendinput></textarea>
+        </mat-form-field>
+        <button mat-icon-button (click)="send(sendinput, i)" [disabled]='!sendinput.value'>
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

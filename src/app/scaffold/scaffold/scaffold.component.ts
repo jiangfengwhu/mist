@@ -26,7 +26,8 @@ export class ScaffoldComponent implements OnInit {
   isFullScreen = false;
   navs = [
     { label: '视频', link: '/video' },
-    { label: '社区', link: '/community'}
+    { label: '社区', link: '/community'},
+    { label: '聊天', link: '/chatroom'},
   ];
   constructor(
     public screen: ScreenService,

@@ -8,6 +8,7 @@ const routes: Routes = [
     {path: 'user', loadChildren: '../user/user.module#UserModule'},
     {path: 'video', loadChildren: '../video/video.module#VideoModule'},
     {path: 'community', loadChildren: '../community/community.module#CommunityModule'},
+    {path: 'chatroom', loadChildren: '../chatroom/chatroom.module#ChatroomModule'},
     {path: '', component: HomeComponent}
   ]},
 ];
