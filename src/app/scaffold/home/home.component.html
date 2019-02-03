@@ -1,17 +1,6 @@
-<div class="body">
-  <div style="background: white;color: black;">
-    <a routerLink="/community">
-      文字区
-    </a>
-    <span>
-      <div><a href="mailto:jiangfengwhu2011@gmail.com">加入</a></div>
-      <div (click)="openDonate(tpl)">捐赠</div>
-    </span>
-  </div>
-  <div style="background: black;color: white;">
-    <a routerLink="/video">视频区</a>
-  </div>
+<div class="container">
+  <div><a routerLink="/community">文字</a></div>
+  <div><a routerLink="/video">视频</a></div>
+  <div><a routerLink="/chatroom">聊天</a></div>
+  <div><a href="mailto:jiangfengwhu2011@gmail.com">加入</a></div>
 </div>
-<ng-template #tpl>
-  <img src="assets/qrcode.jpeg">
-</ng-template>

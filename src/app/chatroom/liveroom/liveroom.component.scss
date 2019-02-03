@@ -1,0 +1,16 @@
+video {
+  width: 100%;
+}
+.header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  .mat-form-field {
+    width: 100%;
+  }
+}
+.videos {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  grid-gap: 10px;
+}

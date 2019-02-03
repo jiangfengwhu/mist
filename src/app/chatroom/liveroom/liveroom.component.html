@@ -1,0 +1,12 @@
+<div class="header">
+  <mat-form-field>
+    <mat-label>房间号</mat-label>
+    <input matInput #roominput [(ngModel)]="roomNumber">
+  </mat-form-field>
+  <button mat-button [disabled]="!roominput.value" (click)="join()" *ngIf="!joined">加入</button>
+  <button mat-button (click)="hangup()" *ngIf="joined">挂断</button>
+</div>
+<div class="videos">
+  <video autoplay playsinline #remotevideo></video>
+  <video autoplay playsinline #localvideo muted></video>
+</div>
