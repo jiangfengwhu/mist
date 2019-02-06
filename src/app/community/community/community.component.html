@@ -20,6 +20,11 @@
       <div>{{item.full ? item.cont : setCont(item.cont)}}</div>
       <span *ngIf="setCont(item.cont)!=item.cont" (click)="item.full=!item.full">{{item.full ? '折叠' : '...展开'}}</span>
     </div>
+    <div style="margin-left: -10px;margin-right: -10px;margin-bottom: -32px;margin-top: 5px" *ngIf="item.embed">
+      <div class="frame">
+        <iframe [src]="item.embed | sanitize:'rurl'" frameborder="0" allowfullscreen class="video"></iframe>
+      </div>
+    </div>
     <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'"
       *ngIf="item.pics">
       <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item)">

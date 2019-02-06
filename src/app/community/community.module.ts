@@ -13,7 +13,7 @@ import {
   MatProgressSpinnerModule
 } from '@angular/material';
 import { PostComponent } from './post/post.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CommunityComponent, PostComponent],
@@ -25,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
+    FormsModule,
     MatDividerModule,
     MatProgressSpinnerModule
   ]

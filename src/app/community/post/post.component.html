@@ -6,9 +6,15 @@
   <div>
     <mat-form-field>
       <mat-label>这一刻的想法...</mat-label>
-      <textarea matInput cdkTextareaAutosize [formControl]="cont"></textarea>
-      <mat-error>写点什么吧</mat-error>
+      <textarea matInput cdkTextareaAutosize [(ngModel)]="cont"></textarea>
     </mat-form-field>
+    <mat-form-field *ngIf="hasEmbed && imgItem.length===0">
+      <mat-label>iframe嵌入式视频</mat-label>
+      <textarea matInput cdkTextareaAutosize [(ngModel)]="embed"></textarea>
+    </mat-form-field>
+    <div class="frame" *ngIf="embed">
+      <iframe [src]="framesrc() | sanitize:'rurl'" frameborder="0" allowfullscreen class="video"></iframe>
+    </div>
   </div>
   <div class="preview" [style.grid-template-columns]="screen.isMobile ? '1fr 1fr':'1fr 1fr 1fr'">
     <div class="wrapper" *ngFor="let img of imgItem;let i=index">
@@ -26,9 +32,14 @@
     </div>
   </div>
   <div class="info">
-    <button mat-icon-button (click)="infile.click()">
+    <button mat-icon-button (click)="infile.click()" [disabled]="embed.length > 0">
       <mat-icon>
         photo
+      </mat-icon>
+    </button>
+    <button mat-icon-button (click)="hasEmbed=!hasEmbed" [disabled]="imgItem.length > 0">
+      <mat-icon>
+        link
       </mat-icon>
     </button>
     <button mat-icon-button>
@@ -40,7 +51,7 @@
   <mat-divider></mat-divider>
   <div class="action">
     <button mat-button routerLink="/community">取消</button>
-    <button mat-button (click)="submit()" [disabled]='!(cont.value||imgItem.length)' mistUpButton [progress]="isSubmitting">发布</button>
+    <button mat-button (click)="submit()" [disabled]='!(cont||imgItem.length||embed)' mistUpButton [progress]="isSubmitting">发布</button>
   </div>
 </div>
 <input multiple #infile (change)="addFiles(infile.files)" type="file" accept="image/*" style="display: none">

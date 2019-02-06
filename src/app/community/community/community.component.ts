@@ -99,7 +99,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
     });
   }
   setCont(tmp: string) {
-    return tmp.split(/\r\n|\r|\n/, 4).join('\n').substr(0, 90);
+    return tmp.split(/\r\n|\r|\n/, 4).join('\n').substr(0, 150);
   }
 
   ngOnDestroy() {

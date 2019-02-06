@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
-import { FormControl } from '@angular/forms';
 import { ScreenService } from 'src/app/screen.service';
 import { getMD5 } from 'src/app/utils/md5.function';
 import { CommunityService } from '../community.service';
@@ -12,13 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit, OnDestroy {
-  cont = new FormControl('');
+  cont: string;
+  embed = '';
+  hasEmbed: boolean;
   postForm = {
     cont: '',
+    embed: '',
     pics: []
   };
   imgItem = [];
   isSubmitting = false;
+  framesrc() {
+    return this.embed ? this.embed.split('src=')[1].split(/[ >]/)[0].slice(1, -1) : '';
+  }
   constructor(
     public auth: AuthService,
     public screen: ScreenService,
@@ -51,7 +56,8 @@ export class PostComponent implements OnInit, OnDestroy {
     this.imgItem.splice(index, 1);
   }
   addOne() {
-    this.postForm.cont = this.cont.value;
+    this.postForm.cont = this.cont;
+    this.postForm.embed = this.framesrc();
     this.comm.addCircle(this.postForm).subscribe(re => {
       this.isSubmitting = false;
       if (re['status']) {
