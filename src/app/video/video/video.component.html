@@ -1,18 +1,16 @@
-<mist-masonry [columns]='screen.currentScreen' [tpl]="vcard" [datasets]="videos"></mist-masonry>
-<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
-<ng-template #vcard let-video>
-  <mat-card>
-    <a [routerLink]="['/video', video.id]"><img mat-card-image [src]="video?.cover"></a>
+<div class="container" [style.grid-template-columns]="'repeat('+screen.currentScreen+ ', 1fr)'|sanitize:'style'">
+  <div *ngFor="let video of videos" class="item mat-elevation-z1">
+    <a [routerLink]="['/video', video.id]"><img [src]="video.cover" [matTooltip]="video.title"></a>
     <mat-chip-list>
       <mat-chip [routerLink]="['/user', video.owner.uid, 'videos']">
         <img [src]="video.owner.avatar || 'assets/da.jpg'" matChipAvatar>
         {{video.owner.nickName}}
       </mat-chip>
     </mat-chip-list>
-    <mat-card-title>
+    <div class="title">
       {{video.title}}
-    </mat-card-title>
-    <mat-card-content>
+    </div>
+    <div class="info">
       <span>{{video.date | moment}}</span>
       <span class="spacer"></span>
       <mat-icon style="color: green">play_circle_outline</mat-icon>
@@ -23,10 +21,10 @@
         <mat-icon style="color: blue">comment</mat-icon>
         <span>{{video.comments}}</span>
       </ng-container>
-    </mat-card-content>
-  </mat-card>
-</ng-template>
-
+    </div>
+  </div>
+</div>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
 <button mat-fab routerLink="/video/upload">
   <mat-icon>
     video_call

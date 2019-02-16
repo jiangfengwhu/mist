@@ -1,35 +1,54 @@
-<mist-masonry [columns]="screen.currentScreen" [datasets]="uploadForm.controls" [tpl]="cad" #msnry></mist-masonry>
-<div align="center" class="choose">
-  <button mat-fab (click)="infile.click()" matTooltip="点击选择文件">
-    <mat-icon>
-      cloud_upload
-    </mat-icon>
-  </button>
+<div class="container">
+  <div class="upload" [style.grid-template-columns]="screen.isMobile ? '1fr' : '2fr 8fr'">
+    <ng-container *ngFor="let item of uploadfiles;let i=index">
+      <img [src]="item.cover" *ngIf="item.cover;else status">
+      <ng-template #status>
+        <div>
+          <div [style.color]="uploadfiles[i].cover ? 'green' : 'black'">
+            进度: {{uploadfiles[i].msg}}
+          </div>
+          <div align="end">
+            <button mat-button (click)="removeFile(i)">
+              删除
+            </button>
+          </div>
+        </div>
+      </ng-template>
+      <div>
+        <form [formGroup]="uploadForm.controls[i]">
+          <mat-form-field appearance="outline">
+            <mat-label>视频标题</mat-label>
+            <input matInput formControlName="title">
+            <mat-error>标题是必须的</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>视频分类</mat-label>
+            <mat-select formControlName="tag" required>
+              <mat-option *ngFor="let item of tags" [value]="item.tid">
+                {{item.desc}}
+              </mat-option>
+            </mat-select>
+            <mat-error>请选择一个视频分类</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>视频描述</mat-label>
+            <textarea matInput cdkTextareaAutosize formControlName="desc"></textarea>
+          </mat-form-field>
+        </form>
+        <mat-divider></mat-divider>
+      </div>
+    </ng-container>
+  </div>
+  <div align="center" class="choose">
+    <button mat-fab (click)="infile.click()" matTooltip="点击选择文件">
+      <mat-icon>
+        cloud_upload
+      </mat-icon>
+    </button>
+  </div>
+  <div class="action">
+    <button mat-stroked-button [disabled]='!uploadForm.valid' (click)="submit()" mistUpButton [progress]="isSubmiting">上传</button>
+    <button mat-stroked-button routerLink="/video">结束</button>
+  </div>
 </div>
-<input multiple #infile (change)="addFiles(infile.files);msnry.markForDetection()" type="file" accept="video/mp4" style="display: none">
-<ng-template let-gForm let-i="index" #cad>
-  <mat-card>
-    <img mat-card-image [src]="uploadfiles[i].cover">
-    <mat-card-content>
-      <form [formGroup]="gForm">
-        <mat-form-field>
-          <textarea matInput placeholder="标题" cdkTextareaAutosize formControlName="title"></textarea>
-          <mat-error>标题是必须的</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput placeholder="描述" cdkTextareaAutosize formControlName="desc"></textarea>
-        </mat-form-field>
-      </form>
-      <p [style.color]="uploadfiles[i].cover !=='' ? 'green' : 'black'">
-        状态: {{uploadfiles[i].msg}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="removeFile(i);msnry.markForDetection()" [disabled]="uploadfiles[i].cover!==''">删除</button>
-      <button mat-button [disabled]="!uploadfiles[i].cover" (click)="setCover(uploadfiles[i].cover)">设为封面</button>
-    </mat-card-actions>
-    <mat-card-footer>
-      <mat-progress-bar mode="determinate" [value]="uploadfiles[i].progress"></mat-progress-bar>
-    </mat-card-footer>
-  </mat-card>
-</ng-template>
+<input multiple #infile (change)="addFiles(infile.files)" type="file" accept="video/mp4" style="display: none">

@@ -34,12 +34,12 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]='uploder.uploadForm'>
+  <!-- <mat-step [stepControl]='uploder.uploadForm'>
     <ng-template matStepLabel>上传视频</ng-template>
     <mist-upload [cid]="cid" #uploder></mist-upload>
     <div class="action">
       <button mat-stroked-button [disabled]='!uploder.uploadForm.valid' (click)="uploder.submit()" mistUpButton [progress]="uploder.isSubmiting">上传视频</button>
       <button matStepperNext mat-stroked-button routerLink="/video">结束</button>
     </div>
-  </mat-step>
+  </mat-step> -->
 </mat-horizontal-stepper>

@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
 import { ActivatedRoute } from '@angular/router';
 import { VideoService } from '../video.service';
-import { MasonryComponent } from 'src/app/shared/masonry/masonry.component';
 
 @Component({
   selector: 'mist-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.scss']
+  styleUrls: ['./video.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoComponent implements OnInit, OnDestroy {
-  @ViewChild(MasonryComponent) msn: MasonryComponent;
   isLoading = false;
   seq = 1;
   videos: any[];
@@ -36,7 +35,6 @@ export class VideoComponent implements OnInit, OnDestroy {
           re.forEach(tp => {
             this.videos.push(tp);
           });
-          this.msn.markForDetection();
           window.addEventListener('scroll', this.listenScr);
         } else {
           window.removeEventListener('scroll', this.listenScr);

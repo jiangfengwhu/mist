@@ -1,17 +1,23 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav position="end" [mode]="!screen.isMobile ? 'side' : 'over'" [opened]="!screen.isMobile">
-    <cdk-virtual-scroll-viewport itemSize="135" class="vscroll">
-      <div *cdkVirtualFor="let vid of video.videos;let i=index" class="item">
-        <div class="wrapper" (click)="currentVideo = i;screen.isMobile ? sidenav.toggle() : ''">
-          <img [src]="vid.cover">
-          <div>{{vid.title}}</div>
+    <cdk-virtual-scroll-viewport itemSize="90" class="vscroll">
+      <div *cdkVirtualFor="let vid of video.recommend;let i=index" class="recitem" (click)="screen.isMobile ? sidenav.close() : ''">
+        <a [routerLink]="['/video', vid.id]"><img [src]="vid.cover"></a>
+        <div>
+          <div class="title">
+            {{vid.title}}
+          </div>
+          <span class="spacer"></span>
+          <div>
+            {{vid.date|moment}} · {{vid.view|quantity}} 播放
+          </div>
         </div>
       </div>
     </cdk-virtual-scroll-viewport>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="video">
-      <video mistDash controls [src]="video.videos[currentVideo].path" [poster]="video.videos[currentVideo].cover"></video>
+      <video mistDash controls [src]="video.path" [poster]="video.cover"></video>
       <!-- <ng-template mistP2pvideo [torrent]="video.videos[currentVideo].path" #btclient="p2pVideo">
         <video controls [poster]="video.videos[currentVideo].cover"></video>
       </ng-template>
@@ -48,8 +54,10 @@
         <div>{{video.owner.nickName}}</div>
         <div>发布于{{video.date*1000| date:'short'}}</div>
       </div>
-      <div></div>
-      <div>{{video.desc}}</div>
+      <ng-container *ngIf="video.desc">
+        <div></div>
+        <div>{{video.desc}}</div>
+      </ng-container>
     </div>
     <mat-divider></mat-divider>
     <div>

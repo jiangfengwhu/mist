@@ -10,7 +10,6 @@ import { SoacService } from 'src/app/soac.service';
 })
 export class DetailComponent implements OnInit {
   video: any;
-  currentVideo = 0;
   constructor(
     private route: ActivatedRoute,
     public screen: ScreenService,

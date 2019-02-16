@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { VideoService } from './video.service';
-import { Observable, of, EMPTY } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { take, mergeMap } from 'rxjs/operators';
 })
 export class HomeResolverService implements Resolve<any> {
 
-  constructor(private video: VideoService, private router: Router) {}
+  constructor(private video: VideoService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     return this.video.getLatest(0, 12).pipe(

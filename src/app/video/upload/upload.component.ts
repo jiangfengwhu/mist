@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Uploader } from 'src/app/utils/uploader';
@@ -10,37 +10,31 @@ import { VideoService } from '../video.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  @Input() cid: string;
   isSubmiting = false;
   uploadForm = this._fb.array([], Validators.required);
   uploadfiles = [];
   upIndex = 0;
+  tags = [
+    {tid: 1, desc: '娱乐'},
+    {tid: 2, desc: '游戏'},
+    {tid: 3, desc: '日常'},
+    {tid: 4, desc: '科教'},
+  ];
   constructor(public screen: ScreenService, private _fb: FormBuilder, private _video: VideoService) { }
 
-  setCover(path: string) {
-    const form: any = {
-      cid: this.cid,
-      path: path
-    };
-    this._video.changeCover(form).subscribe();
-  }
-  ngOnInit() {
-    console.log(this.cid);
-  }
+  ngOnInit() {}
   addFiles(files: FileList) {
-    console.log(files);
     for (let i = 0; i < files.length; ++i) {
-      this.uploadForm.push(this._fb.group({
-        title: [files[i].name.substr(0, files[i].name.lastIndexOf('.')), [Validators.required]],
-        desc: [''],
-        cid: [this.cid, [Validators.required]]
-      }));
       this.uploadfiles.push({
         msg: '等待上传',
         progress: 0,
         file: files[i],
-        cover: ''
       });
+      this.uploadForm.push(this._fb.group({
+        title: [files[i].name.substr(0, files[i].name.lastIndexOf('.')), [Validators.required]],
+        tag: [1, [Validators.required]],
+        desc: [''],
+      }));
     }
   }
   removeFile(index: number) {
@@ -60,11 +54,10 @@ export class UploadComponent implements OnInit {
     uploader.upload().then(re => {
       console.log(re);
       if (re) {
-        if (re['path']) {
+        if (re['index'] === -1) {
           this.uploadfiles[this.upIndex] = {
             msg: '文件已存在',
             progress: 100,
-            cover: re['path']
           };
           this.upIndex++;
           this.submit();

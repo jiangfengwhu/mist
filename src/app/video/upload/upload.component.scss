@@ -2,13 +2,26 @@ mat-form-field {
   width: 100%;
 }
 
-textarea {
-  overflow: auto;
-}
-
 .choose {
   padding: 15px;
 }
-.mat-card-image {
-  max-height: 200px;
+
+img {
+  width: 100%;
+  border-radius: 4px;
+}
+.container {
+  padding: 10px;
+  .upload {
+    display: grid;
+    grid-gap: 8px;
+  }
+}
+.action {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mat-divider {
+  margin-bottom: 10px;
 }

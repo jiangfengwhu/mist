@@ -23,7 +23,7 @@ export class AntiqueComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   showUser: any;
   dataSource: MatTableDataSource<any>;
-  columnsDef = ['cover', 'title', 'price', 'view', 'date'];
+  columnsDef = ['cover', 'title', 'view', 'date'];
   selection = new SelectionModel<any>(true, []);
 
   isAllSelected() {
