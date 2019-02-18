@@ -1,0 +1,17 @@
+<div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
+  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item">
+    <img [src]="ga.pics[0].split('.').shift()+'_thb.jpeg'">
+    <div class="indicate">
+      <mat-icon *ngIf="ga.cont">title</mat-icon>
+      <mat-icon *ngIf="ga.pics.length > 1">view_carousel</mat-icon>
+      <mat-icon *ngIf="hasGif(ga.pics)">gif</mat-icon>
+    </div>
+    <div class="del">
+      <button mat-icon-button (click)="_msg.openConfirm('确认删除此图片吗？(不可恢复)', delgallery(i))">
+        <mat-icon>
+          delete
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

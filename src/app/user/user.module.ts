@@ -24,6 +24,7 @@ import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AntiqueComponent } from './antique/antique.component';
 import { CommunityComponent } from './community/community.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CommunityComponent } from './community/community.component';
     UserComponent,
     ProfileComponent,
     AntiqueComponent,
-    CommunityComponent
+    CommunityComponent,
+    GalleryComponent
   ],
   imports: [
     CommonModule,

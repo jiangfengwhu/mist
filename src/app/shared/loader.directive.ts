@@ -36,7 +36,5 @@ export class LoaderDirective {
     compRef.instance.color = 'warn';
     const ele = <HTMLElement>compRef.instance._elementRef.nativeElement;
     ele.style.position = 'absolute';
-    ele.style.top = 'calc(50% - 18px)';
-    ele.style.left = 'calc(50% - 18px)';
   }
 }

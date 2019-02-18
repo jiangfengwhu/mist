@@ -1,0 +1,49 @@
+<div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
+  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item" (click)="openDetail(gDetail, i)">
+    <img [src]="ga.pics[0].split('.').shift()+'_thb.jpeg'">
+    <div class="indicate">
+      <mat-icon *ngIf="ga.cont">title</mat-icon>
+      <mat-icon *ngIf="ga.pics.length > 1">view_carousel</mat-icon>
+      <mat-icon *ngIf="hasGif(ga.pics)">gif</mat-icon>
+    </div>
+  </div>
+</div>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
+<button mat-fab routerLink="./post">
+  <mat-icon>
+    camera
+  </mat-icon>
+</button>
+<ng-template #gDetail let-data>
+  <div class="detail" (mouseenter)="gas[data.index].showCont=true" (mouseleave)="gas[data.index].showCont=false">
+    <img [src]="gas[data.index].pics[data.picindex]" mistLoader [style.max-width]="screen.isMobile ? '100vw' : '800px'"
+      (swipeleft)="next(data)" (swiperight)="pre(data)">
+    <div class="content" *ngIf="gas[data.index].showCont && gas[data.index].cont">
+      {{gas[data.index].cont}}
+    </div>
+    <div class="action">
+      <mat-icon (click)="pre(data)">
+        arrow_back_ios
+      </mat-icon>
+      <span class="spacer"></span>
+      <mat-icon style="color: blue" (click)="openComment(comment, gas[data.index].id)">
+        comment
+      </mat-icon>
+      <span>{{gas[data.index].comments}}</span>
+      <span class="spacer"></span>
+      <mat-icon style="color: red" (click)="like(gas[data.index], '3')">
+        {{gas[data.index].isliked ? 'favorite' : 'favorite_border'}}
+      </mat-icon>
+      <span>{{gas[data.index].likes}}</span>
+      <span class="spacer"></span>
+      <mat-icon (click)="next(data)">
+        arrow_forward_ios
+      </mat-icon>
+    </div>
+  </div>
+</ng-template>
+<ng-template #comment let-data>
+  <div style="margin: -14px;">
+    <mist-comment [item]='data.id' [type]="'3'" (commed)="onSendCom($event, data.id)"></mist-comment>
+  </div>
+</ng-template>

@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  padding: 10px;
+  grid-gap: 10px;
+}
+
+.item {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  .del {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    color: red;
+  }
+  >img {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .indicate {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: violet;
+  }
+}

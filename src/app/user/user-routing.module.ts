@@ -9,6 +9,8 @@ import { CommunityComponent } from './community/community.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommResolverService } from './comm-resolver.service';
 import { UserResolverService } from './user-resolver.service';
+import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryResolverService } from './gallery-resolver.service';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -18,6 +20,7 @@ const routes: Routes = [
       { path: 'videos', component: AntiqueComponent, resolve: { videos: VideosResolverService } },
       { path: 'community', component: CommunityComponent, resolve: {comms: CommResolverService} },
       { path: 'profile', component: ProfileComponent },
+      { path: 'gallery', component: GalleryComponent, resolve: {gas: GalleryResolverService}}
     ]
   },
 ];

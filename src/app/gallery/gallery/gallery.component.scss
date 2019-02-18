@@ -1,0 +1,70 @@
+.mat-fab {
+  position: fixed;
+  z-index: 2;
+  bottom: 35px;
+  right: 35px;
+}
+
+.container {
+  display: grid;
+  padding: 10px;
+  grid-gap: 10px;
+}
+
+.item {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+
+  >img {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .indicate {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: violet;
+  }
+}
+
+.detail {
+  position: relative;
+
+  >img {
+    max-height: 85vh;
+    object-fit: scale-down;
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    width: 100%;
+    padding: 5px;
+    white-space: pre-line;
+  }
+
+  .action {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), );
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: white;
+
+    .mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      cursor: pointer;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+}

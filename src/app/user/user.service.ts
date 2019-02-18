@@ -25,11 +25,17 @@ export class UserService {
   usercommall(id: string) {
     return this.http.get('/api/commall/' + id);
   }
+  usergaall(id: string) {
+    return this.http.get('/api/galleryall/' + id);
+  }
   delvideos(form: FormData) {
     return this.http.put('/api/delvideoc', form);
   }
   delComms(id: string) {
     return this.http.delete(`/api/delcomms/${id}`);
+  }
+  delGallery(id: string) {
+    return this.http.delete(`/api/delgallery/${id}`);
   }
   updateInfo(form: FormData) {
     return this.http.put('/api/updateinfo', form);

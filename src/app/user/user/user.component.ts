@@ -12,9 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 export class UserComponent implements OnInit {
   user: any;
   navLinks = [
+    {label: '图片', path: './gallery'},
     {label: '社区', path: './community'},
     {label: '视频', path: './videos'},
-    {label: '资料', path: './profile'}
+    {label: '资料', path: './profile'},
   ];
   constructor(public screen: ScreenService, private route: ActivatedRoute) { }
 
