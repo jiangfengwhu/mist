@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/message.service';
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit, OnDestroy {
+  @ViewChild('cominput') cinput: ElementRef<any>;
   @Input() item: string;
   @Input() type: string;
   @Output() commed = new EventEmitter<boolean>();
@@ -28,6 +29,9 @@ export class CommentComponent implements OnInit, OnDestroy {
     public msg: MessageService
   ) { }
 
+  setFocus() {
+    this.cinput.nativeElement.focus();
+  }
   ngOnDestroy() {
     this.comments.forEach(ele => {
       ele.replys = null;

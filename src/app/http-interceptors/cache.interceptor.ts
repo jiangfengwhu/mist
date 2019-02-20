@@ -1,12 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpEvent,
+  HttpHeaders,
+  HttpResponse
+} from '@angular/common/http';
 import { RequestCacheService } from '../request-cache.service';
 import { tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-const cacheUrls = ['/api/getVideo', '/api/getCircles', '/api/user', '/api/videoall', '/api/commall', '/api/getcomments'];
+const cacheUrls = [
+  '/api/getVideo',
+  '/api/getCircles',
+  '/api/user',
+  '/api/videoall',
+  '/api/commall',
+  '/api/getcomments',
+  '/api/getGallery',
+  '/api/oneGallery'
+];
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  constructor(private cache: RequestCacheService) { }
+  constructor(private cache: RequestCacheService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     if (!isCachable(req)) {
@@ -17,8 +33,9 @@ export class CachingInterceptor implements HttpInterceptor {
     }
 
     const cachedResponse = this.cache.get(req);
-    return cachedResponse ?
-      of(cachedResponse) : sendRequest(req, next, this.cache);
+    return cachedResponse
+      ? of(cachedResponse)
+      : sendRequest(req, next, this.cache);
   }
 }
 function isCachable(req: HttpRequest<any>) {
@@ -34,8 +51,8 @@ function isCachable(req: HttpRequest<any>) {
 function sendRequest(
   req: HttpRequest<any>,
   next: HttpHandler,
-  cache: RequestCacheService): Observable<HttpEvent<any>> {
-
+  cache: RequestCacheService
+): Observable<HttpEvent<any>> {
   // No headers allowed in npm search request
   const noHeaderReq = req.clone({ headers: new HttpHeaders() });
 

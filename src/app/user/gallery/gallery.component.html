@@ -1,5 +1,5 @@
 <div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
-  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item">
+  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item" [routerLink]="'/gallery/'+ga.id">
     <img [src]="ga.pics[0].split('.').shift()+'_thb.jpeg'">
     <div class="indicate">
       <mat-icon *ngIf="ga.cont">title</mat-icon>

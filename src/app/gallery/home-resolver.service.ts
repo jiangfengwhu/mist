@@ -12,7 +12,7 @@ export class HomeResolverService {
   constructor(private ga: GalleryService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-    return this.ga.getLatest(0, 15).pipe(
+    return this.ga.getLatest(0, 12).pipe(
       take(1),
       mergeMap(comms => {
         if (comms) {

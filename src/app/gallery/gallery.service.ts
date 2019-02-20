@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class GalleryService {
-
+  scrollPositon: [number, number] = [0, 0];
   constructor(private http: HttpClient) { }
   uploadImages(form: FormData) {
     return this.http.post('/api/uploadImage', form);
@@ -18,5 +18,8 @@ export class GalleryService {
   }
   setLike(id: string, type: string, inc: number) {
     return this.http.post(`/api/like?id=${id}&type=${type}&inc=${inc}`, '');
+  }
+  getGallery(id: string) {
+    return this.http.get('/api/oneGallery/' + id);
   }
 }

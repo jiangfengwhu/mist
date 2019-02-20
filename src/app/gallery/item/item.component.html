@@ -1,0 +1,63 @@
+<ng-template #body>
+  <div class="container">
+    <div class="img-container" (mouseenter)="ga.showCont=true" (mouseleave)="ga.showCont=false">
+      <img [src]="ga.pics[currentIndex]" mistLoader (swipeleft)="next()" (swiperight)="pre()" [style.max-width]="screen.isMobile ? '100vw' : 'calc(100vw - 300px)'"
+        #imgdom>
+      <div class="content" *ngIf="ga.showCont && ga.cont">
+        {{ga.cont}}
+      </div>
+      <div class="action">
+        <mat-icon (click)="pre()">
+          arrow_back_ios
+        </mat-icon>
+        <span class="spacer"></span>
+        <ng-container *ngIf="screen.isMobile">
+          <mat-icon style="color: blue" (click)="openComment(comment, ga.id)">
+            comment
+          </mat-icon>
+          <span>{{ga.comments}}</span>
+          <span class="spacer"></span>
+          <mat-icon style="color: red" (click)="like(ga, '3')">
+            {{ga.isliked ? 'favorite' : 'favorite_border'}}
+          </mat-icon>
+          <span>{{ga.likes}}</span>
+          <span class="spacer"></span>
+        </ng-container>
+        <mat-icon (click)="next()">
+          arrow_forward_ios
+        </mat-icon>
+      </div>
+    </div>
+    <div class="info-container" [style.max-height]="imgHeight" *ngIf="!screen.isMobile">
+      <div class="owner">
+        <div class="avatar" [style.background-image]="'url(' + (ga.owner.avatar || 'assets/da.jpg')+')'"></div>
+        <div>
+          <div>{{ga.owner.nickName}}</div>
+          <div id="date">{{ga.date|moment}}</div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="comment spacer">
+        <mist-comment [item]='ga.id' [type]="'3'" (commed)="onSendCom($event, ga.id)" #commentcom></mist-comment>
+      </div>
+      <div class="aicon">
+        <span class="spacer"></span>
+        <mat-icon style="color: blue" (click)="commentcom.setFocus()">
+          comment
+        </mat-icon>
+        <span>{{ga.comments}}</span>
+        <span class="spacer"></span>
+        <mat-icon style="color: red" (click)="like(ga, '3')">
+          {{ga.isliked ? 'favorite' : 'favorite_border'}}
+        </mat-icon>
+        <span>{{ga.likes}}</span>
+        <span class="spacer"></span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #comment let-data>
+  <div style="margin: -14px;max-height: 85vh;overflow: auto;">
+    <mist-comment [item]='data.id' [type]="'3'" (commed)="onSendCom($event, data.id)"></mist-comment>
+  </div>
+</ng-template>

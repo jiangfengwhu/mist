@@ -70,7 +70,7 @@ export class PostComponent implements OnInit, OnDestroy {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const imgSize = Math.min(img.width, img.height);
-      canvas.width = Math.min(imgSize, 600);
+      canvas.width = Math.min(imgSize, 512);
       canvas.height = canvas.width;
       const left = (img.width - imgSize) / 2;
       const top = (img.height - imgSize) / 2;

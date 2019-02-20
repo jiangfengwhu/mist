@@ -14,9 +14,10 @@ import {
 } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
-  declarations: [GalleryComponent, PostComponent],
+  declarations: [GalleryComponent, PostComponent, ItemComponent],
   imports: [
     CommonModule,
     GalleryRoutingModule,

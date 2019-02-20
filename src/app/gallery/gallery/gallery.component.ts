@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScreenService } from 'src/app/screen.service';
 import { GalleryService } from '../gallery.service';
-import { MessageService } from 'src/app/message.service';
 
 @Component({
   selector: 'mist-gallery',
@@ -17,7 +16,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     private acr: ActivatedRoute,
     public screen: ScreenService,
     private ga: GalleryService,
-    private _msg: MessageService
+    private router: Router
   ) {}
 
   hasGif(pics: any[]) {
@@ -27,52 +26,13 @@ export class GalleryComponent implements OnInit, OnDestroy {
       }
     }
   }
-  openDetail(tpl: TemplateRef<any>, index: number) {
-    this._msg.openDialog(tpl, {
-      data: {
-        index: index,
-        picindex: 0,
-      },
-      maxWidth: 800,
-      minHeight: 60,
-      minWidth: 60,
-      panelClass: 'diaborder'
+  goto(id: string) {
+    this.ga.scrollPositon = [window.scrollX, window.scrollY];
+    this.router.navigate(['./', id], {
+      relativeTo: this.acr
     });
   }
-  next(data: any) {
-    data.picindex = data.picindex === this.gas[data.index].pics.length - 1 ? 0 : data.picindex + 1;
-  }
-  pre(data: any) {
-    data.picindex = data.picindex === 0 ? this.gas[data.index].pics.length - 1 : data.picindex - 1;
-  }
-  like(item: any, type: string) {
-    if (item.isliked) {
-      item.isliked = 0;
-      item.likes = item.likes === 1 ? undefined : item.likes - 1;
-    } else {
-      item.isliked = 1;
-      item.likes = item.likes ? item.likes + 1 : 1;
-    }
-    this.ga.setLike(item.id, type, item.isliked).subscribe();
-  }
-  openComment(tpl: TemplateRef<any>, id: string) {
-    this._msg.openDialog(tpl, {
-      data: {
-        id: id,
-      },
-      minWidth: 320,
-      maxWidth: '100vw',
-      autoFocus: false
-    });
-  }
-  onSendCom(status: boolean, id: string) {
-    if (status) {
-      const item = this.gas.find(ele => {
-        return ele.id === id;
-      });
-      item.comments = item.comments ? item.comments + 1 : 1;
-    }
-  }
+
   ngOnInit() {
     this.acr.data.subscribe((data: { gas: any }) => {
       this.gas = data.gas;
