@@ -3,57 +3,53 @@
     edit
   </mat-icon>
 </button>
-<mist-masonry [datasets]="datasets" [columns]="screen.currentScreen" [tpl]="tpl"></mist-masonry>
-<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
-<ng-template #tpl let-item>
-  <div class="container mat-elevation-z2">
-    <div class="info">
-      <a [routerLink]="['/user', item.owner.uid, 'community']">
-        <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
-      </a>
-      <span>{{item.owner.nickName}}</span>
-      <span class="spacer"></span>
-      <span>{{item.date | moment}}</span>
-    </div>
-    <div class="body" *ngIf="item.cont">
-      <mat-divider></mat-divider>
-      <div>{{item.full ? item.cont : setCont(item.cont)}}</div>
-      <span *ngIf="setCont(item.cont)!=item.cont" (click)="item.full=!item.full">{{item.full ? '折叠' : '...展开'}}</span>
-    </div>
-    <div style="margin-left: -10px;margin-right: -10px;margin-bottom: -32px;margin-top: 5px" *ngIf="item.embed">
-      <div class="frame">
-        <iframe [src]="item.embed | sanitize:'rurl'" frameborder="0" allowfullscreen class="video"></iframe>
+<div class="container">
+  <ng-container *ngFor="let item of datasets">
+    <div class="item">
+      <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
+      <div class="content">
+        <div>{{item.owner.nickName}} · <span class="time">{{item.date|moment}}</span></div>
+        <div [innerHTML]="item?.cont|autolink|sanitize:'html'"></div>
+        <ng-container *ngIf="item.pics">
+          <mat-grid-list class="imgcont" [cols]="item.pics.length" *ngIf="item.pics.length > 1;else onepic">
+            <mat-grid-tile *ngFor="let pic of item.pics;let fir=first;let i=index" [colspan]='fir ? item.pics.length-1 : 1'
+              [rowspan]="fir ? item.pics.length-1 : 1">
+              <img [src]="pic.split('.').shift()+'_thb.jpeg'" (click)="openDetail(detail, i, item)" class="thumb">
+            </mat-grid-tile>
+          </mat-grid-list>
+          <ng-template #onepic>
+            <div class="imgcont">
+              <img [src]="item.pics[0]">
+            </div>
+          </ng-template>
+        </ng-container>
+        <div class="action">
+          <mat-icon style="color: green" (click)="openComment(comment, item.id)">
+            question_answer
+          </mat-icon>
+          <span>{{item.comments}}</span>
+          <span class="spacer"></span>
+          <mat-icon style="color: red" (click)="like(item, '2')">
+            {{item.isliked ? 'favorite' : 'favorite_border'}}
+          </mat-icon>
+          <span>{{item.likes}}</span>
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+        </div>
       </div>
     </div>
-    <div class="gallery" [style.grid-template-columns]="item.pics.length===1 ? '1fr' : item.pics.length > 4 ? '1fr 1fr 1fr' : '1fr 1fr'"
-      *ngIf="item.pics">
-      <img [src]="pic + '_thb.jpeg'" *ngFor="let pic of item.pics;let i=index" (click)="openDetail(detail, i, item)">
-    </div>
-    <div class="action">
-      <span class="spacer"></span>
-      <mat-icon style="color: blue" (click)="openComment(comment, item.id)">
-        comment
-      </mat-icon>
-      <span>{{item.comments}}</span>
-      <mat-icon style="color: red" (click)="like(item, '2')">
-        {{item.isliked ? 'favorite' : 'favorite_border'}}
-      </mat-icon>
-      <span>{{item.likes}}</span>
-    </div>
-  </div>
-</ng-template>
+    <mat-divider></mat-divider>
+  </ng-container>
+</div>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
 <ng-template #comment let-data>
-  <div style="margin: -14px;">
+  <div style="margin: -14px;max-height: 80vh;overflow: auto">
     <mist-comment [item]='data.id' [type]="'2'" (commed)="onSendCom($event, data.id)"></mist-comment>
   </div>
 </ng-template>
 <ng-template #detail let-data>
-  <div class="detail">
-    <div class='ac'>
-      <div (click)="data.index = data.index === 0 ? data.ref.pics.length-1 : data.index-1"></div>
-      <div (click)="_msg.dialogRef.close()"></div>
-      <div (click)="data.index = data.index===data.ref.pics.length-1 ? 0 : data.index+1"></div>
-    </div>
-    <img [src]="data.ref.pics[data.index]" class="viewimg" mistLoader>
+  <div class="img-container">
+    <img [src]="data.ref.pics[data.index]" mistLoader (swipeleft)="next(data)" (swiperight)="pre(data)">
   </div>
 </ng-template>

@@ -10,7 +10,8 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatDividerModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatGridListModule
 } from '@angular/material';
 import { PostComponent } from './post/post.component';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     MatDividerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule
   ]
 })
 export class CommunityModule {}

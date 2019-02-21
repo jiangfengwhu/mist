@@ -15,7 +15,9 @@ import {
   MatCheckboxModule,
   MatPaginatorModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatGridListModule,
+  MatDividerModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -52,7 +54,9 @@ import { GalleryComponent } from './gallery/gallery.component';
     MatCheckboxModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule,
+    MatDividerModule
   ]
 })
 export class UserModule {}

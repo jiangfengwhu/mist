@@ -1,57 +1,74 @@
 .container {
-  padding: 5px;
-  display: grid;
-  grid-template-columns: 135px auto;
-  grid-auto-rows: 135px;
-  grid-gap: 5px;
-}
+  max-width: 600px;
+  padding: 10px;
+  margin: auto;
 
-.gallery {
-  display: grid;
-  grid-auto-rows: 1fr;
-  grid-gap: 1px;
-
-  >img {
-    width: 100%;
-    cursor: pointer;
+  .item {
+    display: flex;
   }
 }
 
-.body {
-  padding: 5px;
+.avatar {
+  background-size: cover;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  margin-right: 10px;
+  flex: 0 0 48px;
+}
+
+.mat-divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.time {
+  font-size: 13px;
+  color: gray;
+}
+
+.content {
   word-break: break-all;
   white-space: pre-line;
-  overflow: auto;
-  background: rgba(lightgray, 0.3);
-  >div{
-    display: flex;
-    align-items: center;
-    border-bottom: 1px gray solid;
-    margin-bottom: 5px;
+  width: 100%;
+
+  .imgcont {
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+
+    >img {
+      width: 100%;
+    }
   }
 }
 
-.viewimg {
-  max-width: 100%;
-  display: block;
-}
-.detail {
-  display: flex;
+.thumb {
   width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.action {
+  margin-top: 10px;
+  display: flex;
   align-items: center;
-  .ac {
-    position: absolute;
-    display: flex;
-    width: 100%;
-    height: 200%;
-    :nth-child(1) {
-      width: 40%;
-    }
-    :nth-child(2) {
-      width: 20%;
-    }
-    :nth-child(3) {
-      width: 40%;
-    }
+  font-size: 16px;
+
+  .mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+.img-container {
+  >img {
+    object-fit: contain;
+    max-height: 85vh;
+    max-width: 100vw;
   }
 }

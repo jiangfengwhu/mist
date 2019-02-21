@@ -1,34 +1,53 @@
 <div class="container">
-  <ng-container *ngFor="let item of datasets;let i=index">
-    <div class="gallery" [style.grid-template-columns]="!item.pics || item.pics.length===1 ? '1fr' : '1fr 1fr'">
-      <ng-container *ngIf="item.pics">
-        <img [src]="img+'_thb.jpeg'" *ngFor="let img of item.pics.slice(0, 4);let j=index" (click)="openDetail(detail, j, item)">
-      </ng-container>
-    </div>
-    <div class="body" [style.margin-left]="item.pics ? '' : '-140px'">
-      <div>
-        <span>{{item.date*1000|date:'medium'}}</span>
-        <span class="spacer"></span>
-        <button mat-icon-button (click)="_msg.openConfirm('确认删除此条状态吗？(不可恢复)', delComms(i))" *ngIf='showUser.authed'>
-          <mat-icon>
+  <ng-container *ngFor="let item of datasets;let ti=index">
+    <div class="item">
+      <div class="avatar" [style.background-image]="'url('+(showUser.avatar || 'assets/da.jpg') +')'"></div>
+      <div class="content">
+        <div>{{showUser.nickName}} · <span class="time">{{item.date|moment}}</span></div>
+        <div [innerHTML]="item?.cont|autolink|sanitize:'html'">
+        </div>
+        <ng-container *ngIf="item.pics">
+          <mat-grid-list class="imgcont" [cols]="item.pics.length" *ngIf="item.pics.length > 1;else onepic">
+            <mat-grid-tile *ngFor="let pic of item.pics;let fir=first;let i=index" [colspan]='fir ? item.pics.length-1 : 1'
+              [rowspan]="fir ? item.pics.length-1 : 1">
+              <img [src]="pic.split('.').shift()+'_thb.jpeg'" (click)="openDetail(detail, i, item)" class="thumb">
+            </mat-grid-tile>
+          </mat-grid-list>
+          <ng-template #onepic>
+            <div class="imgcont">
+              <img [src]="item.pics[0]">
+            </div>
+          </ng-template>
+        </ng-container>
+        <div class="action">
+          <mat-icon style="color: green" (click)="openComment(comment, item.id)">
+            question_answer
+          </mat-icon>
+          <span>{{item.comments}}</span>
+          <span class="spacer"></span>
+          <mat-icon style="color: red" (click)="like(item, '2')">
+            {{item.isliked ? 'favorite' : 'favorite_border'}}
+          </mat-icon>
+          <span>{{item.likes}}</span>
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+          <mat-icon (click)="_msg.openConfirm('确认删除此条状态吗？(不可恢复)', delComms(ti))" *ngIf='showUser.authed'>
             delete
           </mat-icon>
-        </button>
+        </div>
       </div>
-      {{item.cont}}
-      <br>
-      {{item?.embed}}
     </div>
+    <mat-divider></mat-divider>
   </ng-container>
 </div>
-
+<ng-template #comment let-data>
+  <div style="margin: -14px;max-height: 80vh;overflow: auto">
+    <mist-comment [item]='data.id' [type]="'2'" (commed)="onSendCom($event, data.id)"></mist-comment>
+  </div>
+</ng-template>
 <ng-template #detail let-data>
-  <div class="detail">
-    <div class='ac'>
-      <div (click)="data.index = data.index === 0 ? data.ref.pics.length-1 : data.index-1"></div>
-      <div (click)="_msg.dialogRef.close()"></div>
-      <div (click)="data.index = data.index===data.ref.pics.length-1 ? 0 : data.index+1"></div>
-    </div>
-    <img [src]="data.ref.pics[data.index]" class="viewimg" mistLoader>
+  <div class="img-container">
+    <img [src]="data.ref.pics[data.index]" mistLoader (swipeleft)="next(data)" (swiperight)="pre(data)">
   </div>
 </ng-template>

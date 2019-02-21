@@ -15,6 +15,7 @@ import { DashDirective } from './dash.directive';
 import { CommentComponent } from './comment/comment.component';
 import { MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AutolinkPipe } from './autolink.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SanitizePipe,
     LoaderDirective,
     DashDirective,
-    CommentComponent
+    CommentComponent,
+    AutolinkPipe
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SanitizePipe,
     LoaderDirective,
     DashDirective,
-    CommentComponent
+    CommentComponent,
+    AutolinkPipe
   ]
 })
 export class SharedModule {}

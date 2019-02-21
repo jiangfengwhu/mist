@@ -58,7 +58,12 @@ a {
   color: inherit;
   cursor: pointer;
 }
-
+.autolinka {
+  color: pink;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 // cropperjs
 @import "~cropperjs/dist/cropper.min.css";
 

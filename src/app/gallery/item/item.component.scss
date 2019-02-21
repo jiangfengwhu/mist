@@ -1,6 +1,5 @@
 .container {
-  display: grid;
-  grid-template-columns: auto 300px;
+  display: flex;
 
   .img-container {
     position: relative;
@@ -43,6 +42,7 @@
   }
 
   .info-container {
+    width: 300px;
     display: flex;
     flex-direction: column;
 
