@@ -19,22 +19,30 @@
           </ng-template>
         </div>
       </div>
+      <div class="wrapper">
+        <video [src]="videoUrl|sanitize:'url'" *ngIf="videoUrl"></video>
+        <div class="msg">
+          <strong>{{videoItem.msg}}</strong>
+        </div>
+      </div>
     </div>
     <div class="info">
-      <button mat-icon-button (click)="infile.click()">
+      <button mat-icon-button (click)="infile.click()" [disabled]="videoItem.file">
         <mat-icon>
           photo
         </mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="invideo.click()" [disabled]="imgItem.length > 0">
         <mat-icon>
-          location_on
+          videocam
         </mat-icon>
       </button>
       <span class="spacer"></span>
       <button mat-button routerLink="../">取消</button>
-      <button mat-button (click)="submit()" [disabled]='!(cont||imgItem.length)' mistUpButton [progress]="isSubmitting">发布</button>
+      <button mat-button (click)="submit()" [disabled]='!(cont||imgItem.length||videoItem.file)' mistUpButton
+        [progress]="isSubmitting">发布</button>
     </div>
   </div>
 </div>
 <input multiple #infile (change)="addFiles(infile.files)" type="file" accept="image/*" style="display: none">
+<input #invideo (change)="addVideo(invideo.files)" type="file" accept="video/mp4" style="display: none">

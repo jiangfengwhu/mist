@@ -4,6 +4,8 @@ import { ScreenService } from 'src/app/screen.service';
 import { getMD5 } from 'src/app/utils/md5.function';
 import { CommunityService } from '../community.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'src/app/message.service';
+import { Uploader } from 'src/app/utils/uploader';
 
 @Component({
   selector: 'mist-post',
@@ -14,21 +16,28 @@ export class PostComponent implements OnInit, OnDestroy {
   cont: string;
   postForm = {
     cont: '',
-    pics: []
+    pics: [],
+    embed: '',
   };
   imgItem = [];
+  videoItem: any = {
+    file: null,
+  };
+  videoUrl: any;
   isSubmitting = false;
   constructor(
     public auth: AuthService,
     public screen: ScreenService,
     private comm: CommunityService,
-    private router: Router
+    private router: Router,
+    private _msg: MessageService
   ) {}
 
   ngOnDestroy() {
     for (let i = 0; i < this.imgItem.length; i++) {
       URL.revokeObjectURL(this.imgItem[i].url);
     }
+    URL.revokeObjectURL(this.videoUrl);
   }
   ngOnInit() {}
   addFiles(file: FileList) {
@@ -46,6 +55,17 @@ export class PostComponent implements OnInit, OnDestroy {
       }
     }
   }
+  addVideo(file: FileList) {
+    const vfile = file[0];
+    if (vfile.size > 15 * 1024 * 1024) {
+      this._msg.openBar('视频文件不能超过15MB');
+      return;
+    }
+    URL.revokeObjectURL(this.videoUrl);
+    this.videoUrl = URL.createObjectURL(vfile);
+    this.videoItem.file = vfile;
+    this.videoItem.msg = '准备上传';
+  }
   submit() {
     this.isSubmitting = true;
     this.uploadImage(0);
@@ -54,8 +74,7 @@ export class PostComponent implements OnInit, OnDestroy {
     URL.revokeObjectURL(this.imgItem[index].url);
     this.imgItem.splice(index, 1);
   }
-  addOne() {
-    this.postForm.cont = this.cont;
+  addCircle() {
     this.comm.addCircle(this.postForm).subscribe(re => {
       this.isSubmitting = false;
       if (re['status']) {
@@ -63,9 +82,34 @@ export class PostComponent implements OnInit, OnDestroy {
       }
     });
   }
+  uploadVideo() {
+    this.postForm.cont = this.cont;
+    if (this.videoItem.file) {
+      const uploader = new Uploader(this.comm.http, {
+        url: '/api/uploadfile',
+        file: this.videoItem
+      });
+      uploader.upload().then(re => {
+        console.log(re);
+        if (re) {
+          if (re['index'] === -1) {
+            this.videoItem.msg = '文件已存在';
+          } else {
+            this.postForm.embed = uploader.md5;
+            this.addCircle();
+          }
+        }
+      }).catch(e => {
+        this.isSubmitting = false;
+        console.log(e);
+      });
+    } else {
+      this.addCircle();
+    }
+  }
   uploadImage(index: number) {
     if (index >= this.imgItem.length) {
-      this.addOne();
+      this.uploadVideo();
       return;
     }
     this.imgItem[index].deletable = false;

@@ -67,6 +67,9 @@ video {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 14px;
 }
 
 img {
@@ -78,7 +81,8 @@ img {
   grid-template-columns: 60px auto;
   grid-gap: 10px;
   align-items: center;
-  white-space: pre-line;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .avatar {

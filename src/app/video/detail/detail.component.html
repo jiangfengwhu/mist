@@ -17,15 +17,11 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="video">
-      <video mistDash controls [src]="video.path" [poster]="video.cover" playsinline></video>
-      <!-- <ng-template mistP2pvideo [torrent]="video.videos[currentVideo].path" #btclient="p2pVideo">
-        <video controls [poster]="video.videos[currentVideo].cover"></video>
-      </ng-template>
+      <video mistP2PHls controls [src]="video.path" [poster]="video.cover" playsinline #peervideo="p2pHls"></video>
       <div class="btinfo">
-        <span>Peers: {{btclient.getInfo()?.numPeers}}</span>
-        <span>下载: {{(btclient.getInfo()?.downloadSpeed | numeric) + '/s'}}</span>
-        <span>上传: {{(btclient.getInfo()?.uploadSpeed | numeric) + '/s'}}</span>
-      </div> -->
+        <span>Peers: {{peervideo.numPeers}}</span>
+        <span>上传: {{(peervideo.uploaded | numeric)}}</span>
+      </div>
     </div>
     <div class="header">
       <h2>{{video.title}}</h2>

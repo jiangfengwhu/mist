@@ -11,11 +11,12 @@ import { NumericPipe } from './numeric.pipe';
 import { CropperDirective } from './cropper.directive';
 import { SanitizePipe } from './sanitize.pipe';
 import { LoaderDirective } from './loader.directive';
-import { DashDirective } from './dash.directive';
+import { P2PHlsDirective } from './p2phls.directive';
 import { CommentComponent } from './comment/comment.component';
 import { MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutolinkPipe } from './autolink.pipe';
+import { HlsDirective } from './hls.directive';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,10 @@ import { AutolinkPipe } from './autolink.pipe';
     CropperDirective,
     SanitizePipe,
     LoaderDirective,
-    DashDirective,
+    P2PHlsDirective,
     CommentComponent,
-    AutolinkPipe
+    AutolinkPipe,
+    HlsDirective
   ],
   imports: [
     CommonModule,
@@ -54,9 +56,10 @@ import { AutolinkPipe } from './autolink.pipe';
     CropperDirective,
     SanitizePipe,
     LoaderDirective,
-    DashDirective,
+    P2PHlsDirective,
     CommentComponent,
-    AutolinkPipe
+    AutolinkPipe,
+    HlsDirective
   ]
 })
 export class SharedModule {}

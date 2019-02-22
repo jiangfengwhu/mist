@@ -50,7 +50,10 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/p2p-media-loader-core/build/p2p-media-loader-core.min.js",
+              "./node_modules/p2p-media-loader-hlsjs/build/p2p-media-loader-hlsjs.min.js"
+            ]
           },
           "configurations": {
             "production": {

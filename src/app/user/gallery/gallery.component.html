@@ -1,6 +1,6 @@
 <div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
-  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item" [routerLink]="'/gallery/'+ga.id">
-    <img [src]="ga.pics[0].split('.').shift()+'_thb.jpeg'">
+  <div *ngFor="let ga of gas;let i=index" class="mat-elevation-z6 item">
+    <img [src]="ga.pics[0].split('.').shift()+'_thb.jpeg'" [routerLink]="'/gallery/'+ga.id">
     <div class="indicate">
       <mat-icon *ngIf="ga.cont">title</mat-icon>
       <mat-icon *ngIf="ga.pics.length > 1">view_carousel</mat-icon>

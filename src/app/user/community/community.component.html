@@ -19,6 +19,10 @@
             </div>
           </ng-template>
         </ng-container>
+        <div class="imgcont" *ngIf="item.embed">
+          <video [src]="item.embed" [poster]="item.cover" mistHls playsinline preload="none" #embedv></video>
+          <mat-icon *ngIf="!embedv.controls && embedv.paused">play_circle_outline</mat-icon>
+        </div>
         <div class="action">
           <mat-icon style="color: green" (click)="openComment(comment, item.id)">
             question_answer

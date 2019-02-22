@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MessageService } from '../message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunityService {
 
-  constructor(private http: HttpClient, private _msg: MessageService) { }
+  constructor(public http: HttpClient) { }
   uploadImages(form: FormData) {
     return this.http.post('/api/uploadImage', form);
   }

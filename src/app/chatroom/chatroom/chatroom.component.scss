@@ -16,7 +16,8 @@
 .chat {
   max-height: 450px;
   overflow: auto;
-  white-space: pre-line;
+  white-space: pre-wrap;
+  word-break: break-all;
   padding-top: 10px;
 }
 .avatar {

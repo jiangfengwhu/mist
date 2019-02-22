@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
 import { ActivatedRoute } from '@angular/router';
 import { VideoService } from '../video.service';
@@ -7,13 +13,18 @@ import { VideoService } from '../video.service';
   selector: 'mist-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoComponent implements OnInit, OnDestroy {
   isLoading = false;
   seq = 1;
   videos: any[];
-  constructor(public screen: ScreenService, private route: ActivatedRoute, public _video: VideoService) { }
+  constructor(
+    public screen: ScreenService,
+    private route: ActivatedRoute,
+    public _video: VideoService,
+    private changedec: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data: { videos: any }) => {
@@ -26,9 +37,14 @@ export class VideoComponent implements OnInit, OnDestroy {
   }
   listenScr = () => {
     const doc = document.documentElement;
-    const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
+    const scrollTop = Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
     if (doc.scrollHeight === scrollTop + doc.offsetHeight) {
       this.isLoading = true;
+      this.changedec.markForCheck();
       this._video.getLatest(this.seq++, 12).subscribe((re: any[]) => {
         this.isLoading = false;
         if (re) {
@@ -39,6 +55,7 @@ export class VideoComponent implements OnInit, OnDestroy {
         } else {
           window.removeEventListener('scroll', this.listenScr);
         }
+        this.changedec.markForCheck();
       });
       window.removeEventListener('scroll', this.listenScr);
     }

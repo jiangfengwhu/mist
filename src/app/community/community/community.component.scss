@@ -40,14 +40,23 @@
 
 .content {
   word-break: break-all;
-  white-space: pre-line;
+  white-space: pre-wrap;
   width: 100%;
 
   .imgcont {
+    position: relative;
     margin-top: 10px;
     border-radius: 12px;
     overflow: hidden;
-
+    .mat-icon {
+      position: absolute;
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      top: calc(50% - 24px);
+      left: calc(50% - 24px);
+      color: pink;
+    }
     >img {
       width: 100%;
     }
@@ -82,4 +91,8 @@
     max-height: 85vh;
     max-width: 100vw;
   }
+}
+video {
+  width: 100%;
+  border-radius: 12px;
 }
