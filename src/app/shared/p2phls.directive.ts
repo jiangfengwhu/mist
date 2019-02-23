@@ -11,9 +11,18 @@ export class P2PHlsDirective implements OnDestroy {
       this.videoele.pause();
       this.videoele.src = tmp;
     } else {
-      this.hls.detachMedia();
-      this.hls.loadSource(tmp);
-      this.hls.attachMedia(this.videoele);
+      if (this.hls) {
+        this.hls.detachMedia();
+        this.hls.destroy();
+        this.engine.destroy();
+        this.initP2P();
+        this.hls.loadSource(tmp);
+        this.hls.attachMedia(this.videoele);
+      } else {
+        this.initP2P();
+        this.hls.loadSource(tmp);
+        this.hls.attachMedia(this.videoele);
+      }
     }
   }
   videoele: HTMLVideoElement;
@@ -26,7 +35,6 @@ export class P2PHlsDirective implements OnDestroy {
     this.videoele = this.eleref.nativeElement;
     if (Hls.isSupported()) {
       this.isNative = false;
-      this.initP2P();
     } else {
       this.isNative = true;
     }
@@ -61,16 +69,17 @@ export class P2PHlsDirective implements OnDestroy {
       loader: this.engine.createLoaderClass()
     });
     p2pml.hlsjs.initHlsJsPlayer(this.hls);
-    const loader = this.engine.getSettings().loader;
-    console.log(loader);
-    this.engine.on(p2pml.core.Events.PeerConnect, (peer) => {
+    this.engine.on(p2pml.core.Events.PeerConnect, peer => {
       ++this.numPeers;
     });
-    this.engine.on(p2pml.core.Events.PeerClose, (peer) => {
+    this.engine.on(p2pml.core.Events.PeerClose, peer => {
       --this.numPeers;
     });
-    this.engine.on(p2pml.core.Events.PieceBytesUploaded, (method, bytes, peerId) => {
-      this.uploaded += bytes;
-    });
+    this.engine.on(
+      p2pml.core.Events.PieceBytesUploaded,
+      (method, bytes, peerId) => {
+        this.uploaded += bytes;
+      }
+    );
   }
 }

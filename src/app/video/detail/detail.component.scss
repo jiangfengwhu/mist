@@ -30,6 +30,7 @@
       height: 3em;
       line-height: 1.5em;
       overflow: hidden;
+      word-break: break-all;
     }
   }
 }
@@ -45,6 +46,7 @@
 .header {
   display: flex;
   align-items: center;
+  word-break: break-all;
 }
 
 .mat-sidenav-content {

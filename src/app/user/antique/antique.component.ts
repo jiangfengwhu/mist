@@ -80,6 +80,7 @@ export class AntiqueComponent implements OnInit {
             return true;
           });
           this.selection.clear();
+          this.columnsDef.shift();
         }
       })
     );
