@@ -18,7 +18,11 @@ export class UploadComponent implements OnInit {
     {tid: 1, desc: '娱乐'},
     {tid: 2, desc: '游戏'},
     {tid: 3, desc: '日常'},
-    {tid: 4, desc: '科教'},
+    {tid: 4, desc: '科技'},
+    {tid: 5, desc: '学习'},
+    {tid: 6, desc: '搞笑'},
+    {tid: 7, desc: '音乐'},
+    {tid: 8, desc: '资讯'},
   ];
   constructor(public screen: ScreenService, private _fb: FormBuilder, private _video: VideoService) { }
 
@@ -33,6 +37,7 @@ export class UploadComponent implements OnInit {
       this.uploadForm.push(this._fb.group({
         title: [files[i].name.substr(0, files[i].name.lastIndexOf('.')), [Validators.required]],
         tag: [1, [Validators.required]],
+        coverPos: [5, [Validators.min(0), Validators.required, Validators.max(65534)]],
         desc: [''],
       }));
     }

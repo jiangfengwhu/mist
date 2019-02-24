@@ -34,6 +34,11 @@
             <mat-label>视频描述</mat-label>
             <textarea matInput cdkTextareaAutosize formControlName="desc"></textarea>
           </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>封面位置(秒)</mat-label>
+            <input matInput formControlName="coverPos" type="number">
+            <mat-error>视频封面位置是必须的</mat-error>
+          </mat-form-field>
         </form>
         <mat-divider></mat-divider>
       </div>
