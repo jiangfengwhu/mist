@@ -12,7 +12,7 @@ export class HomeResolverService {
   constructor(private comm: CommunityService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-    return this.comm.getLatest(0, 12).pipe(
+    return this.comm.getLatest(0, 20).pipe(
       take(1),
       mergeMap(comms => {
         if (comms) {

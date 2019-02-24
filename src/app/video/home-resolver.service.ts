@@ -12,7 +12,7 @@ export class HomeResolverService implements Resolve<any> {
   constructor(private video: VideoService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-    return this.video.getLatest(0, 12).pipe(
+    return this.video.getLatest(0, 20).pipe(
       take(1),
       mergeMap(videos => {
         if (videos) {

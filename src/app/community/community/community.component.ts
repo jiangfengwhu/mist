@@ -95,7 +95,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
     );
     if (doc.scrollHeight === scrollTop + doc.offsetHeight) {
       this.isLoading = true;
-      this.comm.getLatest(this.seq++, 12).subscribe((re: any[]) => {
+      this.comm.getLatest(this.seq++, 20).subscribe((re: any[]) => {
         this.isLoading = false;
         if (re) {
           re.forEach(tp => {

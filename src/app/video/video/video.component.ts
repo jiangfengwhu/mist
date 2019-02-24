@@ -45,7 +45,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     if (doc.scrollHeight === scrollTop + doc.offsetHeight) {
       this.isLoading = true;
       this.changedec.markForCheck();
-      this._video.getLatest(this.seq++, 12).subscribe((re: any[]) => {
+      this._video.getLatest(this.seq++, 20).subscribe((re: any[]) => {
         this.isLoading = false;
         if (re) {
           re.forEach(tp => {
