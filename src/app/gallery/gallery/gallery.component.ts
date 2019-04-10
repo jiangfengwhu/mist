@@ -49,7 +49,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
       document.documentElement.scrollTop,
       document.body.scrollTop
     );
-    if (doc.scrollHeight === scrollTop + doc.offsetHeight) {
+    if (doc.scrollHeight <= scrollTop + doc.offsetHeight + 100) {
       this.isLoading = true;
       this.ga.getLatest(this.seq++, 20).subscribe((re: any[]) => {
         this.isLoading = false;
