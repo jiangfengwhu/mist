@@ -36,7 +36,7 @@ export class VideoComponent implements OnInit {
       if (re[0]) {
         this.tagVideos[tag] = re[0];
       } else {
-        this.seq[tag] = 1;
+        this.seq[tag] = 0;
         this.refresh(tag);
       }
       this.isLoading[tag] = false;
