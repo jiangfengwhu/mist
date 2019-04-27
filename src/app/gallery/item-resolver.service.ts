@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 import { GalleryService } from './gallery.service';
@@ -7,8 +7,8 @@ import { GalleryService } from './gallery.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ItemResolverService {
-  constructor(private ga: GalleryService, private router: Router) {}
+export class ItemResolverService implements Resolve<any> {
+  constructor(private ga: GalleryService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     const id = route.paramMap.get('id');

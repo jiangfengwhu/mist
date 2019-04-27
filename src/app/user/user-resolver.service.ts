@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { take, mergeMap } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolverService {
+export class UserResolverService implements Resolve<any> {
   constructor(private user: UserService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = route.paramMap.get('id');

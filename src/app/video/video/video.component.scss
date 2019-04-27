@@ -1,22 +1,36 @@
-.mat-chip-list {
+.avatar {
   position: absolute;
-  right: 5px;
-  top: 5px;
-  opacity: 0.8;
+  right: 8px;
+  top: 8px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-size: cover;
+  opacity: 0;
+  transition: 0.3s;
 }
+
+.item:hover .avatar {
+  opacity: 1;
+}
+
 .info {
   display: flex;
+
   padding: {
     left: 8px;
     right: 8px;
     bottom: 8px;
   }
+
   align-items: center;
   font-size: 14px;
+
   .mat-icon {
     font-size: 18px;
     height: 18px;
     width: 18px;
+
     margin: {
       left: 3px;
       right: 3px;
@@ -26,20 +40,20 @@
 
 .container {
   display: grid;
-  padding: 8px;
   grid-gap: 8px;
-  max-width: 1200px;
-  margin: auto;
 }
+
 img {
   width: 100%;
 }
+
 .item {
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
   overflow: hidden;
+
   .title {
     margin: 8px;
     max-height: 3em;
@@ -54,6 +68,39 @@ img {
   bottom: 35px;
   right: 35px;
 }
-.mat-progress-spinner {
-  margin: 15px auto;
+
+.wrapper {
+  padding: 8px;
+  max-width: 1200px;
+  margin: auto;
+
+  .tag {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 5px;
+
+    >div {
+      display: flex;
+      cursor: pointer;
+    }
+
+    >a {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

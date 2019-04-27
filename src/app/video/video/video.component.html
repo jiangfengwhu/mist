@@ -1,31 +1,39 @@
-<div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
-  <div *ngFor="let video of videos" class="item mat-elevation-z1">
-    <a [routerLink]="['/video', video.id]"><img [src]="video.cover" [matTooltip]="video.title"></a>
-    <mat-chip-list>
-      <mat-chip [routerLink]="['/user', video.owner.uid, 'videos']">
-        <img [src]="video.owner.avatar || 'assets/da.jpg'" matChipAvatar>
-        {{video.owner.nickName}}
-      </mat-chip>
-    </mat-chip-list>
-    <div class="title">
-      {{video.title}}
+<div *ngFor="let videos of tagVideos;let ti=index" class="wrapper">
+  <div class="tag">
+    <a [routerLink]="['/video/category', ti + 1]">{{_video.tags[ti]}}</a>
+    <span class="spacer"></span>
+    <div (click)="refresh(ti)">
+      <mat-icon [class.spin]="isLoading[ti]">refresh</mat-icon>
+      <span>换一批</span>
     </div>
-    <div class="spacer"></div>
-    <div class="info">
-      <span>{{video.date | moment}}</span>
-      <span class="spacer"></span>
-      <mat-icon style="color: green">play_circle_outline</mat-icon>
-      <span>{{video.view | quantity}}</span>
-      <mat-icon color="warn">favorite</mat-icon>
-      <span>{{video.likes | quantity}}</span>
-      <ng-container *ngIf="video.comments">
-        <mat-icon style="color: blue">comment</mat-icon>
-        <span>{{video.comments}}</span>
-      </ng-container>
+  </div>
+  <div class="container" [style.grid-template-columns]="'repeat('+(screen.currentScreen+1)+ ', 1fr)'|sanitize:'style'">
+    <div *ngFor="let video of videos" class="item mat-elevation-z1">
+      <a [routerLink]="['/video', video.id]"><img [src]="video.cover"></a>
+      <a [routerLink]="['/user', video.owner.uid, 'videos']">
+        <div class="avatar mat-elevation-z1"
+          [style.background-image]="'url('+(video.owner.avatar || 'assets/da.jpg') +')'"
+          [matTooltip]="video.owner.nickName"></div>
+      </a>
+      <div class="title">
+        {{video.title}}
+      </div>
+      <div class="spacer"></div>
+      <div class="info">
+        <span>{{video.date | moment}}</span>
+        <span class="spacer"></span>
+        <mat-icon style="color: green">play_circle_outline</mat-icon>
+        <span>{{video.view | quantity}}</span>
+        <mat-icon color="warn">favorite</mat-icon>
+        <span>{{video.likes | quantity}}</span>
+        <ng-container *ngIf="video.comments">
+          <mat-icon style="color: blue">comment</mat-icon>
+          <span>{{video.comments}}</span>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
-<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
 <button mat-fab routerLink="/video/upload">
   <mat-icon>
     video_call

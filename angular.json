@@ -51,8 +51,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/p2p-media-loader-core/build/p2p-media-loader-core.min.js",
-              "./node_modules/p2p-media-loader-hlsjs/build/p2p-media-loader-hlsjs.min.js"
+              "./node_modules/p2p-media-loader-core/build/p2p-media-loader-core.js",
+              "./node_modules/p2p-media-loader-hlsjs/build/p2p-media-loader-hlsjs.js"
             ]
           },
           "configurations": {

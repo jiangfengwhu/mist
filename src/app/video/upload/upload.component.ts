@@ -14,19 +14,9 @@ export class UploadComponent implements OnInit {
   uploadForm = this._fb.array([], Validators.required);
   uploadfiles = [];
   upIndex = 0;
-  tags = [
-    {tid: 1, desc: '娱乐'},
-    {tid: 2, desc: '游戏'},
-    {tid: 3, desc: '日常'},
-    {tid: 4, desc: '科技'},
-    {tid: 5, desc: '学习'},
-    {tid: 6, desc: '搞笑'},
-    {tid: 7, desc: '音乐'},
-    {tid: 8, desc: '资讯'},
-  ];
-  constructor(public screen: ScreenService, private _fb: FormBuilder, private _video: VideoService) { }
+  constructor(public screen: ScreenService, private _fb: FormBuilder, public _video: VideoService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   addFiles(files: FileList) {
     for (let i = 0; i < files.length; ++i) {
       this.uploadfiles.push({

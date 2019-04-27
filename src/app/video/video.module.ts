@@ -26,9 +26,10 @@ import { UploadComponent } from './upload/upload.component';
 import { DetailComponent } from './detail/detail.component';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { UpdateComponent } from './update/update.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
-  declarations: [VideoComponent, CreateComponent, UploadComponent, DetailComponent, UpdateComponent],
+  declarations: [VideoComponent, CreateComponent, UploadComponent, DetailComponent, UpdateComponent, CategoryComponent],
   imports: [
     CommonModule,
     VideoRoutingModule,
@@ -52,4 +53,4 @@ import { UpdateComponent } from './update/update.component';
     MatTooltipModule
   ]
 })
-export class VideoModule {}
+export class VideoModule { }

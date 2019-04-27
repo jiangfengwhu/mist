@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class VideoService {
+  tags = ['番剧', '电影', '学习', '游戏', '音乐', '日常', '资讯', '科技', '搞笑', '鬼畜', '舞蹈'];
 
   constructor(public http: HttpClient) { }
   createCollection(form: any) {
@@ -16,8 +17,8 @@ export class VideoService {
   changeCover(form: any) {
     return this.http.post('/api/changeVC', form);
   }
-  getLatest(id: number, size: number) {
-    return this.http.get(`/api/getVideo?fi=${id}&size=${size}`);
+  getLatest(id: number, size: number, tag: number) {
+    return this.http.get(`/api/getVideo?fi=${id}&size=${size}&tag=${tag}`);
   }
   getVideo(id: string) {
     return this.http.get('/api/getVideo/' + id);

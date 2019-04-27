@@ -1,0 +1,15 @@
+<mat-tab-group [selectedIndex]="id$|async" (selectedIndexChange)="indexChange($event)">
+  <mat-tab *ngFor="let tag of videoservice.tags" [label]="tag">
+    <div class="container">
+      <div *ngFor="let data of datasets" class="item">
+        <a [routerLink]="['/video', data.id]"><img [src]="data.cover"></a>
+        <div class="info">
+          <div class="title">{{data.title}}</div>
+          <div class="spacer"></div>
+          <div>{{data.date|moment}} | {{data.owner.nickName}}</div>
+        </div>
+      </div>
+    </div>
+    <mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>
+  </mat-tab>
+</mat-tab-group>

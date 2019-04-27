@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { CommunityService } from './community.service';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeResolverService {
+export class HomeResolverService implements Resolve<any> {
 
-  constructor(private comm: CommunityService, private router: Router) {}
+  constructor(private comm: CommunityService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     return this.comm.getLatest(0, 20).pipe(

@@ -24,8 +24,8 @@
           <mat-form-field appearance="outline">
             <mat-label>视频分类</mat-label>
             <mat-select formControlName="tag" required>
-              <mat-option *ngFor="let item of tags" [value]="item.tid">
-                {{item.desc}}
+              <mat-option *ngFor="let item of _video.tags;let tagi=index" [value]="tagi+1">
+                {{item}}
               </mat-option>
             </mat-select>
             <mat-error>请选择一个视频分类</mat-error>
@@ -52,7 +52,8 @@
     </button>
   </div>
   <div class="action">
-    <button mat-stroked-button [disabled]='!uploadForm.valid' (click)="submit()" mistUpButton [progress]="isSubmiting">上传</button>
+    <button mat-stroked-button [disabled]='!uploadForm.valid' (click)="submit()" mistUpButton
+      [progress]="isSubmiting">上传</button>
     <button mat-stroked-button routerLink="/video">结束</button>
   </div>
 </div>
