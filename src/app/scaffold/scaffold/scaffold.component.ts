@@ -26,9 +26,9 @@ export class ScaffoldComponent implements OnInit {
   isFullScreen = false;
   navs = [
     { label: '视频', link: '/video' },
-    { label: '图片', link: '/gallery'},
-    { label: '社区', link: '/community'},
-    { label: '聊天', link: '/chatroom'},
+    { label: '图片', link: '/gallery' },
+    { label: '社区', link: '/community' },
+    { label: '聊天', link: '/chatroom' },
   ];
   constructor(
     public screen: ScreenService,
@@ -37,7 +37,7 @@ export class ScaffoldComponent implements OnInit {
     private router: Router,
     public msg: MessageService,
     private updates: SwUpdate
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.updates.available.subscribe((evt) => {
@@ -80,5 +80,17 @@ export class ScaffoldComponent implements OnInit {
         : elem.webkitRequestFullscreen();
     }
     this.isFullScreen = !this.isFullScreen;
+  }
+  search(val: any) {
+    const urlseg = location.href.split('/');
+    switch (urlseg[3]) {
+      case 'video':
+        this.router.navigate(['/video/search/' + val]);
+        break;
+      case 'community':
+        this.router.navigate(['/community/' + val]);
+        break;
+      default:
+    }
   }
 }

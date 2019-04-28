@@ -6,7 +6,7 @@ import { MessageService } from '../message.service';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient, private _msg: MessageService) {}
+  constructor(private http: HttpClient, private _msg: MessageService) { }
   regist(form: FormData) {
     return this.http.post('/api/regist', form);
   }
@@ -18,6 +18,18 @@ export class UserService {
   }
   myvideo(id: number, size: number) {
     return this.http.get(`/api/myvideo?fi=${id}&size=${size}`);
+  }
+  mylist(id: string) {
+    return this.http.get('/api/listAll/' + id);
+  }
+  addList(title: any) {
+    return this.http.post('/api/newlist', title);
+  }
+  addToList(data: any) {
+    return this.http.put('/api/addtolist', data);
+  }
+  removeFromList(data: any) {
+    return this.http.put('/api/refromlist', data);
   }
   uservideoall(id: string) {
     return this.http.get('/api/videoall/' + id);

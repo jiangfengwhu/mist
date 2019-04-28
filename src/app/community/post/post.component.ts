@@ -31,7 +31,7 @@ export class PostComponent implements OnInit, OnDestroy {
     private comm: CommunityService,
     private router: Router,
     private _msg: MessageService
-  ) {}
+  ) { }
 
   ngOnDestroy() {
     for (let i = 0; i < this.imgItem.length; i++) {
@@ -39,7 +39,7 @@ export class PostComponent implements OnInit, OnDestroy {
     }
     URL.revokeObjectURL(this.videoUrl);
   }
-  ngOnInit() {}
+  ngOnInit() { }
   addFiles(file: FileList) {
     for (let i = 0; i < file.length; i++) {
       if (this.imgItem.length < 4) {
@@ -57,8 +57,8 @@ export class PostComponent implements OnInit, OnDestroy {
   }
   addVideo(file: FileList) {
     const vfile = file[0];
-    if (vfile.size > 15 * 1024 * 1024) {
-      this._msg.openBar('视频文件不能超过15MB');
+    if (vfile.size > 25 * 1024 * 1024) {
+      this._msg.openBar('视频文件不能超过25MB');
       return;
     }
     URL.revokeObjectURL(this.videoUrl);

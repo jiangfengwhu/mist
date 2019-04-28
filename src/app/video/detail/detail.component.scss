@@ -3,8 +3,21 @@
   border-left: 0px;
 }
 
+
 .vscroll {
   height: 100%;
+}
+
+.playlist {
+  height: 300px;
+  border: 1px blueviolet solid;
+  border-radius: 4px;
+}
+
+.listinfo {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
 .recitem {
@@ -25,13 +38,6 @@
     flex-direction: column;
     font-size: 14px;
     color: grey;
-
-    .title {
-      height: 3em;
-      line-height: 1.5em;
-      overflow: hidden;
-      word-break: break-all;
-    }
   }
 }
 
@@ -83,8 +89,6 @@ img {
   grid-template-columns: 60px auto;
   grid-gap: 10px;
   align-items: center;
-  white-space: pre-wrap;
-  word-break: break-all;
 }
 
 .avatar {

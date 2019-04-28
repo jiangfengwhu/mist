@@ -1,10 +1,30 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav position="end" [mode]="!screen.isMobile ? 'side' : 'over'" [opened]="!screen.isMobile">
+    <ng-container *ngIf="video.playlist">
+      <div class="listinfo">正在播放: {{video.listdoc.title}}</div>
+      <cdk-virtual-scroll-viewport itemSize="90" class="playlist">
+        <div *cdkVirtualFor="let vid of video.plists;let i=index" class="recitem"
+          (click)="screen.isMobile ? sidenav.close() : ''" [style.background]="video.id === vid.id ? 'pink' : ''">
+          <a [routerLink]="['/video', vid.id]"><img [src]="vid.cover"></a>
+          <div>
+            <div class="line3">
+              {{vid.title}}
+            </div>
+            <span class="spacer"></span>
+            <div>
+              {{vid.date|moment}} · {{vid.view|quantity}} 播放
+            </div>
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </ng-container>
+    <div class="listinfo">为您推荐</div>
     <cdk-virtual-scroll-viewport itemSize="90" class="vscroll">
-      <div *cdkVirtualFor="let vid of video.recommend;let i=index" class="recitem" (click)="screen.isMobile ? sidenav.close() : ''">
+      <div *cdkVirtualFor="let vid of video.recommend;let i=index" class="recitem"
+        (click)="screen.isMobile ? sidenav.close() : ''">
         <a [routerLink]="['/video', vid.id]"><img [src]="vid.cover"></a>
         <div>
-          <div class="title">
+          <div class="line2">
             {{vid.title}}
           </div>
           <span class="spacer"></span>

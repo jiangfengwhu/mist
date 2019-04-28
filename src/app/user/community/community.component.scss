@@ -28,8 +28,6 @@
 }
 
 .content {
-  word-break: break-all;
-  white-space: pre-wrap;
   width: 100%;
 
   .imgcont {
@@ -37,6 +35,7 @@
     margin-top: 10px;
     border-radius: 12px;
     overflow: hidden;
+
     .mat-icon {
       position: absolute;
       font-size: 48px;
@@ -46,6 +45,7 @@
       left: calc(50% - 24px);
       color: pink;
     }
+
     >img {
       width: 100%;
     }
@@ -81,6 +81,7 @@
     max-width: 100vw;
   }
 }
+
 video {
   width: 100%;
   border-radius: 12px;

@@ -1,4 +1,4 @@
-<button mat-fab routerLink="./post">
+<button mat-fab routerLink="/community/post">
   <mat-icon>
     edit
   </mat-icon>
@@ -12,8 +12,8 @@
         <div [innerHTML]="item?.cont|autolink|sanitize:'html'"></div>
         <ng-container *ngIf="item.pics">
           <mat-grid-list class="imgcont" [cols]="item.pics.length" *ngIf="item.pics.length > 1;else onepic">
-            <mat-grid-tile *ngFor="let pic of item.pics;let fir=first;let i=index" [colspan]='fir ? item.pics.length-1 : 1'
-              [rowspan]="fir ? item.pics.length-1 : 1">
+            <mat-grid-tile *ngFor="let pic of item.pics;let fir=first;let i=index"
+              [colspan]='fir ? item.pics.length-1 : 1' [rowspan]="fir ? item.pics.length-1 : 1">
               <img [src]="pic.split('.').shift()+'_thb.jpeg'" (click)="openDetail(detail, i, item)" class="thumb">
             </mat-grid-tile>
           </mat-grid-list>

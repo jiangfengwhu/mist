@@ -3,31 +3,34 @@
   grid-template-columns: 60px auto;
   grid-gap: 10px;
   align-items: center;
-  white-space: pre-wrap;
-  word-break: break-all;
 }
 
 .reset {
   color: green;
   cursor: pointer;
 }
+
 .avatar {
   height: 60px;
   width: 60px;
   border-radius: 50%;
   background-size: cover;
 }
+
 form {
   display: flex;
   align-items: center;
+
   .mat-form-field {
     flex: 1 1 auto;
   }
+
   .avatar {
     margin-left: 5px;
     margin-right: 10px;
   }
 }
+
 .small {
   height: 40px;
   flex: 0 0 40px;
@@ -60,6 +63,7 @@ form {
   .action {
     display: flex;
     align-items: center;
+
     >span {
       padding-right: 10px;
     }

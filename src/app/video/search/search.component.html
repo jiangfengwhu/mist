@@ -1,0 +1,20 @@
+<h1>
+  Mist视频搜索"{{key$|async}}"结果
+</h1>
+<div class="container" [style.grid-template-columns]="screen.currentScreen <= 2 ? '1fr' : '1fr 1fr'">
+  <div *ngFor="let data of datasets" class="item">
+    <a [routerLink]="['/video', data.id]"><img [src]="data.cover"
+        [style.width]="screen.currentScreen <=2 ? '40vw' : '20vw'"></a>
+    <div class="info">
+      <div class="line3">{{data.title}}</div>
+      <div class="spacer"></div>
+      <div class="footer">
+        <span>{{data.date|moment}}</span>
+        <mat-icon *ngIf="data.playlist">playlist_play</mat-icon>
+        <span class="spacer"></span>
+        <span>{{data.owner.nickName}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-progress-spinner mode="indeterminate" diameter=32 *ngIf="isLoading" color="warn"></mat-progress-spinner>

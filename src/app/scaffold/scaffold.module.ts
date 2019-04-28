@@ -14,6 +14,8 @@ import {
   MatProgressSpinner,
   MatProgressSpinnerModule,
   MatProgressBarModule,
+  MatFormFieldModule,
+  MatInputModule,
 } from '@angular/material';
 import { httpInterceptorProviders } from '../http-interceptors';
 import { HomeComponent } from './home/home.component';
@@ -33,7 +35,9 @@ import { SharedModule } from '../shared/shared.module';
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   entryComponents: [
     MatProgressSpinner,
@@ -41,4 +45,4 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers: [httpInterceptorProviders]
 })
-export class ScaffoldModule {}
+export class ScaffoldModule { }

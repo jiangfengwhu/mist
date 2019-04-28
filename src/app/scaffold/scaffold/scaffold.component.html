@@ -10,6 +10,13 @@
     </button>
     <button mat-button *ngFor="let nav of navs" [routerLink]='nav.link'>{{nav.label}}</button>
   </ng-container>
+  <mat-form-field floatLabel="never" [style.width]="sinput.focused ? '30vw' : '0px'">
+    <mat-label>搜索</mat-label>
+    <input matInput #sinput="matInput" (keydown.enter)="search(sinput.value);sinput.value = ''">
+  </mat-form-field>
+  <button mat-icon-button (click)="sinput.focus()">
+    <mat-icon>search</mat-icon>
+  </button>
   <ng-container *ngIf="auth.user;else log">
     <a [routerLink]="['/user', auth.user.uid, 'community']">
       <div class="avatar" [style.background-image]="'url('+(auth.user.avatar || 'assets/da.jpg') +')'"></div>

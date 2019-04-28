@@ -1,34 +1,38 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VideoService } from '../video.service';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
+import { VideoService } from '../video.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'mist-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'mist-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoryComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, OnDestroy {
   isLoading = false;
-  id$: any;
-  id: number;
-  datasets: any[];
+  key$: any;
+  key: string;
+  datasets: any;
   seq = 1;
   // tslint:disable-next-line:max-line-length
   constructor(private router: ActivatedRoute, public videoservice: VideoService, private route: Router, private changedec: ChangeDetectorRef, public screen: ScreenService) { }
 
   ngOnInit() {
     this.router.data.subscribe((data: any) => {
-      this.seq = 1;
-      this.datasets = data.videos[0];
+      this.datasets = data.videos;
       window.addEventListener('scroll', this.listenScr);
     });
-    this.id$ = this.router.paramMap.pipe(
+    this.key$ = this.router.paramMap.pipe(
       map(re => {
-        this.id = parseInt(re.get('id'), 10) - 1;
-        return this.id;
+        this.key = re.get('id');
+        this.seq = 0;
+        this.videoservice.searchVideo(this.key, 50, this.seq++).subscribe(sre => {
+          this.datasets = sre;
+          this.changedec.markForCheck();
+        });
+        return this.key;
       })
     );
   }
@@ -48,10 +52,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
     if (doc.scrollHeight <= scrollTop + doc.offsetHeight + 100) {
       this.isLoading = true;
       this.changedec.markForCheck();
-      this.videoservice.getLatest(this.seq++, 20, this.id + 1).subscribe((re: any[]) => {
+      this.videoservice.searchVideo(this.key, 50, this.seq++).subscribe((re: any[]) => {
         this.isLoading = false;
-        if (re[0]) {
-          re[0].forEach(tp => {
+        if (re) {
+          re.forEach(tp => {
             this.datasets.push(tp);
           });
           window.addEventListener('scroll', this.listenScr);

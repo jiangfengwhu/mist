@@ -6,8 +6,9 @@ import { AuthGuard } from '../auth.guard';
 import { HomeResolverService } from './home-resolver.service';
 
 const routes: Routes = [
-  {path: '', component: CommunityComponent, resolve: {comms: HomeResolverService}},
-  {path: 'post', component: PostComponent, canActivate: [AuthGuard]}
+  { path: 'post', component: PostComponent, canActivate: [AuthGuard] },
+  { path: '', component: CommunityComponent, resolve: { comms: HomeResolverService } },
+  { path: ':id', component: CommunityComponent, resolve: { comms: HomeResolverService } },
 ];
 
 @NgModule({

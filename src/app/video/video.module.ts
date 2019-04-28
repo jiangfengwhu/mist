@@ -27,9 +27,10 @@ import { DetailComponent } from './detail/detail.component';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { UpdateComponent } from './update/update.component';
 import { CategoryComponent } from './category/category.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
-  declarations: [VideoComponent, CreateComponent, UploadComponent, DetailComponent, UpdateComponent, CategoryComponent],
+  declarations: [VideoComponent, CreateComponent, UploadComponent, DetailComponent, UpdateComponent, CategoryComponent, SearchComponent],
   imports: [
     CommonModule,
     VideoRoutingModule,

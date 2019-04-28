@@ -1,12 +1,18 @@
 <mat-tab-group [selectedIndex]="id$|async" (selectedIndexChange)="indexChange($event)">
   <mat-tab *ngFor="let tag of videoservice.tags" [label]="tag">
-    <div class="container">
+    <div class="container" [style.grid-template-columns]="screen.currentScreen <= 2 ? '1fr' : '1fr 1fr'">
       <div *ngFor="let data of datasets" class="item">
-        <a [routerLink]="['/video', data.id]"><img [src]="data.cover"></a>
+        <a [routerLink]="['/video', data.id]"><img [src]="data.cover"
+            [style.width]="screen.currentScreen <=2 ? '40vw' : '20vw'"></a>
         <div class="info">
-          <div class="title">{{data.title}}</div>
+          <div class="line3">{{data.title}}</div>
           <div class="spacer"></div>
-          <div>{{data.date|moment}} | {{data.owner.nickName}}</div>
+          <div class="footer">
+            <span>{{data.date|moment}}</span>
+            <mat-icon *ngIf="data.playlist">playlist_play</mat-icon>
+            <span class="spacer"></span>
+            <span>{{data.owner.nickName}}</span>
+          </div>
         </div>
       </div>
     </div>

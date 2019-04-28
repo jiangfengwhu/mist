@@ -3,23 +3,36 @@
     left: 10px;
     right: 10px;
   }
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .mat-form-field {
     width: 100%;
   }
 }
+
+.title {
+  max-width: 25vw;
+
+  >a>div {
+    margin-right: 5px;
+  }
+}
+
 table {
   width: 100%;
+
   img {
     margin-top: 3px;
-    margin-left: -15px;
+    margin-left: -20px;
     margin-right: 5px;
     width: 110px;
     max-height: 65px;
   }
 }
+
 .tabcontainer {
   width: 100%;
   overflow: auto;

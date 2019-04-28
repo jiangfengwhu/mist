@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../user.service';
 import { MessageService } from 'src/app/message.service';
 import { tap } from 'rxjs/operators';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'mist-antique',
@@ -22,9 +23,11 @@ export class AntiqueComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   showUser: any;
+  listTitle = new FormControl('', Validators.required);
   dataSource: MatTableDataSource<any>;
-  columnsDef = ['cover', 'title', 'view', 'date'];
+  columnsDef = ['cover', 'title', 'playlist', 'view', 'date'];
   selection = new SelectionModel<any>(true, []);
+  playLists = [];
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -49,9 +52,68 @@ export class AntiqueComponent implements OnInit {
       this.showUser = data.user;
     });
     this.route.data.subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.videos);
+      this.dataSource = new MatTableDataSource(data.videos.map(val => {
+        if (val.playlist) {
+          val.playlist = val.listdoc.title;
+        }
+        return val;
+      }));
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+    });
+  }
+  getList(tpl: any) {
+    this.route.parent.paramMap.subscribe((pars) => {
+      this.user.mylist(pars.get('id')).subscribe((re: any) => {
+        this.playLists = re;
+        this._msg.openDialog(tpl, {
+          autoFocus: false
+        });
+      });
+    });
+  }
+  newList() {
+    this.user.addList({ title: this.listTitle.value }).subscribe(re => {
+      if (re['status']) {
+        this.playLists.push(re['list']);
+        this.listTitle.setValue('');
+      }
+    });
+  }
+  addToList(id: string) {
+    this.user.addToList({
+      id: id,
+      videos: this.selection.selected.map(val => val.id)
+    }).subscribe(re => {
+      if (re['status']) {
+        this._msg.dialogRef.close();
+        this.selection.selected.forEach(val => {
+          this.playLists.forEach(li => {
+            if (li.id === id) {
+              val.playlist = li.title;
+              return;
+            }
+          });
+        });
+        this.selection.clear();
+        this.columnsDef.shift();
+      }
+    });
+  }
+  removeFromList() {
+    this.user.removeFromList({
+      videos: this.selection.selected.map(val => val.id)
+    }).subscribe(re => {
+      if (re['status']) {
+        this._msg.dialogRef.close();
+        this.selection.selected.map(val => {
+          val.playlist = null;
+          val.listdoc = null;
+          return val;
+        });
+        this.selection.clear();
+        this.columnsDef.shift();
+      }
     });
   }
   applyFilter(filterValue: string) {

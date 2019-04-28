@@ -12,7 +12,8 @@ export class HomeResolverService implements Resolve<any> {
   constructor(private comm: CommunityService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-    return this.comm.getLatest(0, 20).pipe(
+    const fetchfunc = route.paramMap.get('id') ? this.comm.getLatest(0, 20, route.paramMap.get('id')) : this.comm.getLatest(0, 20);
+    return fetchfunc.pipe(
       take(1),
       mergeMap(comms => {
         if (comms) {

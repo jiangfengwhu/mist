@@ -12,6 +12,6 @@ export const getMD5 = (file: File | Blob) => {
     fileReader.onerror = function (e) {
       reject(e);
     };
-    fileReader.readAsArrayBuffer(file.slice(0, file.size));
+    fileReader.readAsArrayBuffer(file.slice(0, 20 * 1024 * 1024));
   });
 };

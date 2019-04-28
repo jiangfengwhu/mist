@@ -32,4 +32,7 @@ export class VideoService {
   delOne(vid: string, cid: string, cov: string) {
     return this.http.delete(`/api/delvideo?vid=${vid}&cid=${cid}&cov=${cov}`);
   }
+  searchVideo(key: string, size: number, fi: number) {
+    return this.http.get(`/api/searchVideo?key=${key}&size=${size}&fi=${fi}`);
+  }
 }

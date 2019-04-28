@@ -17,7 +17,9 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatGridListModule,
-  MatDividerModule
+  MatDividerModule,
+  MatListModule,
+  MatSelectModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -56,7 +58,9 @@ import { GalleryComponent } from './gallery/gallery.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatListModule,
+    MatSelectModule
   ]
 })
-export class UserModule {}
+export class UserModule { }
