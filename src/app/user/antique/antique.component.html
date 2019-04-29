@@ -46,9 +46,10 @@
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>标题</th>
         <td mat-cell *matCellDef="let element" class="title">
-          <a [routerLink]="showUser.authed ? ['/video/edit', element.id] : ['/video', element.id]">
-            <div class="line2">{{element.title}}</div>
-          </a>
+          <div class="line2">
+            <a
+              [routerLink]="showUser.authed ? ['/video/edit', element.id] : ['/video', element.id]">{{element.title}}</a>
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="playlist">

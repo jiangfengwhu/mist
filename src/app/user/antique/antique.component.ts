@@ -65,7 +65,7 @@ export class AntiqueComponent implements OnInit {
   getList(tpl: any) {
     this.route.parent.paramMap.subscribe((pars) => {
       this.user.mylist(pars.get('id')).subscribe((re: any) => {
-        this.playLists = re;
+        this.playLists = re || [];
         this._msg.openDialog(tpl, {
           autoFocus: false
         });
