@@ -46,11 +46,17 @@ export class UserService {
   delComms(id: string) {
     return this.http.delete(`/api/delcomms/${id}`);
   }
+  delList(id: string) {
+    return this.http.delete(`/api/dellist/${id}`);
+  }
   delGallery(id: string) {
     return this.http.delete(`/api/delgallery/${id}`);
   }
   updateInfo(form: FormData) {
     return this.http.put('/api/updateinfo', form);
+  }
+  updateList(form: any) {
+    return this.http.put('/api/updatelist', form);
   }
   getUser(id: string) {
     return this.http.get('/api/user/' + id);

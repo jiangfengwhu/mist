@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScreenService } from 'src/app/screen.service';
@@ -24,21 +24,22 @@ export class AntiqueComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   showUser: any;
   listTitle = new FormControl('', Validators.required);
+  listDesc = new FormControl('');
   dataSource: MatTableDataSource<any>;
-  columnsDef = ['cover', 'title', 'playlist', 'view', 'date'];
+  columnsDef = ['cover', 'title', 'playlist.title', 'view', 'date'];
   selection = new SelectionModel<any>(true, []);
   playLists = [];
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.filteredData.length;
     return numSelected === numRows;
   }
 
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data.forEach(row => this.selection.select(row));
+      : this.dataSource.filteredData.forEach(row => this.selection.select(row));
   }
   constructor(
     private route: ActivatedRoute,
@@ -52,12 +53,17 @@ export class AntiqueComponent implements OnInit {
       this.showUser = data.user;
     });
     this.route.data.subscribe((data: any) => {
-      this.dataSource = new MatTableDataSource(data.videos.map(val => {
-        if (val.playlist) {
-          val.playlist = val.listdoc.title;
+      this.dataSource = new MatTableDataSource(data.videos);
+      this.dataSource.sortingDataAccessor = (item, header) => {
+        switch (header) {
+          case 'playlist.title':
+            if (item.playlist) {
+              return item.playlist.title;
+            }
+            return null;
+          default: return item[header];
         }
-        return val;
-      }));
+      };
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -67,16 +73,29 @@ export class AntiqueComponent implements OnInit {
       this.user.mylist(pars.get('id')).subscribe((re: any) => {
         this.playLists = re || [];
         this._msg.openDialog(tpl, {
-          autoFocus: false
+          autoFocus: false,
+          maxHeight: '80vh'
         });
       });
     });
   }
+  openAddList(tpl: any) {
+    this.listTitle.setValue('');
+    this.listDesc.setValue('');
+    this._msg.openDialog(tpl);
+  }
+  openListEdit(tpl: any, ele: any) {
+    this._msg.openDialog(tpl, {
+      data: ele
+    });
+    this.listTitle.setValue(ele.playlist.title);
+    this.listDesc.setValue(ele.playlist.desc);
+  }
   newList() {
-    this.user.addList({ title: this.listTitle.value }).subscribe(re => {
+    this.user.addList({ title: this.listTitle.value, desc: this.listDesc.value }).subscribe(re => {
       if (re['status']) {
         this.playLists.push(re['list']);
-        this.listTitle.setValue('');
+        this._msg.dialogRef.close();
       }
     });
   }
@@ -86,18 +105,18 @@ export class AntiqueComponent implements OnInit {
       videos: this.selection.selected.map(val => val.id)
     }).subscribe(re => {
       if (re['status']) {
-        this._msg.dialogRef.close();
+        this._msg.closeAllDialog();
         this.selection.selected.forEach(val => {
           this.playLists.forEach(li => {
             if (li.id === id) {
-              val.playlist = li.title;
+              val.playlist = li;
               return;
             }
           });
         });
-        this.selection.clear();
-        this.columnsDef.shift();
       }
+      this.selection.clear();
+      this.columnsDef.shift();
     });
   }
   removeFromList() {
@@ -108,11 +127,44 @@ export class AntiqueComponent implements OnInit {
         this._msg.dialogRef.close();
         this.selection.selected.map(val => {
           val.playlist = null;
-          val.listdoc = null;
           return val;
         });
         this.selection.clear();
         this.columnsDef.shift();
+      }
+    });
+  }
+  removeList(id: string) {
+    return this.user.delList(id).pipe(
+      tap(re => {
+        if (re['status']) {
+          this._msg.dialogRef.close();
+          this.playLists = this.playLists.filter(val => {
+            if (val.id === id) {
+              return false;
+            }
+            return true;
+          });
+          this.dataSource.data.forEach(val => {
+            val.playlist = val.playlist ? (val.playlist.id === id ? null : val.playlist) : null;
+          });
+        }
+      })
+    );
+  }
+  updateList(id: string) {
+    this.user.updateList({ id: id, title: this.listTitle.value, desc: this.listDesc.value }).subscribe(re => {
+      if (re['status']) {
+        console.log(re['list']);
+        this._msg.dialogRef.close();
+        this.playLists.forEach(val => {
+          if (val.id === id) {
+            val = re['list'];
+          }
+        });
+        this.dataSource.data.forEach(val => {
+          val.playlist = val.playlist ? (val.playlist.id === id ? re['list'] : val.playlist) : null;
+        });
       }
     });
   }

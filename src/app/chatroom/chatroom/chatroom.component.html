@@ -13,10 +13,11 @@
           ? '进来了' : '离开了'}}</span>
         <mat-icon (click)="leave(i)">close</mat-icon>
       </div>
-      <div class="chat" #chatbody>
+      <div class="chat tk" #chatbody>
         <ng-container *ngFor="let msg of room.msgs">
           <div class="bubble">
-            <div *ngIf="!chat.users[msg.from]?.authed" class="avatar" [style.background-image]="'url('+(chat.users[msg.from]?.avatar || 'assets/da.jpg') +')'"></div>
+            <div *ngIf="!chat.users[msg.from]?.authed" class="avatar"
+              [style.background-image]="'url('+(chat.users[msg.from]?.avatar || 'assets/da.jpg') +')'"></div>
             <div *ngIf="chat.users[msg.from]?.authed" class="spacer"></div>
             <div class="dia" [style.background]="chat.users[msg.from]?.authed ? 'lightgreen' : ''">{{msg.body}}</div>
           </div>

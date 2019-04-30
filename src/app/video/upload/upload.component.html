@@ -45,7 +45,7 @@
     </ng-container>
   </div>
   <div align="center" class="choose">
-    <button mat-fab (click)="infile.click()" matTooltip="点击选择文件">
+    <button mat-fab (click)="openConfig(conf)" matTooltip="点击选择文件">
       <mat-icon>
         cloud_upload
       </mat-icon>
@@ -58,3 +58,20 @@
   </div>
 </div>
 <input multiple #infile (change)="addFiles(infile.files)" type="file" accept=".mp4, .mkv" style="display: none">
+<ng-template #conf>
+  <mat-form-field appearance="outline">
+    <mat-label>视频分类</mat-label>
+    <mat-select [formControl]="globalTag">
+      <mat-option *ngFor="let item of _video.tags;let tagi=index" [value]="tagi+1">
+        {{item}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>封面位置(秒)</mat-label>
+    <input matInput [formControl]="globalCap" type="number">
+  </mat-form-field>
+  <div align="center">
+    <button (click)="_msg.dialogRef.close();infile.click()" mat-button>我选好了</button>
+  </div>
+</ng-template>

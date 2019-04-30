@@ -7,7 +7,7 @@
   <ng-container *ngFor="let item of datasets">
     <div class="item">
       <div class="avatar" [style.background-image]="'url('+(item.owner.avatar || 'assets/da.jpg') +')'"></div>
-      <div class="content">
+      <div class="content tk">
         <div>{{item.owner.nickName}} · <span class="time">{{item.date|moment}}</span></div>
         <div [innerHTML]="item?.cont|autolink|sanitize:'html'"></div>
         <ng-container *ngIf="item.pics">

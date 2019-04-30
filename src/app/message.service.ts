@@ -35,4 +35,7 @@ export class MessageService {
       }
     });
   }
+  closeAllDialog() {
+    this._dialog.closeAll();
+  }
 }

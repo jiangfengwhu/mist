@@ -1,7 +1,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav position="end" [mode]="!screen.isMobile ? 'side' : 'over'" [opened]="!screen.isMobile">
     <ng-container *ngIf="video.playlist">
-      <div class="listinfo">正在播放: {{video.listdoc.title}}</div>
+      <div class="listinfo">正在播放: {{video.playlist.title}}</div>
       <cdk-virtual-scroll-viewport itemSize="90" class="playlist">
         <div *cdkVirtualFor="let vid of video.plists;let i=index" class="recitem"
           (click)="screen.isMobile ? sidenav.close() : ''" [style.background]="video.id === vid.id ? 'pink' : ''">
@@ -70,9 +70,13 @@
         <div>{{video.owner.nickName}}</div>
         <div>发布于{{video.date*1000| date:'short'}}</div>
       </div>
+      <ng-container *ngIf="video.playlist && video.playlist.desc">
+        <div></div>
+        <div class="tk">{{video.playlist.desc}}</div>
+      </ng-container>
       <ng-container *ngIf="video.desc">
         <div></div>
-        <div>{{video.desc}}</div>
+        <div class="tk">{{video.desc}}</div>
       </ng-container>
     </div>
     <mat-divider></mat-divider>

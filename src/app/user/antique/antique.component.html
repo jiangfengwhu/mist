@@ -52,10 +52,12 @@
           </div>
         </td>
       </ng-container>
-      <ng-container matColumnDef="playlist">
+      <ng-container matColumnDef="playlist.title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>播放列表</th>
-        <td mat-cell *matCellDef="let element">
-          {{element.playlist}}
+        <td mat-cell *matCellDef="let element" class="title">
+          <div class="line3">
+            <a (click)="openListEdit(editListModal, element)">{{element?.playlist?.title}}</a>
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="view">
@@ -83,14 +85,41 @@
       从列表删除
     </mat-list-item>
     <mat-list-item *ngFor="let list of playLists" (click)="addToList(list.id)">
-      {{list.title}}
+      <p matLine>{{list.title}}</p>
     </mat-list-item>
   </mat-nav-list>
+  <div align="center">
+    <button mat-icon-button (click)="openAddList(modalnewlist)">
+      <mat-icon>
+        add
+      </mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template #modalnewlist>
+  <mat-form-field appearance="outline">
+    <mat-label>标题</mat-label>
+    <input matInput [formControl]="listTitle">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>简介</mat-label>
+    <textarea matInput [formControl]="listDesc" cdkTextareaAutosize></textarea>
+  </mat-form-field>
+  <div align="center">
+    <button mat-button (click)="newList()" [disabled]="!listTitle.valid">添加</button>
+  </div>
+</ng-template>
+<ng-template #editListModal let-data>
+  <mat-form-field appearance="outline">
+    <mat-label>标题</mat-label>
+    <input matInput [formControl]="listTitle">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>简介</mat-label>
+    <textarea matInput [formControl]="listDesc" cdkTextareaAutosize></textarea>
+  </mat-form-field>
   <div class="action">
-    <mat-form-field>
-      <mat-label>名称</mat-label>
-      <input matInput [formControl]="listTitle">
-    </mat-form-field>
-    <button mat-button [disabled]="!listTitle.valid" (click)="newList()">新建</button>
+    <button mat-button style="color: red" (click)="_msg.openConfirm('确定删除？', removeList(data.playlist.id))">删除</button>
+    <button mat-button (click)="updateList(data.playlist.id)" [disabled]="!listTitle.valid">更新</button>
   </div>
 </ng-template>

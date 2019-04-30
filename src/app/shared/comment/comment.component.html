@@ -1,17 +1,20 @@
 <form [formGroup]="commentForm" #formDirective="ngForm">
-  <div class="avatar small" *ngIf="auth.user" [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'"></div>
+  <div class="avatar small" *ngIf="auth.user"
+    [style.background-image]="'url(' + (auth.user.avatar || 'assets/da.jpg')+')'"></div>
   <mat-form-field>
     <mat-label>说点什么...</mat-label>
     <mat-hint>{{hintmsg}}</mat-hint>
     <mat-hint align="end" (click)="resetReply()" class="reset">重置</mat-hint>
     <textarea matInput cdkTextareaAutosize formControlName="text" #cominput></textarea>
   </mat-form-field>
-  <button mat-button (click)="sendComment(formDirective)" [disabled]="!commentForm.valid" mistUpButton [progress]="isSubmitting">评论</button>
+  <button mat-button (click)="sendComment(formDirective)" [disabled]="!commentForm.valid" mistUpButton
+    [progress]="isSubmitting">评论</button>
 </form>
 <div class="container">
-  <div class="info comments">
+  <div class="info tk comments">
     <ng-container *ngFor="let com of comments;let comi=index">
-      <div class="avatar" [style.background-image]="'url(' + (comments_owners[com.owner].avatar || 'assets/da.jpg')+')'">
+      <div class="avatar"
+        [style.background-image]="'url(' + (comments_owners[com.owner].avatar || 'assets/da.jpg')+')'">
       </div>
       <div>
         <div>{{comments_owners[com.owner].nickName}} | 发布于{{com.date|moment}} | #{{comi + 1}}</div>
@@ -23,13 +26,17 @@
           <span>{{com.likes}}</span>
           <button mat-button (click)="initReply(comi);cominput.focus()">回复</button>
         </div>
-        <button mat-button *ngIf="com.reply" (click)="getReply(comi)" mistUpButton [progress]="com.isGetReply">展开所有{{com.reply}}条评论</button>
-        <div class="info comments" *ngIf="com.replys" style="margin-left: -25px;">
+        <button mat-button *ngIf="com.reply" (click)="getReply(comi)" mistUpButton
+          [progress]="com.isGetReply">展开所有{{com.reply}}条评论</button>
+        <div class="info tk comments" *ngIf="com.replys" style="margin-left: -25px;">
           <ng-container *ngFor="let reply of com.replys">
-            <div class="avatar" [style.background-image]="'url(' + (comments_owners[reply.owner].avatar || 'assets/da.jpg')+')'"></div>
+            <div class="avatar"
+              [style.background-image]="'url(' + (comments_owners[reply.owner].avatar || 'assets/da.jpg')+')'"></div>
             <div>
               <div>{{comments_owners[reply.owner].nickName}} | 发布于{{reply.date|moment}}</div>
-              <div><a class="at" *ngIf="reply.at" (click)="nav(comments_owners[reply.at].uid)">{{'@'+comments_owners[reply.at].nickName}}</a>{{reply.text}}</div>
+              <div><a class="at" *ngIf="reply.at"
+                  (click)="nav(comments_owners[reply.at].uid)">{{'@'+comments_owners[reply.at].nickName}}</a>{{reply.text}}
+              </div>
               <div class="action">
                 <button mat-icon-button (click)="like(reply, 'reply')" [style.color]="reply.isliked ? 'blue' : ''">
                   <mat-icon>thumb_up</mat-icon>

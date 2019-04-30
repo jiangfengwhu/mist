@@ -1,9 +1,9 @@
 <ng-template #body>
   <div class="container">
     <div class="img-container" (mouseenter)="ga.showCont=true" (mouseleave)="ga.showCont=false">
-      <img [src]="ga.pics[currentIndex]" mistLoader (swipeleft)="next()" (swiperight)="pre()" [style.max-width]="screen.isMobile ? '100vw' : 'calc(100vw - 300px)'"
-        #imgdom>
-      <div class="content" *ngIf="ga.showCont && ga.cont">
+      <img [src]="ga.pics[currentIndex]" mistLoader (swipeleft)="next()" (swiperight)="pre()"
+        [style.max-width]="screen.isMobile ? '100vw' : 'calc(100vw - 300px)'" #imgdom>
+      <div class="content tk" *ngIf="ga.showCont && ga.cont">
         {{ga.cont}}
       </div>
       <div class="action">

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScreenService } from 'src/app/screen.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Uploader } from 'src/app/utils/uploader';
 import { VideoService } from '../video.service';
+import { MessageService } from 'src/app/message.service';
 
 @Component({
   selector: 'mist-upload',
@@ -14,9 +15,14 @@ export class UploadComponent implements OnInit {
   uploadForm = this._fb.array([], Validators.required);
   uploadfiles = [];
   upIndex = 0;
-  constructor(public screen: ScreenService, private _fb: FormBuilder, public _video: VideoService) { }
+  globalTag = new FormControl(1);
+  globalCap = new FormControl(30);
+  constructor(public screen: ScreenService, private _fb: FormBuilder, public _video: VideoService, public _msg: MessageService) { }
 
   ngOnInit() { }
+  openConfig(tpl: any) {
+    this._msg.openDialog(tpl);
+  }
   addFiles(files: FileList) {
     for (let i = 0; i < files.length; ++i) {
       this.uploadfiles.push({
@@ -26,8 +32,8 @@ export class UploadComponent implements OnInit {
       });
       this.uploadForm.push(this._fb.group({
         title: [files[i].name.substr(0, files[i].name.lastIndexOf('.')), [Validators.required]],
-        tag: [1, [Validators.required]],
-        coverPos: [5, [Validators.min(0), Validators.required, Validators.max(65534)]],
+        tag: [this.globalTag.value, [Validators.required]],
+        coverPos: [this.globalCap.value, [Validators.min(0), Validators.required, Validators.max(65534)]],
         desc: [''],
       }));
     }

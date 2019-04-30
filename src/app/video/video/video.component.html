@@ -15,9 +15,7 @@
           [style.background-image]="'url('+(video.owner.avatar || 'assets/da.jpg') +')'"
           [matTooltip]="video.owner.nickName"></div>
       </a>
-      <div class="title line2">
-        {{video.title}}
-      </div>
+      <div class="title line2">{{video.playlist ? video.playlist.title : video.title}}</div>
       <div class="spacer"></div>
       <div class="info">
         <span>{{video.date | moment}}</span>
