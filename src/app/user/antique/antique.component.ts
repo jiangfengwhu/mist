@@ -64,6 +64,21 @@ export class AntiqueComponent implements OnInit {
           default: return item[header];
         }
       };
+      this.dataSource.filterPredicate = (order, filter: string) => {
+        const transformedFilter = filter.trim().toLowerCase();
+        const listAsFlatString = (obj): string => {
+          let returnVal = '';
+          Object.values(obj).forEach((val) => {
+            if (typeof val !== 'object') {
+              returnVal = returnVal + ' ' + val;
+            } else if (val !== null) {
+              returnVal = returnVal + ' ' + listAsFlatString(val);
+            }
+          });
+          return returnVal.trim().toLowerCase();
+        };
+        return listAsFlatString(order).includes(transformedFilter);
+      };
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -155,7 +170,6 @@ export class AntiqueComponent implements OnInit {
   updateList(id: string) {
     this.user.updateList({ id: id, title: this.listTitle.value, desc: this.listDesc.value }).subscribe(re => {
       if (re['status']) {
-        console.log(re['list']);
         this._msg.dialogRef.close();
         this.playLists.forEach(val => {
           if (val.id === id) {

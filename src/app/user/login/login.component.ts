@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild (RecaptchaDirective) recap: RecaptchaDirective;
+  @ViewChild(RecaptchaDirective) recap: RecaptchaDirective;
   loginForm: FormGroup;
   isProcessing = false;
   hide = true;
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     this._user.login(this.loginForm.value).subscribe(re => {
       if (re['status']) {
         this._auth.user = re['user'];
-        console.log(re);
         this._auth.redirectUrl ? this._route.navigate([this._auth.redirectUrl]) : this._route.navigate(['/']);
       } else {
         this.isProcessing = false;

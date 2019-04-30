@@ -19,7 +19,6 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { video: any }) => {
       this.video = data.video;
-      console.log(this.video);
     });
   }
   like(item: any, type: string) {

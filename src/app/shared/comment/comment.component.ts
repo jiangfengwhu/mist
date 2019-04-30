@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -10,7 +10,7 @@ import { MessageService } from 'src/app/message.service';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit, OnDestroy {
+export class CommentComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('cominput') cinput: ElementRef<any>;
   @Input() item: string;
   @Input() type: string;
@@ -32,6 +32,20 @@ export class CommentComponent implements OnInit, OnDestroy {
   setFocus() {
     this.cinput.nativeElement.focus();
   }
+  ngOnChanges(changes) {
+    this.comments = [];
+    this.comments_owners = [];
+    this.soac.getComments(this.item, this.type).subscribe(re => {
+      if (re['owners']) {
+        this.comments = re['comments'];
+        re['owners'].forEach(ele => {
+          if (!this.comments_owners[ele.uid]) {
+            this.comments_owners[ele.uid] = ele;
+          }
+        });
+      }
+    });
+  }
   ngOnDestroy() {
     this.comments.forEach(ele => {
       ele.replys = null;
@@ -43,17 +57,6 @@ export class CommentComponent implements OnInit, OnDestroy {
       text: ['', [Validators.required]],
       type: [this.type],
       at: ['']
-    });
-    this.soac.getComments(this.item, this.type).subscribe(re => {
-      console.log(re);
-      if (re['owners']) {
-        this.comments = re['comments'];
-        re['owners'].forEach(ele => {
-          if (!this.comments_owners[ele.uid]) {
-            this.comments_owners[ele.uid] = ele;
-          }
-        });
-      }
     });
   }
   sendComment(formDirective: FormGroupDirective) {
