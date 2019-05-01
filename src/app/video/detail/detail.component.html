@@ -37,7 +37,12 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="video">
-      <video mistP2PHls controls [src]="video.path" [poster]="video.cover" playsinline #peervideo="p2pHls"></video>
+      <video mistP2PHls controls [src]="video.path" [poster]="video.cover" playsinline #peervideo="p2pHls">
+        <ng-container *ngIf="video.subtitle">
+          <track *ngFor="let si of [].constructor(video.subtitle);let sii=index"
+            [src]="video.path.split('.')[0] +sii+ '.vtt'" kind="subtitles" [label]="'字幕'+(sii+1)" default>
+        </ng-container>
+      </video>
       <div class="btinfo">
         <span>Peers: {{peervideo.numPeers}}</span>
         <span>上传: {{(peervideo.uploaded | numeric)}}</span>
