@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class VideoService {
-  tags = ['番剧', '电影', '学习', '动漫', '游戏', '音乐', '日常', '资讯', '科技', '搞笑', '鬼畜', '舞蹈'];
+  tags = ['番剧', '学习', '电影', '动漫', '游戏', '音乐', '日常', '资讯', '科技', '搞笑', '舞蹈'];
 
   constructor(public http: HttpClient) { }
   createCollection(form: any) {

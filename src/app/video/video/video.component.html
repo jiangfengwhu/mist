@@ -20,7 +20,10 @@
       <div class="info">
         <span>{{video.date | moment}}</span>
         <span class="spacer"></span>
-        <mat-icon style="color: purple" *ngIf="video.playlist">playlist_play</mat-icon>
+        <ng-container *ngIf="video.playlist">
+          <mat-icon style="color: purple">playlist_play</mat-icon>
+          <span>{{video.nvideos}}</span>
+        </ng-container>
         <mat-icon style="color: green">play_circle_outline</mat-icon>
         <span>{{video.view | quantity}}</span>
         <mat-icon color="warn">favorite</mat-icon>

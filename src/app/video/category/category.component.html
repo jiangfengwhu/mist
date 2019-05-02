@@ -9,7 +9,10 @@
           <div class="spacer"></div>
           <div class="footer">
             <span>{{data.date|moment}}</span>
-            <mat-icon *ngIf="data.playlist">playlist_play</mat-icon>
+            <ng-container *ngIf="data.playlist">
+              <mat-icon style="color: purple">playlist_play</mat-icon>
+              <span>{{data.nvideos}}</span>
+            </ng-container>
             <span class="spacer"></span>
             <span>{{data.owner.nickName}}</span>
           </div>
