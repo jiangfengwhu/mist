@@ -1,24 +1,37 @@
 <div class="cont1" [style.grid-template-columns]='screen.isMobile ? "1fr" : "7fr 3fr"'>
-  <form [formGroup]="infoForm">
-    <mat-form-field appearance="outline">
-      <mat-label>标题</mat-label>
-      <input matInput formControlName="title">
-      <mat-error>标题是必须的</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>视频分类</mat-label>
-      <mat-select formControlName="tag" required>
-        <mat-option *ngFor="let item of _video.tags;let tagi=index" [value]="tagi+1">
-          {{item}}
-        </mat-option>
-      </mat-select>
-      <mat-error>请选择一个视频分类</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>描述</mat-label>
-      <textarea matInput formControlName="desc" cdkTextareaAutosize></textarea>
-    </mat-form-field>
-  </form>
+  <div>
+    <form [formGroup]="infoForm">
+      <mat-form-field appearance="outline">
+        <mat-label>标题</mat-label>
+        <input matInput formControlName="title">
+        <mat-error>标题是必须的</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>视频分类</mat-label>
+        <mat-select formControlName="tag" required>
+          <mat-option *ngFor="let item of _video.tags;let tagi=index" [value]="tagi+1">
+            {{item}}
+          </mat-option>
+        </mat-select>
+        <mat-error>请选择一个视频分类</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>描述</mat-label>
+        <textarea matInput formControlName="desc" cdkTextareaAutosize></textarea>
+      </mat-form-field>
+    </form>
+    <div class="cap-con">
+      <mat-chip-list>
+        <mat-chip *ngFor="let sub of video.subtitle;let sii=index" (click)="openPreview(sub, previewCap)">
+          {{'字幕'+(sii+1)}}
+          <mat-icon matChipRemove (click)="_msg.openConfirm('确定删除？', removeSub(sub))">cancel</mat-icon>
+        </mat-chip>
+        <button mat-mini-fab matTooltip="点击添加字幕" (click)="subs.click()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-chip-list>
+    </div>
+  </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>专辑位置</mat-label>
@@ -35,3 +48,7 @@
   <button mat-button [disabled]="!(infoForm.valid && infoForm.dirty)" mistUpButton [progress]="isSubmitting"
     (click)="updateBasic()">确认修改</button>
 </div>
+<ng-template #previewCap>
+  <pre>{{(subtitle$ | async) || '正在加载，请稍后'}}</pre>
+</ng-template>
+<input style="display: none" (change)="addSub(subs.files)" type="file" accept=".vtt, .ass, .srt" #subs>

@@ -12,12 +12,15 @@ mat-form-field {
 .cont1 {
   padding: 10px;
   display: grid;
-
-  form .mat-form-field {
-    padding-right: 10px;
-  }
+  grid-gap: 10px;
 }
+
 img {
   width: 100%;
   border-radius: 4px;
+}
+
+.cap-con {
+  padding-left: 10px;
+  padding-bottom: 10px;
 }

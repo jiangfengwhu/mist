@@ -35,4 +35,13 @@ export class VideoService {
   searchVideo(key: string, size: number, fi: number) {
     return this.http.get(`/api/searchVideo?key=${key}&size=${size}&fi=${fi}`);
   }
+  getSub(location: string) {
+    return this.http.get(location, { responseType: 'text' });
+  }
+  delSub(form: any) {
+    return this.http.put('/api/delsub', form);
+  }
+  addSub(form: FormData) {
+    return this.http.put('/api/addsub', form);
+  }
 }
